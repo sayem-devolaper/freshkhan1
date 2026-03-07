@@ -8,10 +8,10 @@ const CategoriesSection = () => {
       <div className="container">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            Shop by Category
+            ক্যাটাগরি অনুযায়ী কিনুন
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Browse our wide selection of certified organic products
+            সার্টিফাইড অর্গানিক পণ্যের বিশাল সংগ্রহ ব্রাউজ করুন
           </p>
         </div>
 
@@ -30,8 +30,8 @@ const CategoriesSection = () => {
               >
                 <span className="text-4xl">{cat.icon}</span>
                 <div>
-                  <p className="font-semibold text-card-foreground">{cat.name.replace("Organic ", "")}</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{cat.productCount} products</p>
+                  <p className="font-semibold text-card-foreground">{cat.name.replace("অর্গানিক ", "")}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{cat.productCount} পণ্য</p>
                 </div>
               </Link>
             </motion.div>

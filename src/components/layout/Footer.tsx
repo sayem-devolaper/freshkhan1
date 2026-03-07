@@ -14,20 +14,25 @@ const Footer = () => {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <Leaf className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-display text-xl font-bold">Fresh Khan</span>
+              <span className="font-display text-xl font-bold">ফ্রেশ খান</span>
             </div>
             <p className="text-sm leading-relaxed opacity-70">
-              Your trusted marketplace for organic products directly from farmers and certified vendors.
+              কৃষক ও সার্টিফাইড বিক্রেতাদের কাছ থেকে সরাসরি অর্গানিক পণ্যের জন্য আপনার বিশ্বস্ত মার্কেটপ্লেস।
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-display text-lg font-semibold">Quick Links</h4>
+            <h4 className="font-display text-lg font-semibold">দ্রুত লিঙ্ক</h4>
             <nav className="flex flex-col gap-2">
-              {["Products", "Vendors", "About Us", "Contact"].map((item) => (
-                <Link key={item} to="#" className="text-sm opacity-70 transition-opacity hover:opacity-100">
-                  {item}
+              {[
+                { label: "পণ্যসমূহ", to: "/products" },
+                { label: "বিক্রেতা", to: "/vendors" },
+                { label: "আমাদের সম্পর্কে", to: "/about" },
+                { label: "যোগাযোগ", to: "#" },
+              ].map((item) => (
+                <Link key={item.label} to={item.to} className="text-sm opacity-70 transition-opacity hover:opacity-100">
+                  {item.label}
                 </Link>
               ))}
             </nav>
@@ -35,9 +40,9 @@ const Footer = () => {
 
           {/* For Vendors */}
           <div className="space-y-4">
-            <h4 className="font-display text-lg font-semibold">For Vendors</h4>
+            <h4 className="font-display text-lg font-semibold">বিক্রেতাদের জন্য</h4>
             <nav className="flex flex-col gap-2">
-              {["Become a Vendor", "Vendor Dashboard", "Seller Guidelines", "Commission Policy"].map((item) => (
+              {["বিক্রেতা হন", "বিক্রেতা ড্যাশবোর্ড", "বিক্রয় নীতিমালা", "কমিশন নীতি"].map((item) => (
                 <Link key={item} to="#" className="text-sm opacity-70 transition-opacity hover:opacity-100">
                   {item}
                 </Link>
@@ -47,10 +52,10 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h4 className="font-display text-lg font-semibold">Stay Updated</h4>
-            <p className="text-sm opacity-70">Get weekly organic deals and farming stories.</p>
+            <h4 className="font-display text-lg font-semibold">আপডেট থাকুন</h4>
+            <p className="text-sm opacity-70">সাপ্তাহিক অর্গানিক অফার ও কৃষি গল্প পান।</p>
             <div className="flex gap-2">
-              <Input placeholder="Your email" className="border-border/20 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/50" />
+              <Input placeholder="আপনার ইমেইল" className="border-border/20 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/50" />
               <Button variant="accent" size="icon">
                 <Mail className="h-4 w-4" />
               </Button>
@@ -59,7 +64,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 border-t border-primary-foreground/10 pt-6 text-center text-sm opacity-50">
-          © 2026 Fresh Khan. All rights reserved. Farm to table, naturally.
+          © ২০২৬ ফ্রেশ খান। সর্বস্বত্ব সংরক্ষিত। খামার থেকে টেবিলে, প্রাকৃতিকভাবে।
         </div>
       </div>
     </footer>

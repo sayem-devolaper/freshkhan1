@@ -17,9 +17,9 @@ const ProductDetailPage = () => {
         <Header />
         <main className="flex flex-1 items-center justify-center">
           <div className="text-center">
-            <p className="text-xl font-medium text-muted-foreground">Product not found</p>
+            <p className="text-xl font-medium text-muted-foreground">পণ্য খুঁজে পাওয়া যায়নি</p>
             <Link to="/products">
-              <Button variant="outline" className="mt-4">Back to Products</Button>
+              <Button variant="outline" className="mt-4">পণ্যে ফিরে যান</Button>
             </Link>
           </div>
         </main>
@@ -36,7 +36,7 @@ const ProductDetailPage = () => {
       <main className="flex-1 bg-background">
         <div className="container py-8">
           <Link to="/products" className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> Back to Products
+            <ArrowLeft className="h-4 w-4" /> পণ্যে ফিরে যান
           </Link>
 
           <div className="grid gap-10 lg:grid-cols-2">
@@ -50,7 +50,7 @@ const ProductDetailPage = () => {
               <div>
                 {product.organic && (
                   <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                    <BadgeCheck className="h-3 w-3" /> Certified Organic
+                    <BadgeCheck className="h-3 w-3" /> সার্টিফাইড অর্গানিক
                   </span>
                 )}
                 <h1 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">
@@ -69,14 +69,14 @@ const ProductDetailPage = () => {
                   ))}
                 </div>
                 <span className="text-sm font-medium">{product.rating}</span>
-                <span className="text-sm text-muted-foreground">({product.reviewCount} reviews)</span>
+                <span className="text-sm text-muted-foreground">({product.reviewCount} রিভিউ)</span>
               </div>
 
               {/* Price */}
               <div className="flex items-baseline gap-3">
-                <span className="font-display text-3xl font-bold text-foreground">${product.price.toFixed(2)}</span>
+                <span className="font-display text-3xl font-bold text-foreground">৳{product.price}</span>
                 {product.originalPrice && (
-                  <span className="text-lg text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
+                  <span className="text-lg text-muted-foreground line-through">৳{product.originalPrice}</span>
                 )}
                 <span className="text-muted-foreground">/ {product.unit}</span>
               </div>
@@ -96,13 +96,13 @@ const ProductDetailPage = () => {
                 </div>
                 <Button variant="hero" size="lg" className="flex-1 gap-2 rounded-full">
                   <ShoppingCart className="h-5 w-5" />
-                  Add to Cart — ${(product.price * qty).toFixed(2)}
+                  কার্টে যোগ করুন — ৳{product.price * qty}
                 </Button>
               </div>
 
               {/* Stock */}
               <p className={`text-sm font-medium ${product.inStock ? "text-primary" : "text-destructive"}`}>
-                {product.inStock ? "✓ In Stock" : "✕ Out of Stock"}
+                {product.inStock ? "✓ স্টকে আছে" : "✕ স্টক নেই"}
               </p>
             </div>
           </div>
@@ -110,7 +110,7 @@ const ProductDetailPage = () => {
           {/* Related */}
           {relatedProducts.length > 0 && (
             <div className="mt-16">
-              <h2 className="font-display text-2xl font-bold text-foreground">You May Also Like</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground">আপনার পছন্দ হতে পারে</h2>
               <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {relatedProducts.map((p) => (
                   <Link key={p.id} to={`/products/${p.id}`} className="group block overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-elevated">
@@ -119,7 +119,7 @@ const ProductDetailPage = () => {
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-card-foreground">{p.name}</h3>
-                      <p className="mt-1 font-bold text-foreground">${p.price.toFixed(2)}</p>
+                      <p className="mt-1 font-bold text-foreground">৳{p.price}</p>
                     </div>
                   </Link>
                 ))}

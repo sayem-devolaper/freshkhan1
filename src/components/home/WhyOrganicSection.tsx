@@ -4,23 +4,23 @@ import { motion } from "framer-motion";
 const features = [
   {
     icon: Leaf,
-    title: "100% Organic",
-    description: "All products are certified organic, free from harmful pesticides and chemicals.",
+    title: "১০০% অর্গানিক",
+    description: "সকল পণ্য সার্টিফাইড অর্গানিক, ক্ষতিকর কীটনাশক ও রাসায়নিকমুক্ত।",
   },
   {
     icon: Heart,
-    title: "Support Local Farmers",
-    description: "Buy directly from farmers and vendors. Fair prices, fair trade.",
+    title: "স্থানীয় কৃষকদের সহায়তা",
+    description: "সরাসরি কৃষক ও বিক্রেতাদের কাছ থেকে কিনুন। ন্যায্য মূল্য, ন্যায্য বাণিজ্য।",
   },
   {
     icon: Shield,
-    title: "Quality Guaranteed",
-    description: "Every vendor is verified and every product meets our strict quality standards.",
+    title: "গুণগত মান নিশ্চিত",
+    description: "প্রতিটি বিক্রেতা যাচাইকৃত এবং প্রতিটি পণ্য আমাদের কঠোর মান পূরণ করে।",
   },
   {
     icon: Truck,
-    title: "Farm to Doorstep",
-    description: "Fresh produce delivered quickly to maintain maximum freshness and nutrition.",
+    title: "খামার থেকে দোরগোড়ায়",
+    description: "সর্বোচ্চ তাজা ও পুষ্টি বজায় রাখতে দ্রুত ডেলিভারি।",
   },
 ];
 
@@ -30,10 +30,10 @@ const WhyOrganicSection = () => {
       <div className="container">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">
-            Why Choose Fresh Khan?
+            কেন ফ্রেশ খান বেছে নেবেন?
           </h2>
           <p className="mt-3 text-primary-foreground/70">
-            We're more than a marketplace — we're a movement towards healthier living
+            আমরা শুধু একটি মার্কেটপ্লেস নই — আমরা সুস্থ জীবনযাপনের একটি আন্দোলন
           </p>
         </div>
 

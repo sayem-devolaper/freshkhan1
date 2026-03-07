@@ -28,12 +28,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
             />
             {product.originalPrice && (
               <span className="absolute left-3 top-3 rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-accent-foreground">
-                Sale
+                ছাড়
               </span>
             )}
             {product.organic && (
               <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-foreground">
-                <BadgeCheck className="h-3 w-3" /> Organic
+                <BadgeCheck className="h-3 w-3" /> অর্গানিক
               </span>
             )}
           </div>
@@ -51,10 +51,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </div>
             <div className="mt-3 flex items-center justify-between">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-lg font-bold text-foreground">${product.price.toFixed(2)}</span>
+                <span className="text-lg font-bold text-foreground">৳{product.price}</span>
                 {product.originalPrice && (
                   <span className="text-sm text-muted-foreground line-through">
-                    ${product.originalPrice.toFixed(2)}
+                    ৳{product.originalPrice}
                   </span>
                 )}
                 <span className="text-xs text-muted-foreground">/ {product.unit}</span>

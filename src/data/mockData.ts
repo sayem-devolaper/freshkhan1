@@ -43,107 +43,107 @@ export interface Testimonial {
 }
 
 export const categories: Category[] = [
-  { id: "1", name: "Organic Vegetables", icon: "🥬", productCount: 124 },
-  { id: "2", name: "Organic Fruits", icon: "🍎", productCount: 89 },
-  { id: "3", name: "Organic Dairy", icon: "🥛", productCount: 45 },
-  { id: "4", name: "Organic Spices", icon: "🌿", productCount: 67 },
-  { id: "5", name: "Organic Grains", icon: "🌾", productCount: 38 },
-  { id: "6", name: "Organic Cosmetics", icon: "🧴", productCount: 52 },
+  { id: "1", name: "অর্গানিক শাকসবজি", icon: "🥬", productCount: 124 },
+  { id: "2", name: "অর্গানিক ফলমূল", icon: "🍎", productCount: 89 },
+  { id: "3", name: "অর্গানিক দুগ্ধ", icon: "🥛", productCount: 45 },
+  { id: "4", name: "অর্গানিক মশলা", icon: "🌿", productCount: 67 },
+  { id: "5", name: "অর্গানিক শস্য", icon: "🌾", productCount: 38 },
+  { id: "6", name: "অর্গানিক প্রসাধনী", icon: "🧴", productCount: 52 },
 ];
 
 export const products: Product[] = [
   {
-    id: "1", name: "Fresh Organic Tomatoes", price: 4.99, originalPrice: 6.99,
+    id: "1", name: "তাজা অর্গানিক টমেটো", price: 120, originalPrice: 150,
     image: "https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=400&h=400&fit=crop",
-    category: "Organic Vegetables", vendor: "Green Valley Farm", vendorId: "v1",
+    category: "অর্গানিক শাকসবজি", vendor: "সবুজ উপত্যকা খামার", vendorId: "v1",
     rating: 4.8, reviewCount: 124, organic: true, inStock: true,
-    description: "Vine-ripened organic tomatoes grown without pesticides.", unit: "per kg"
+    description: "কীটনাশকমুক্ত লতায় পাকা অর্গানিক টমেটো।", unit: "প্রতি কেজি"
   },
   {
-    id: "2", name: "Organic Avocados", price: 3.49,
+    id: "2", name: "অর্গানিক আভোকাডো", price: 350,
     image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&h=400&fit=crop",
-    category: "Organic Fruits", vendor: "Sunrise Organics", vendorId: "v2",
+    category: "অর্গানিক ফলমূল", vendor: "সূর্যোদয় অর্গানিকস", vendorId: "v2",
     rating: 4.6, reviewCount: 89, organic: true, inStock: true,
-    description: "Creamy Hass avocados from certified organic farms.", unit: "each"
+    description: "সার্টিফাইড অর্গানিক খামার থেকে ক্রিমি হাস আভোকাডো।", unit: "প্রতিটি"
   },
   {
-    id: "3", name: "Raw Organic Honey", price: 12.99,
+    id: "3", name: "খাঁটি অর্গানিক মধু", price: 450,
     image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=400&fit=crop",
-    category: "Organic Spices", vendor: "Bee Natural Co", vendorId: "v3",
+    category: "অর্গানিক মশলা", vendor: "মৌ প্রকৃতি কোং", vendorId: "v3",
     rating: 4.9, reviewCount: 201, organic: true, inStock: true,
-    description: "Pure unprocessed honey from free-range organic apiaries.", unit: "500g"
+    description: "মুক্ত পরিবেশে পালিত মৌমাছির খাঁটি অপ্রক্রিয়াজাত মধু।", unit: "৫০০ গ্রাম"
   },
   {
-    id: "4", name: "Organic Fresh Milk", price: 5.99,
+    id: "4", name: "অর্গানিক তাজা দুধ", price: 80,
     image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&h=400&fit=crop",
-    category: "Organic Dairy", vendor: "Happy Cow Dairy", vendorId: "v4",
+    category: "অর্গানিক দুগ্ধ", vendor: "সুখী গাভী ডেইরি", vendorId: "v4",
     rating: 4.7, reviewCount: 156, organic: true, inStock: true,
-    description: "Farm-fresh whole milk from grass-fed organic cows.", unit: "1 liter"
+    description: "ঘাস খাওয়া অর্গানিক গাভীর খামার-তাজা দুধ।", unit: "১ লিটার"
   },
   {
-    id: "5", name: "Organic Spinach Bundle", price: 2.99, originalPrice: 3.99,
+    id: "5", name: "অর্গানিক পালং শাক", price: 40, originalPrice: 55,
     image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&h=400&fit=crop",
-    category: "Organic Vegetables", vendor: "Green Valley Farm", vendorId: "v1",
+    category: "অর্গানিক শাকসবজি", vendor: "সবুজ উপত্যকা খামার", vendorId: "v1",
     rating: 4.5, reviewCount: 78, organic: true, inStock: true,
-    description: "Freshly harvested organic baby spinach leaves.", unit: "per bunch"
+    description: "সদ্য তোলা অর্গানিক পালং শাকের পাতা।", unit: "প্রতি আঁটি"
   },
   {
-    id: "6", name: "Organic Blueberries", price: 6.49,
+    id: "6", name: "অর্গানিক ব্লুবেরি", price: 250,
     image: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=400&h=400&fit=crop",
-    category: "Organic Fruits", vendor: "Berry Bliss Farm", vendorId: "v5",
+    category: "অর্গানিক ফলমূল", vendor: "বেরি আনন্দ খামার", vendorId: "v5",
     rating: 4.8, reviewCount: 112, organic: true, inStock: true,
-    description: "Plump organic blueberries bursting with antioxidants.", unit: "250g"
+    description: "অ্যান্টিঅক্সিডেন্ট সমৃদ্ধ পরিপুষ্ট অর্গানিক ব্লুবেরি।", unit: "২৫০ গ্রাম"
   },
   {
-    id: "7", name: "Organic Turmeric Powder", price: 8.99,
+    id: "7", name: "অর্গানিক হলুদ গুঁড়া", price: 180,
     image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&h=400&fit=crop",
-    category: "Organic Spices", vendor: "Spice Root Co", vendorId: "v6",
+    category: "অর্গানিক মশলা", vendor: "মশলা মূল কোং", vendorId: "v6",
     rating: 4.7, reviewCount: 94, organic: true, inStock: true,
-    description: "Premium ground turmeric from organic farms.", unit: "200g"
+    description: "অর্গানিক খামার থেকে প্রিমিয়াম হলুদ গুঁড়া।", unit: "২০০ গ্রাম"
   },
   {
-    id: "8", name: "Organic Brown Rice", price: 7.49,
+    id: "8", name: "অর্গানিক বাদামী চাল", price: 160,
     image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=400&fit=crop",
-    category: "Organic Grains", vendor: "Golden Fields", vendorId: "v7",
+    category: "অর্গানিক শস্য", vendor: "সোনালী মাঠ", vendorId: "v7",
     rating: 4.6, reviewCount: 67, organic: true, inStock: true,
-    description: "Wholesome organic brown rice, rich in fiber.", unit: "1 kg"
+    description: "আঁশ সমৃদ্ধ পুষ্টিকর অর্গানিক বাদামী চাল।", unit: "১ কেজি"
   },
 ];
 
 export const vendors: Vendor[] = [
   {
-    id: "v1", name: "Green Valley Farm", description: "Family-owned organic farm specializing in fresh vegetables since 1998.",
-    rating: 4.8, reviewCount: 342, productCount: 28, location: "Vermont, USA",
+    id: "v1", name: "সবুজ উপত্যকা খামার", description: "১৯৯৮ সাল থেকে তাজা শাকসবজিতে বিশেষজ্ঞ পারিবারিক অর্গানিক খামার।",
+    rating: 4.8, reviewCount: 342, productCount: 28, location: "রংপুর, বাংলাদেশ",
     certified: true, image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=300&h=300&fit=crop"
   },
   {
-    id: "v2", name: "Sunrise Organics", description: "Premium organic fruits grown with sustainable practices.",
-    rating: 4.7, reviewCount: 218, productCount: 19, location: "California, USA",
+    id: "v2", name: "সূর্যোদয় অর্গানিকস", description: "টেকসই পদ্ধতিতে উৎপাদিত প্রিমিয়াম অর্গানিক ফল।",
+    rating: 4.7, reviewCount: 218, productCount: 19, location: "রাজশাহী, বাংলাদেশ",
     certified: true, image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&h=300&fit=crop"
   },
   {
-    id: "v3", name: "Bee Natural Co", description: "Artisanal honey and bee products from organic apiaries.",
-    rating: 4.9, reviewCount: 156, productCount: 8, location: "Oregon, USA",
+    id: "v3", name: "মৌ প্রকৃতি কোং", description: "অর্গানিক মৌচাক থেকে কারিগরি মধু ও মৌমাছি পণ্য।",
+    rating: 4.9, reviewCount: 156, productCount: 8, location: "সুন্দরবন, বাংলাদেশ",
     certified: true, image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=300&h=300&fit=crop"
   },
   {
-    id: "v4", name: "Happy Cow Dairy", description: "Organic dairy from free-range, grass-fed cows.",
-    rating: 4.7, reviewCount: 189, productCount: 12, location: "Wisconsin, USA",
+    id: "v4", name: "সুখী গাভী ডেইরি", description: "মুক্ত পরিবেশে ঘাস খাওয়া গাভীর অর্গানিক দুগ্ধ।",
+    rating: 4.7, reviewCount: 189, productCount: 12, location: "ময়মনসিংহ, বাংলাদেশ",
     certified: true, image: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=300&h=300&fit=crop"
   },
 ];
 
 export const testimonials: Testimonial[] = [
   {
-    id: "1", name: "Sarah Mitchell", rating: 5, avatar: "SM",
-    text: "Fresh Khan has completely changed how I shop for groceries. The quality of organic produce is unmatched, and I love supporting local farmers directly!"
+    id: "1", name: "ফাতেমা আক্তার", rating: 5, avatar: "ফআ",
+    text: "ফ্রেশ খান আমার মুদি কেনার ধরন সম্পূর্ণ বদলে দিয়েছে। অর্গানিক পণ্যের মান অতুলনীয়, এবং সরাসরি কৃষকদের সাহায্য করতে পেরে ভালো লাগে!"
   },
   {
-    id: "2", name: "David Chen", rating: 5, avatar: "DC",
-    text: "As a vendor, Fresh Khan has given me direct access to health-conscious customers. My sales have grown 300% since joining the platform."
+    id: "2", name: "রহিম উদ্দিন", rating: 5, avatar: "রউ",
+    text: "একজন বিক্রেতা হিসেবে, ফ্রেশ খান আমাকে স্বাস্থ্য-সচেতন ক্রেতাদের কাছে সরাসরি পৌঁছানোর সুযোগ দিয়েছে। প্ল্যাটফর্মে যোগ দেওয়ার পর আমার বিক্রি ৩০০% বেড়েছে।"
   },
   {
-    id: "3", name: "Emily Rodriguez", rating: 4, avatar: "ER",
-    text: "The variety of organic products available is incredible. From farm-fresh vegetables to artisanal honey — everything arrives fresh and well-packaged."
+    id: "3", name: "নাজমা বেগম", rating: 4, avatar: "নব",
+    text: "এখানে অর্গানিক পণ্যের বৈচিত্র্য অবিশ্বাস্য। খামার-তাজা শাকসবজি থেকে কারিগরি মধু — সবকিছু তাজা এবং সুন্দরভাবে প্যাক করা আসে।"
   },
 ];

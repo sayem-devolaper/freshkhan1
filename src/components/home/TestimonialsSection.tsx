@@ -8,10 +8,10 @@ const TestimonialsSection = () => {
       <div className="container">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            What Our Community Says
+            আমাদের সম্প্রদায় কী বলে
           </h2>
           <p className="mt-3 text-muted-foreground">
-            Real stories from real customers and vendors
+            প্রকৃত ক্রেতা ও বিক্রেতাদের প্রকৃত অভিজ্ঞতা
           </p>
         </div>
 

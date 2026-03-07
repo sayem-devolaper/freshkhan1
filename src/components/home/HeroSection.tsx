@@ -9,7 +9,7 @@ const HeroSection = () => {
     <section className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={heroBg} alt="Organic farm" className="h-full w-full object-cover" />
+        <img src={heroBg} alt="অর্গানিক খামার" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/60 to-foreground/30" />
       </div>
 
@@ -22,30 +22,30 @@ const HeroSection = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-sm text-primary-foreground backdrop-blur-sm">
             <Leaf className="h-4 w-4" />
-            Farm Fresh • 100% Organic • Direct from Farmers
+            খামার তাজা • ১০০% অর্গানিক • সরাসরি কৃষকদের কাছ থেকে
           </div>
 
           <h1 className="font-display text-5xl font-bold leading-tight text-primary-foreground sm:text-6xl lg:text-7xl">
-            Nature's Best,
+            প্রকৃতির সেরা,
             <br />
-            <span className="text-organic-leaf">Delivered Fresh</span>
+            <span className="text-organic-leaf">তাজা ডেলিভারি</span>
           </h1>
 
           <p className="max-w-lg text-lg leading-relaxed text-primary-foreground/80">
-            Shop organic produce, dairy, spices and more directly from certified farmers and vendors. 
-            Pure, sustainable, and delivered to your doorstep.
+            সার্টিফাইড কৃষক ও বিক্রেতাদের কাছ থেকে সরাসরি অর্গানিক শাকসবজি, দুগ্ধ, মশলা এবং আরও অনেক কিছু কিনুন।
+            বিশুদ্ধ, টেকসই এবং আপনার দোরগোড়ায় ডেলিভারি।
           </p>
 
           <div className="flex flex-wrap gap-3 pt-2">
             <Link to="/products">
               <Button variant="hero" size="lg" className="gap-2 rounded-full px-8">
-                Shop Now
+                এখনই কিনুন
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
             <Link to="/vendors">
               <Button variant="hero-outline" size="lg" className="rounded-full border-primary-foreground/30 px-8 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                Meet Our Farmers
+                আমাদের কৃষকদের সাথে পরিচিত হন
               </Button>
             </Link>
           </div>
@@ -53,9 +53,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="flex gap-8 pt-6">
             {[
-              { value: "500+", label: "Organic Products" },
-              { value: "120+", label: "Trusted Vendors" },
-              { value: "50k+", label: "Happy Customers" },
+              { value: "৫০০+", label: "অর্গানিক পণ্য" },
+              { value: "১২০+", label: "বিশ্বস্ত বিক্রেতা" },
+              { value: "৫০ হাজার+", label: "সন্তুষ্ট ক্রেতা" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-2xl font-bold text-primary-foreground">{stat.value}</p>

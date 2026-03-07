@@ -11,15 +11,15 @@ const FeaturedProducts = () => {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-              Featured Products
+              বিশেষ পণ্যসমূহ
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Hand-picked organic goodness from our top vendors
+              আমাদের সেরা বিক্রেতাদের হাতে বাছাই করা অর্গানিক পণ্য
             </p>
           </div>
           <Link to="/products" className="hidden sm:block">
             <Button variant="ghost" className="gap-1 text-primary">
-              View All <ArrowRight className="h-4 w-4" />
+              সব দেখুন <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -33,7 +33,7 @@ const FeaturedProducts = () => {
         <div className="mt-8 text-center sm:hidden">
           <Link to="/products">
             <Button variant="outline" className="gap-1">
-              View All Products <ArrowRight className="h-4 w-4" />
+              সকল পণ্য দেখুন <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>

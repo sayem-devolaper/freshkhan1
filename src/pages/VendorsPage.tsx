@@ -10,8 +10,8 @@ const VendorsPage = () => {
       <main className="flex-1 bg-background">
         <div className="bg-primary py-12">
           <div className="container">
-            <h1 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">Our Vendors</h1>
-            <p className="mt-2 text-primary-foreground/70">Meet the farmers and vendors behind our organic products</p>
+            <h1 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">আমাদের বিক্রেতারা</h1>
+            <p className="mt-2 text-primary-foreground/70">আমাদের অর্গানিক পণ্যের পেছনের কৃষক ও বিক্রেতাদের সাথে পরিচিত হন</p>
           </div>
         </div>
         <div className="container py-10">
