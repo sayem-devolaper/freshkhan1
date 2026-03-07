@@ -7,10 +7,10 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: "Home", to: "/" },
-    { label: "Products", to: "/products" },
-    { label: "Vendors", to: "/vendors" },
-    { label: "About", to: "/about" },
+    { label: "হোম", to: "/" },
+    { label: "পণ্যসমূহ", to: "/products" },
+    { label: "বিক্রেতা", to: "/vendors" },
+    { label: "আমাদের সম্পর্কে", to: "/about" },
   ];
 
   return (
@@ -22,7 +22,7 @@ const Header = () => {
             <Leaf className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Fresh Khan
+            ফ্রেশ খান
           </span>
         </Link>
 
@@ -48,14 +48,14 @@ const Header = () => {
             <Button variant="ghost" size="icon" className="relative">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
-                3
+                ৩
               </span>
             </Button>
           </Link>
           <Link to="/login">
             <Button variant="hero" size="sm" className="hidden sm:flex">
               <User className="h-4 w-4" />
-              Sign In
+              সাইন ইন
             </Button>
           </Link>
           <Button
@@ -86,7 +86,7 @@ const Header = () => {
             <Link to="/login" onClick={() => setMobileOpen(false)}>
               <Button variant="hero" className="mt-2 w-full">
                 <User className="h-4 w-4" />
-                Sign In
+                সাইন ইন
               </Button>
             </Link>
           </nav>

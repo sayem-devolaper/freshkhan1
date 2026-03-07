@@ -11,15 +11,15 @@ const FeaturedVendors = () => {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-              Meet Our Farmers
+              আমাদের কৃষকদের সাথে পরিচিত হন
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Trusted organic vendors committed to quality
+              মানের প্রতি নিবেদিত বিশ্বস্ত অর্গানিক বিক্রেতারা
             </p>
           </div>
           <Link to="/vendors" className="hidden sm:block">
             <Button variant="ghost" className="gap-1 text-primary">
-              View All <ArrowRight className="h-4 w-4" />
+              সব দেখুন <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>

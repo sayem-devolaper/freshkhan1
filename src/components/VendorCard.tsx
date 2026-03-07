@@ -23,7 +23,7 @@ const VendorCard = ({ vendor }: { vendor: Vendor }) => {
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
             {vendor.certified && (
               <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">
-                <BadgeCheck className="h-3 w-3" /> Certified
+                <BadgeCheck className="h-3 w-3" /> সার্টিফাইড
               </span>
             )}
           </div>
@@ -38,7 +38,7 @@ const VendorCard = ({ vendor }: { vendor: Vendor }) => {
                 <Star className="h-3.5 w-3.5 fill-organic-gold text-organic-gold" />
                 <span className="text-sm font-medium">{vendor.rating}</span>
               </div>
-              <span className="text-xs text-muted-foreground">{vendor.productCount} products</span>
+              <span className="text-xs text-muted-foreground">{vendor.productCount} পণ্য</span>
             </div>
           </div>
         </div>

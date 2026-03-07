@@ -16,9 +16,9 @@ const ProductsPage = () => {
   const filtered = useMemo(() => {
     let result = [...products];
     if (activeCategory) result = result.filter((p) => p.category === activeCategory);
-    if (priceRange === "under5") result = result.filter((p) => p.price < 5);
-    else if (priceRange === "5to10") result = result.filter((p) => p.price >= 5 && p.price <= 10);
-    else if (priceRange === "over10") result = result.filter((p) => p.price > 10);
+    if (priceRange === "under100") result = result.filter((p) => p.price < 100);
+    else if (priceRange === "100to300") result = result.filter((p) => p.price >= 100 && p.price <= 300);
+    else if (priceRange === "over300") result = result.filter((p) => p.price > 300);
     return result;
   }, [activeCategory, priceRange]);
 
@@ -37,10 +37,10 @@ const ProductsPage = () => {
         <div className="bg-primary py-12">
           <div className="container">
             <h1 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">
-              Organic Products
+              অর্গানিক পণ্যসমূহ
             </h1>
             <p className="mt-2 text-primary-foreground/70">
-              Browse our collection of certified organic goods
+              সার্টিফাইড অর্গানিক পণ্যের সংগ্রহ ব্রাউজ করুন
             </p>
           </div>
         </div>
@@ -54,7 +54,7 @@ const ProductsPage = () => {
               className="gap-2 lg:hidden"
               onClick={() => setShowFilters(!showFilters)}
             >
-              <SlidersHorizontal className="h-4 w-4" /> Filters
+              <SlidersHorizontal className="h-4 w-4" /> ফিল্টার
             </Button>
 
             <div className={`flex flex-wrap gap-2 ${showFilters ? "flex" : "hidden lg:flex"}`}>
@@ -66,16 +66,16 @@ const ProductsPage = () => {
                   size="sm"
                   onClick={() => setSearchParams(activeCategory === cat.name ? {} : { category: cat.name })}
                 >
-                  {cat.icon} {cat.name.replace("Organic ", "")}
+                  {cat.icon} {cat.name.replace("অর্গানিক ", "")}
                 </Button>
               ))}
 
               {/* Price filters */}
               <div className="mx-2 hidden h-8 w-px bg-border lg:block" />
               {[
-                { label: "Under $5", value: "under5" },
-                { label: "$5 - $10", value: "5to10" },
-                { label: "Over $10", value: "over10" },
+                { label: "৳১০০ এর নিচে", value: "under100" },
+                { label: "৳১০০ - ৳৩০০", value: "100to300" },
+                { label: "৳৩০০ এর উপরে", value: "over300" },
               ].map((p) => (
                 <Button
                   key={p.value}
@@ -90,13 +90,13 @@ const ProductsPage = () => {
 
             {hasFilters && (
               <Button variant="ghost" size="sm" onClick={clearFilters} className="gap-1 text-destructive">
-                <X className="h-3 w-3" /> Clear
+                <X className="h-3 w-3" /> মুছুন
               </Button>
             )}
           </div>
 
           {/* Results */}
-          <p className="mb-4 text-sm text-muted-foreground">{filtered.length} products found</p>
+          <p className="mb-4 text-sm text-muted-foreground">{filtered.length}টি পণ্য পাওয়া গেছে</p>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {filtered.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -104,9 +104,9 @@ const ProductsPage = () => {
           </div>
           {filtered.length === 0 && (
             <div className="py-20 text-center">
-              <p className="text-lg font-medium text-muted-foreground">No products found</p>
+              <p className="text-lg font-medium text-muted-foreground">কোনো পণ্য পাওয়া যায়নি</p>
               <Button variant="outline" className="mt-4" onClick={clearFilters}>
-                Clear Filters
+                ফিল্টার মুছুন
               </Button>
             </div>
           )}
