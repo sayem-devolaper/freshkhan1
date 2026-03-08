@@ -51,7 +51,7 @@ const AdminOrdersPage = () => {
     fetchOrders();
   }, []);
 
-  const updateStatus = async (id: string, status: string) => {
+  const updateStatus = async (id: string, status: OrderStatus) => {
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
     if (error) {
       toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
