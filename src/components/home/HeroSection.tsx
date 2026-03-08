@@ -22,7 +22,7 @@ const HeroSection = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-sm text-primary-foreground backdrop-blur-sm">
             <Leaf className="h-4 w-4" />
-            খামার তাজা • ১০০% অর্গানিক • সরাসরি কৃষকদের কাছ থেকে
+            তাজা খাবার • ১০০% অর্গানিক • সরাসরি কৃষকদের কাছ থেকে
           </div>
 
           <h1 className="font-display text-5xl font-bold leading-tight text-primary-foreground sm:text-6xl lg:text-7xl">
@@ -45,7 +45,7 @@ const HeroSection = () => {
             </Link>
             <Link to="/vendors">
               <Button variant="hero-outline" size="lg" className="rounded-full border-primary-foreground/30 px-8 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                আমাদের কৃষকদের সাথে পরিচিত হন
+                আমাদের ভেন্ডরদের সাথে পরিচিত হন
               </Button>
             </Link>
           </div>
@@ -53,9 +53,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="flex gap-8 pt-6">
             {[
-              { value: "৫০০+", label: "অর্গানিক পণ্য" },
-              { value: "১২০+", label: "বিশ্বস্ত বিক্রেতা" },
-              { value: "৫০ হাজার+", label: "সন্তুষ্ট ক্রেতা" },
+              { value: "৫০+", label: "অর্গানিক পণ্য" },
+              { value: "৩০+", label: "বিশ্বস্ত বিক্রেতা" },
+              { value: " ৫ হাজার+", label: "সন্তুষ্ট ক্রেতা" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-2xl font-bold text-primary-foreground">{stat.value}</p>
