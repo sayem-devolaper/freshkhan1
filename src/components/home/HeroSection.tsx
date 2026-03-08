@@ -53,9 +53,9 @@ const HeroSection = () => {
           {/* Stats */}
           <div className="flex gap-8 pt-6">
             {[
-              { value: "৫০০+", label: "অর্গানিক পণ্য" },
-              { value: "১২০+", label: "বিশ্বস্ত বিক্রেতা" },
-              { value: "৫০ হাজার+", label: "সন্তুষ্ট ক্রেতা" },
+              { value: "৫০+", label: "অর্গানিক পণ্য" },
+              { value: "৩০+", label: "বিশ্বস্ত বিক্রেতা" },
+              { value: " ৫ হাজার+", label: "সন্তুষ্ট ক্রেতা" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="font-display text-2xl font-bold text-primary-foreground">{stat.value}</p>
