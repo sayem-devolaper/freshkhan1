@@ -7,7 +7,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-  { label: "হোম", to: "" },
+  { label: "হোম", to: "/" },
   { label: "পণ্যসমূহ", to: "/products" },
   { label: "বিক্রেতা", to: "/vendors" },
   { label: "আমাদের সম্পর্কে", to: "/about" }];
