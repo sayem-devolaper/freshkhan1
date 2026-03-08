@@ -22,7 +22,7 @@ const HeroSection = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-sm text-primary-foreground backdrop-blur-sm">
             <Leaf className="h-4 w-4" />
-            খামার তাজা • ১০০% অর্গানিক • সরাসরি কৃষকদের কাছ থেকে
+            তাজা খাবার • ১০০% অর্গানিক • সরাসরি কৃষকদের কাছ থেকে
           </div>
 
           <h1 className="font-display text-5xl font-bold leading-tight text-primary-foreground sm:text-6xl lg:text-7xl">
