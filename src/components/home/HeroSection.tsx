@@ -45,7 +45,7 @@ const HeroSection = () => {
             </Link>
             <Link to="/vendors">
               <Button variant="hero-outline" size="lg" className="rounded-full border-primary-foreground/30 px-8 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
-                আমাদের কৃষকদের সাথে পরিচিত হন
+                আমাদের ভেন্ডরদের সাথে পরিচিত হন
               </Button>
             </Link>
           </div>
