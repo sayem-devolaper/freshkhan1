@@ -8,6 +8,7 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import VendorsPage from "./pages/VendorsPage";
 import VendorStorePage from "./pages/VendorStorePage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminGuard from "./components/admin/AdminGuard";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/products/:id" element={<ProductDetailPage />} />
           <Route path="/vendors" element={<VendorsPage />} />
           <Route path="/vendors/:id" element={<VendorStorePage />} />
+          <Route path="/about" element={<AboutPage />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
