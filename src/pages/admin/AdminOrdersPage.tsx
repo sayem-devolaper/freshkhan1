@@ -119,7 +119,7 @@ const AdminOrdersPage = () => {
                       {new Date(o.created_at).toLocaleDateString("bn-BD")}
                     </TableCell>
                     <TableCell>
-                      <Select value={o.status} onValueChange={(val) => updateStatus(o.id, val)}>
+                      <Select value={o.status} onValueChange={(val) => updateStatus(o.id, val as OrderStatus)}>
                         <SelectTrigger className="w-36 h-8 text-xs">
                           <SelectValue />
                         </SelectTrigger>
