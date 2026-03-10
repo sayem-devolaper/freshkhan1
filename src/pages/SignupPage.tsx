@@ -58,18 +58,11 @@ const SignupPage = () => {
       const { error } = await supabase.auth.signUp(credentials);
       if (error) throw error;
 
-      if (method === "email") {
-        toast({
-          title: "রেজিস্ট্রেশন সফল!",
-          description: "আপনার ইমেইলে একটি ভেরিফিকেশন লিংক পাঠানো হয়েছে। দয়া করে ইমেইল ভেরিফাই করুন।",
-        });
-      } else {
-        toast({
-          title: "রেজিস্ট্রেশন সফল!",
-          description: "আপনার অ্যাকাউন্ট তৈরি হয়েছে। এখন লগইন করুন।",
-        });
-      }
-      navigate("/login");
+      toast({
+        title: "রেজিস্ট্রেশন সফল!",
+        description: "আপনার অ্যাকাউন্ট তৈরি হয়েছে। স্বাগতম!",
+      });
+      navigate("/");
     } catch (error: any) {
       toast({
         title: "রেজিস্ট্রেশন ব্যর্থ",
