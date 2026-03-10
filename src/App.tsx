@@ -46,6 +46,22 @@ const App = () => (
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           
+          {/* Vendor Routes */}
+          <Route path="/vendor/login" element={<VendorLoginPage />} />
+          <Route path="/vendor/register" element={<VendorRegisterPage />} />
+          <Route
+            path="/vendor/dashboard"
+            element={
+              <VendorGuard>
+                <VendorLayout />
+              </VendorGuard>
+            }
+          >
+            <Route index element={<VendorDashboardHome />} />
+            <Route path="products" element={<VendorProductsPage />} />
+            <Route path="orders" element={<VendorOrdersPage />} />
+          </Route>
+
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route
