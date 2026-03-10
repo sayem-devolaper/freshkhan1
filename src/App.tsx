@@ -27,6 +27,8 @@ import VendorLayout from "./components/vendor/VendorLayout";
 import VendorDashboardHome from "./pages/vendor/VendorDashboardHome";
 import VendorProductsPage from "./pages/vendor/VendorProductsPage";
 import VendorOrdersPage from "./pages/vendor/VendorOrdersPage";
+import VendorCampaignsPage from "./pages/vendor/VendorCampaignsPage";
+import VendorPromoCodesPage from "./pages/vendor/VendorPromoCodesPage";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +62,8 @@ const App = () => (
             <Route index element={<VendorDashboardHome />} />
             <Route path="products" element={<VendorProductsPage />} />
             <Route path="orders" element={<VendorOrdersPage />} />
+            <Route path="campaigns" element={<VendorCampaignsPage />} />
+            <Route path="promo-codes" element={<VendorPromoCodesPage />} />
           </Route>
 
           {/* Admin Routes */}
