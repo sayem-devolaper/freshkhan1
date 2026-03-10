@@ -10,6 +10,8 @@ const navItems = [
   { to: "/vendor/dashboard", icon: LayoutDashboard, label: "ড্যাশবোর্ড" },
   { to: "/vendor/dashboard/products", icon: Package, label: "পণ্য" },
   { to: "/vendor/dashboard/orders", icon: ShoppingCart, label: "অর্ডার" },
+  { to: "/vendor/dashboard/campaigns", icon: Tag, label: "ক্যাম্পেইন" },
+  { to: "/vendor/dashboard/promo-codes", icon: Ticket, label: "প্রোমো কোড" },
 ];
 
 const VendorLayout = () => {
