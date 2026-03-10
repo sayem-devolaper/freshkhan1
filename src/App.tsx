@@ -10,6 +10,8 @@ import VendorsPage from "./pages/VendorsPage";
 import VendorStorePage from "./pages/VendorStorePage";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminGuard from "./components/admin/AdminGuard";
 import AdminLayout from "./components/admin/AdminLayout";
