@@ -65,7 +65,7 @@ const VendorLoginPage = () => {
     }
   };
 
-  const PasswordField = () => (
+  const passwordField = (
     <div className="space-y-2">
       <Label htmlFor="password">পাসওয়ার্ড</Label>
       <div className="relative">
