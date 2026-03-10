@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Leaf, LayoutDashboard, Package, ShoppingCart, Menu, X, LogOut } from "lucide-react";
+import { Leaf, LayoutDashboard, Package, ShoppingCart, Menu, X, LogOut, Tag, Ticket } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
