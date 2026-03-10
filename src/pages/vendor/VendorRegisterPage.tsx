@@ -49,12 +49,8 @@ const VendorRegisterPage = () => {
       const userId = authData.user?.id;
       if (!userId) throw new Error("User creation failed");
 
-      // 2. Add vendor role
-      const { error: roleError } = await supabase
-        .from("user_roles")
-        .insert({ user_id: userId, role: "vendor" as any });
-      // Role insert may fail due to RLS if user isn't admin, but handle_new_user trigger adds 'customer' role
-      // We'll use a different approach - create vendor record directly
+      // 2. Add vendor role via security definer function
+      await supabase.rpc("register_as_vendor", { _user_id: userId });
 
       // 3. Create vendor store
       const { error: vendorError } = await supabase.from("vendors").insert({
