@@ -65,7 +65,7 @@ const VendorLoginPage = () => {
     }
   };
 
-  const PasswordField = () => (
+  const passwordField = (
     <div className="space-y-2">
       <Label htmlFor="password">পাসওয়ার্ড</Label>
       <div className="relative">
@@ -104,7 +104,7 @@ const VendorLoginPage = () => {
                   <Label htmlFor="email">ইমেইল</Label>
                   <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your@email.com" required />
                 </div>
-                <PasswordField />
+                {passwordField}
                 <Button type="submit" variant="hero" className="w-full rounded-lg" disabled={loading}>
                   <LogIn className="w-4 h-4" /> {loading ? "লগইন হচ্ছে..." : "লগইন করুন"}
                 </Button>
@@ -120,7 +120,7 @@ const VendorLoginPage = () => {
                     <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))} placeholder="01XXXXXXXXX" required maxLength={11} />
                   </div>
                 </div>
-                <PasswordField />
+                {passwordField}
                 <Button type="submit" variant="hero" className="w-full rounded-lg" disabled={loading}>
                   <LogIn className="w-4 h-4" /> {loading ? "লগইন হচ্ছে..." : "লগইন করুন"}
                 </Button>
