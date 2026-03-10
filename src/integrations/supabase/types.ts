@@ -540,6 +540,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      register_as_vendor: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "customer" | "vendor"
