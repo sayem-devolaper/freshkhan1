@@ -20,6 +20,13 @@ import AdminVendorsPage from "./pages/admin/AdminVendorsPage";
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminCommissionPage from "./pages/admin/AdminCommissionPage";
+import VendorLoginPage from "./pages/vendor/VendorLoginPage";
+import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
+import VendorGuard from "./components/vendor/VendorGuard";
+import VendorLayout from "./components/vendor/VendorLayout";
+import VendorDashboardHome from "./pages/vendor/VendorDashboardHome";
+import VendorProductsPage from "./pages/vendor/VendorProductsPage";
+import VendorOrdersPage from "./pages/vendor/VendorOrdersPage";
 
 const queryClient = new QueryClient();
 
