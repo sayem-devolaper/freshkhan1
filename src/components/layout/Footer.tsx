@@ -44,9 +44,9 @@ const Footer = () => {
             <h4 className="font-display text-lg font-semibold">বিক্রেতাদের জন্য</h4>
             <nav className="flex flex-col gap-2">
               <Button 
-                variant="outline" 
+                variant="ghost" 
                 size="sm" 
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                className="w-fit border border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 onClick={() => navigate("/vendor/register")}
               >
                 বিক্রেতা হন
