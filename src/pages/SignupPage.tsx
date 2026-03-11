@@ -155,7 +155,7 @@ const SignupPage = () => {
 
             <TabsContent value="email">
               <form onSubmit={(e) => handleSignup(e, "email")} className="space-y-4">
-                <NameField />
+                {nameField}
                 <div className="space-y-2">
                   <Label htmlFor="email">ইমেইল</Label>
                   <Input
