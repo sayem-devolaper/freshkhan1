@@ -168,7 +168,7 @@ const SignupPage = () => {
                     maxLength={255}
                   />
                 </div>
-                <PasswordFields />
+                {passwordFields}
                 <Button type="submit" variant="hero" className="w-full rounded-lg" disabled={loading}>
                   <UserPlus className="w-4 h-4" />
                   {loading ? "রেজিস্টার হচ্ছে..." : "রেজিস্টার করুন"}
