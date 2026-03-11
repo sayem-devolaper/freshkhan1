@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="border-t border-border bg-foreground text-primary-foreground">
       <div className="container py-16">
