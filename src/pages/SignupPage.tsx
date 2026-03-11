@@ -74,7 +74,7 @@ const SignupPage = () => {
     }
   };
 
-  const PasswordFields = () => (
+  const passwordFields = (
     <>
       <div className="space-y-2">
         <Label htmlFor="password">পাসওয়ার্ড</Label>
@@ -111,7 +111,7 @@ const SignupPage = () => {
     </>
   );
 
-  const NameField = () => (
+  const nameField = (
     <div className="space-y-2">
       <Label htmlFor="fullName">পূর্ণ নাম</Label>
       <Input
@@ -155,7 +155,7 @@ const SignupPage = () => {
 
             <TabsContent value="email">
               <form onSubmit={(e) => handleSignup(e, "email")} className="space-y-4">
-                <NameField />
+                {nameField}
                 <div className="space-y-2">
                   <Label htmlFor="email">ইমেইল</Label>
                   <Input
@@ -168,7 +168,7 @@ const SignupPage = () => {
                     maxLength={255}
                   />
                 </div>
-                <PasswordFields />
+                {passwordFields}
                 <Button type="submit" variant="hero" className="w-full rounded-lg" disabled={loading}>
                   <UserPlus className="w-4 h-4" />
                   {loading ? "রেজিস্টার হচ্ছে..." : "রেজিস্টার করুন"}
@@ -178,7 +178,7 @@ const SignupPage = () => {
 
             <TabsContent value="phone">
               <form onSubmit={(e) => handleSignup(e, "phone")} className="space-y-4">
-                <NameField />
+                {nameField}
                 <div className="space-y-2">
                   <Label htmlFor="phone">ফোন নম্বর</Label>
                   <div className="flex gap-2">
@@ -196,7 +196,7 @@ const SignupPage = () => {
                     />
                   </div>
                 </div>
-                <PasswordFields />
+                {passwordFields}
                 <Button type="submit" variant="hero" className="w-full rounded-lg" disabled={loading}>
                   <UserPlus className="w-4 h-4" />
                   {loading ? "রেজিস্টার হচ্ছে..." : "রেজিস্টার করুন"}
