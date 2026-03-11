@@ -42,9 +42,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-display text-lg font-semibold">বিক্রেতাদের জন্য</h4>
             <nav className="flex flex-col gap-2">
-              {["বিক্রেতা হন", "বিক্রেতা ড্যাশবোর্ড", "বিক্রয় নীতিমালা", "কমিশন নীতি"].map((item) => (
-                <Link key={item} to="#" className="text-sm opacity-70 transition-opacity hover:opacity-100">
-                  {item}
+              {[
+                { label: "বিক্রেতা হন", to: "/vendor/register" },
+                { label: "বিক্রেতা লগইন", to: "/vendor/login" },
+                { label: "বিক্রয় নীতিমালা", to: "#" },
+                { label: "কমিশন নীতি", to: "#" },
+              ].map((item) => (
+                <Link key={item.label} to={item.to} className="text-sm opacity-70 transition-opacity hover:opacity-100">
+                  {item.label}
                 </Link>
               ))}
             </nav>
