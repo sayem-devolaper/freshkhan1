@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Leaf, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <footer className="border-t border-border bg-foreground text-primary-foreground">
       <div className="container py-16">
@@ -42,11 +43,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-display text-lg font-semibold">বিক্রেতাদের জন্য</h4>
             <nav className="flex flex-col gap-2">
-              <Link to="/vendor/register">
-                <Button variant="outline" size="sm" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                  বিক্রেতা হন
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                onClick={() => navigate("/vendor/register")}
+              >
+                বিক্রেতা হন
+              </Button>
               {[
                 { label: "বিক্রেতা লগইন", to: "/vendor/login" },
                 { label: "বিক্রয় নীতিমালা", to: "#" },
