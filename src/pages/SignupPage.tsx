@@ -74,7 +74,7 @@ const SignupPage = () => {
     }
   };
 
-  const PasswordFields = () => (
+  const passwordFields = (
     <>
       <div className="space-y-2">
         <Label htmlFor="password">পাসওয়ার্ড</Label>
@@ -111,7 +111,7 @@ const SignupPage = () => {
     </>
   );
 
-  const NameField = () => (
+  const nameField = (
     <div className="space-y-2">
       <Label htmlFor="fullName">পূর্ণ নাম</Label>
       <Input
