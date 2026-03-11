@@ -178,7 +178,7 @@ const SignupPage = () => {
 
             <TabsContent value="phone">
               <form onSubmit={(e) => handleSignup(e, "phone")} className="space-y-4">
-                <NameField />
+                {nameField}
                 <div className="space-y-2">
                   <Label htmlFor="phone">ফোন নম্বর</Label>
                   <div className="flex gap-2">
