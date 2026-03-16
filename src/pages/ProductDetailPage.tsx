@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { products } from "@/data/mockData";
 import { Star, ShoppingCart, BadgeCheck, Minus, Plus, ArrowLeft, Store } from "lucide-react";
 import { useState } from "react";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === id);
   const [qty, setQty] = useState(1);
+  const { addToCart } = useCart();
 
   if (!product) {
     return (
@@ -27,6 +30,11 @@ const ProductDetailPage = () => {
       </div>
     );
   }
+
+  const handleAddToCart = () => {
+    addToCart(product, qty);
+    toast.success(`${product.name} কার্টে যোগ হয়েছে`);
+  };
 
   const relatedProducts = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
@@ -94,7 +102,7 @@ const ProductDetailPage = () => {
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
-                <Button variant="hero" size="lg" className="flex-1 gap-2 rounded-full">
+                <Button variant="hero" size="lg" className="flex-1 gap-2 rounded-full" onClick={handleAddToCart}>
                   <ShoppingCart className="h-5 w-5" />
                   কার্টে যোগ করুন — ৳{product.price * qty}
                 </Button>

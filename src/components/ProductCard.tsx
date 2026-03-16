@@ -3,12 +3,23 @@ import { Star, ShoppingCart, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/data/mockData";
 import { motion } from "framer-motion";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(product);
+    toast.success(`${product.name} কার্টে যোগ হয়েছে`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -59,7 +70,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 )}
                 <span className="text-xs text-muted-foreground">/ {product.unit}</span>
               </div>
-              <Button size="icon" variant="outline" className="h-8 w-8 shrink-0">
+              <Button size="icon" variant="outline" className="h-8 w-8 shrink-0" onClick={handleAddToCart}>
                 <ShoppingCart className="h-4 w-4" />
               </Button>
             </div>
