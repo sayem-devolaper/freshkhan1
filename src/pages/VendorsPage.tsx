@@ -1,9 +1,12 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import VendorCard from "@/components/VendorCard";
-import { vendors } from "@/data/mockData";
+import { useVendors } from "@/hooks/use-vendors";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const VendorsPage = () => {
+  const { data: vendors, isLoading } = useVendors();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -16,10 +19,17 @@ const VendorsPage = () => {
         </div>
         <div className="container py-10">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {vendors.map((vendor) => (
-              <VendorCard key={vendor.id} vendor={vendor} />
-            ))}
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className="h-52 rounded-xl" />
+                ))
+              : (vendors || []).map((vendor) => (
+                  <VendorCard key={vendor.id} vendor={vendor} />
+                ))}
           </div>
+          {!isLoading && (vendors || []).length === 0 && (
+            <p className="py-12 text-center text-muted-foreground">কোনো বিক্রেতা পাওয়া যায়নি</p>
+          )}
         </div>
       </main>
       <Footer />

@@ -2,13 +2,37 @@ import { useParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/ProductCard";
-import { vendors, products } from "@/data/mockData";
+import { useVendor } from "@/hooks/use-vendors";
+import { useProducts } from "@/hooks/use-products";
 import { Star, MapPin, BadgeCheck, ArrowLeft } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const VendorStorePage = () => {
   const { id } = useParams();
-  const vendor = vendors.find((v) => v.id === id);
-  const vendorProducts = products.filter((p) => p.vendorId === id);
+  const { data: vendor, isLoading: vendorLoading } = useVendor(id);
+  const { data: allProducts } = useProducts();
+
+  const vendorProducts = (allProducts || []).filter((p) => p.vendorId === id);
+
+  if (vendorLoading) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1 bg-background">
+          <Skeleton className="h-64 w-full" />
+          <div className="container py-10">
+            <Skeleton className="h-6 w-2/3 mb-4" />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
+              ))}
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!vendor) {
     return (
@@ -26,7 +50,6 @@ const VendorStorePage = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 bg-background">
-        {/* Banner */}
         <div className="relative h-64 overflow-hidden">
           <img src={vendor.image} alt={vendor.name} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />

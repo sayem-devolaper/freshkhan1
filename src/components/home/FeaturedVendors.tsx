@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VendorCard from "@/components/VendorCard";
-import { vendors } from "@/data/mockData";
+import { useVendors } from "@/hooks/use-vendors";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const FeaturedVendors = () => {
+  const { data: vendors, isLoading } = useVendors();
+
   return (
     <section className="bg-background py-20">
       <div className="container">
@@ -25,9 +28,13 @@ const FeaturedVendors = () => {
         </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {vendors.map((vendor) => (
-            <VendorCard key={vendor.id} vendor={vendor} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="h-52 rounded-xl" />
+              ))
+            : (vendors || []).slice(0, 4).map((vendor) => (
+                <VendorCard key={vendor.id} vendor={vendor} />
+              ))}
         </div>
       </div>
     </section>

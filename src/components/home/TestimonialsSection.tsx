@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { testimonials } from "@/data/mockData";
+import { testimonials } from "@/types/database";
 import { motion } from "framer-motion";
 
 const TestimonialsSection = () => {

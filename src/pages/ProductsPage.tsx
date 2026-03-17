@@ -3,9 +3,11 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/ProductCard";
-import { products, categories } from "@/data/mockData";
+import { useProducts } from "@/hooks/use-products";
+import { useCategories } from "@/hooks/use-categories";
 import { Button } from "@/components/ui/button";
 import { SlidersHorizontal, X } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,14 +15,17 @@ const ProductsPage = () => {
   const [priceRange, setPriceRange] = useState<string>("");
   const [showFilters, setShowFilters] = useState(false);
 
+  const { data: products, isLoading: productsLoading } = useProducts();
+  const { data: categories, isLoading: categoriesLoading } = useCategories();
+
   const filtered = useMemo(() => {
-    let result = [...products];
+    let result = [...(products || [])];
     if (activeCategory) result = result.filter((p) => p.category === activeCategory);
     if (priceRange === "under100") result = result.filter((p) => p.price < 100);
     else if (priceRange === "100to300") result = result.filter((p) => p.price >= 100 && p.price <= 300);
     else if (priceRange === "over300") result = result.filter((p) => p.price > 300);
     return result;
-  }, [activeCategory, priceRange]);
+  }, [products, activeCategory, priceRange]);
 
   const clearFilters = () => {
     setSearchParams({});
@@ -33,7 +38,6 @@ const ProductsPage = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 bg-background">
-        {/* Page Header */}
         <div className="bg-primary py-12">
           <div className="container">
             <h1 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">
@@ -46,7 +50,6 @@ const ProductsPage = () => {
         </div>
 
         <div className="container py-8">
-          {/* Filter Bar */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <Button
               variant="outline"
@@ -58,19 +61,20 @@ const ProductsPage = () => {
             </Button>
 
             <div className={`flex flex-wrap gap-2 ${showFilters ? "flex" : "hidden lg:flex"}`}>
-              {/* Category filters */}
-              {categories.map((cat) => (
-                <Button
-                  key={cat.id}
-                  variant={activeCategory === cat.name ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSearchParams(activeCategory === cat.name ? {} : { category: cat.name })}
-                >
-                  {cat.icon} {cat.name.replace("অর্গানিক ", "")}
-                </Button>
-              ))}
+              {!categoriesLoading &&
+                (categories || []).map((cat) => (
+                  <Button
+                    key={cat.id}
+                    variant={activeCategory === cat.name ? "default" : "outline"}
+                    size="sm"
+                    onClick={() =>
+                      setSearchParams(activeCategory === cat.name ? {} : { category: cat.name })
+                    }
+                  >
+                    {cat.icon} {cat.name.replace("অর্গানিক ", "")}
+                  </Button>
+                ))}
 
-              {/* Price filters */}
               <div className="mx-2 hidden h-8 w-px bg-border lg:block" />
               {[
                 { label: "৳১০০ এর নিচে", value: "under100" },
@@ -95,14 +99,23 @@ const ProductsPage = () => {
             )}
           </div>
 
-          {/* Results */}
           <p className="mb-4 text-sm text-muted-foreground">{filtered.length}টি পণ্য পাওয়া গেছে</p>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-          {filtered.length === 0 && (
+
+          {productsLoading ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+
+          {!productsLoading && filtered.length === 0 && (
             <div className="py-20 text-center">
               <p className="text-lg font-medium text-muted-foreground">কোনো পণ্য পাওয়া যায়নি</p>
               <Button variant="outline" className="mt-4" onClick={clearFilters}>

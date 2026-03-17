@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Star, MapPin, BadgeCheck } from "lucide-react";
-import type { Vendor } from "@/data/mockData";
+import type { Vendor } from "@/types/database";
 import { motion } from "framer-motion";
 
 const VendorCard = ({ vendor }: { vendor: Vendor }) => {

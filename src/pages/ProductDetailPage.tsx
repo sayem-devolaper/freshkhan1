@@ -2,17 +2,41 @@ import { useParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/mockData";
+import { useProduct, useProducts } from "@/hooks/use-products";
 import { Star, ShoppingCart, BadgeCheck, Minus, Plus, ArrowLeft, Store } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
+  const { data: product, isLoading } = useProduct(id);
+  const { data: allProducts } = useProducts();
   const [qty, setQty] = useState(1);
   const { addToCart } = useCart();
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1 bg-background">
+          <div className="container py-8">
+            <div className="grid gap-10 lg:grid-cols-2">
+              <Skeleton className="aspect-square rounded-2xl" />
+              <div className="space-y-4">
+                <Skeleton className="h-10 w-3/4" />
+                <Skeleton className="h-6 w-1/2" />
+                <Skeleton className="h-8 w-1/3" />
+                <Skeleton className="h-24 w-full" />
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -36,7 +60,7 @@ const ProductDetailPage = () => {
     toast.success(`${product.name} কার্টে যোগ হয়েছে`);
   };
 
-  const relatedProducts = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
+  const relatedProducts = (allProducts || []).filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -48,12 +72,10 @@ const ProductDetailPage = () => {
           </Link>
 
           <div className="grid gap-10 lg:grid-cols-2">
-            {/* Image */}
             <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-card">
               <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
             </div>
 
-            {/* Details */}
             <div className="space-y-6">
               <div>
                 {product.organic && (
@@ -69,7 +91,6 @@ const ProductDetailPage = () => {
                 </Link>
               </div>
 
-              {/* Rating */}
               <div className="flex items-center gap-2">
                 <div className="flex gap-0.5">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -80,7 +101,6 @@ const ProductDetailPage = () => {
                 <span className="text-sm text-muted-foreground">({product.reviewCount} রিভিউ)</span>
               </div>
 
-              {/* Price */}
               <div className="flex items-baseline gap-3">
                 <span className="font-display text-3xl font-bold text-foreground">৳{product.price}</span>
                 {product.originalPrice && (
@@ -91,7 +111,6 @@ const ProductDetailPage = () => {
 
               <p className="leading-relaxed text-muted-foreground">{product.description}</p>
 
-              {/* Quantity & Add to Cart */}
               <div className="flex items-center gap-4">
                 <div className="flex items-center rounded-lg border border-border">
                   <Button variant="ghost" size="icon" className="h-10 w-10" onClick={() => setQty(Math.max(1, qty - 1))}>
@@ -108,14 +127,12 @@ const ProductDetailPage = () => {
                 </Button>
               </div>
 
-              {/* Stock */}
               <p className={`text-sm font-medium ${product.inStock ? "text-primary" : "text-destructive"}`}>
                 {product.inStock ? "✓ স্টকে আছে" : "✕ স্টক নেই"}
               </p>
             </div>
           </div>
 
-          {/* Related */}
           {relatedProducts.length > 0 && (
             <div className="mt-16">
               <h2 className="font-display text-2xl font-bold text-foreground">আপনার পছন্দ হতে পারে</h2>

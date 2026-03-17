@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star, ShoppingCart, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Product } from "@/data/mockData";
+import type { Product } from "@/types/database";
 import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
@@ -29,7 +29,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <Link to={`/products/${product.id}`} className="group block">
         <div className="overflow-hidden rounded-xl border border-border bg-card shadow-card transition-shadow hover:shadow-elevated">
-          {/* Image */}
           <div className="relative aspect-square overflow-hidden bg-secondary">
             <img
               src={product.image}
@@ -48,8 +47,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
               </span>
             )}
           </div>
-
-          {/* Info */}
           <div className="p-4">
             <p className="text-xs font-medium text-muted-foreground">{product.vendor}</p>
             <h3 className="mt-1 font-semibold leading-tight text-card-foreground line-clamp-2">
