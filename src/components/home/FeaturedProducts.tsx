@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/mockData";
+import { useProducts } from "@/hooks/use-products";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const FeaturedProducts = () => {
+  const { data: products, isLoading } = useProducts();
+
   return (
     <section className="bg-secondary/50 py-20">
       <div className="container">
@@ -25,9 +28,13 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 4).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, i) => (
+                <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
+              ))
+            : (products || []).slice(0, 4).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
         </div>
 
         <div className="mt-8 text-center sm:hidden">
