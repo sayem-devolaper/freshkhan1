@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Search, User, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import freshkhanLogo from "@/assets/freshkhan-logo.png";
 import { useCart } from "@/context/CartContext";
+import HeaderSearch from "./HeaderSearch";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
