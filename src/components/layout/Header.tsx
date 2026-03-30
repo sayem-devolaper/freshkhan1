@@ -58,11 +58,6 @@ const Header = () => {
               সাইন ইন
             </Button>
           </Link>
-          <Link to="/admin/login">
-            <Button variant="ghost" size="sm" className="hidden sm:flex text-xs text-muted-foreground">
-              Admin
-            </Button>
-          </Link>
           <Button
             variant="ghost"
             size="icon"
