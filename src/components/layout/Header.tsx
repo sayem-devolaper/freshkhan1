@@ -31,7 +31,7 @@ const Header = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="rounded-lg px-4 py-2 text-sm transition-colors font-mono font-extrabold text-secondary-foreground bg-destructive-foreground"
             >
               {link.label}
             </Link>
