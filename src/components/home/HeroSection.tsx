@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import GlobalSearch from "./GlobalSearch";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
@@ -35,6 +36,11 @@ const HeroSection = () => {
             সার্টিফাইড কৃষক ও বিক্রেতাদের কাছ থেকে সরাসরি অর্গানিক শাকসবজি, দুগ্ধ, মশলা এবং আরও অনেক কিছু কিনুন।
             বিশুদ্ধ, টেকসই এবং আপনার দোরগোড়ায় ডেলিভারি।
           </p>
+
+          {/* Search Bar */}
+          <div className="pt-2">
+            <GlobalSearch />
+          </div>
 
           <div className="flex flex-wrap gap-3 pt-2">
             <Link to="/products">
