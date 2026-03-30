@@ -37,6 +37,11 @@ const HeroSection = () => {
             বিশুদ্ধ, টেকসই এবং আপনার দোরগোড়ায় ডেলিভারি।
           </p>
 
+          {/* Search Bar */}
+          <div className="pt-2">
+            <GlobalSearch />
+          </div>
+
           <div className="flex flex-wrap gap-3 pt-2">
             <Link to="/products">
               <Button variant="hero" size="lg" className="gap-2 rounded-full px-8">
