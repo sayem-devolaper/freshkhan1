@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Search, User, Menu, X } from "lucide-react";
+import { ShoppingCart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import freshkhanLogo from "@/assets/freshkhan-logo.png";
 import { useCart } from "@/context/CartContext";
+import HeaderSearch from "./HeaderSearch";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,9 +40,7 @@ const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="hidden sm:flex">
-            <Search className="h-5 w-5" />
-          </Button>
+          <HeaderSearch />
           <Link to="/cart">
             <Button variant="ghost" size="icon" className="relative">
               <ShoppingCart className="h-5 w-5" />
