@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import GlobalSearch from "./GlobalSearch";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
