@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
-      <div className="container flex h-16 items-center justify-between gap-4">
+      <div className="container h-16 gap-4 bg-primary-foreground flex-row flex items-center justify-between opacity-100">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={freshkhanLogo} alt="FreshKhan" className="h-9 w-auto" />
