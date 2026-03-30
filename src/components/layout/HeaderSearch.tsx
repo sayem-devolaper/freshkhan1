@@ -96,8 +96,8 @@ const HeaderSearch = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => results.length > 0 && setOpen(true)}
-          placeholder="খুঁজুন..."
-          className="h-9 rounded-full bg-secondary/60 pl-9 pr-8 text-sm border-transparent focus:border-primary focus:bg-background"
+          placeholder="Search Here"
+          className="h-9 rounded-full bg-secondary/60 pl-9 pr-8 text-sm focus:bg-background border-8 border-destructive-foreground"
         />
         {query && (
           <button
