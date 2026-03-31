@@ -19,10 +19,10 @@ const VendorStorePage = () => {
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1 bg-background">
-          <Skeleton className="h-64 w-full" />
-          <div className="container py-10">
+          <Skeleton className="h-48 w-full sm:h-64" />
+          <div className="container px-4 py-6 sm:py-10">
             <Skeleton className="h-6 w-2/3 mb-4" />
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
               ))}
@@ -38,7 +38,7 @@ const VendorStorePage = () => {
     return (
       <div className="flex min-h-screen flex-col">
         <Header />
-        <main className="flex flex-1 items-center justify-center">
+        <main className="flex flex-1 items-center justify-center px-4">
           <p className="text-xl text-muted-foreground">বিক্রেতা খুঁজে পাওয়া যায়নি</p>
         </main>
         <Footer />
@@ -50,21 +50,21 @@ const VendorStorePage = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 bg-background">
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-48 overflow-hidden sm:h-64">
           <img src={vendor.image} alt={vendor.name} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-8">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8">
             <div className="container">
-              <Link to="/vendors" className="mb-3 inline-flex items-center gap-1 text-sm text-primary-foreground/70 hover:text-primary-foreground">
-                <ArrowLeft className="h-4 w-4" /> সকল বিক্রেতা
+              <Link to="/vendors" className="mb-2 inline-flex items-center gap-1 text-xs text-primary-foreground/70 hover:text-primary-foreground sm:mb-3 sm:text-sm">
+                <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4" /> সকল বিক্রেতা
               </Link>
-              <h1 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">{vendor.name}</h1>
-              <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-primary-foreground/80">
-                <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> {vendor.location}</span>
-                <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-organic-gold text-organic-gold" /> {vendor.rating} ({vendor.reviewCount} রিভিউ)</span>
+              <h1 className="font-display text-2xl font-bold text-primary-foreground sm:text-3xl lg:text-4xl">{vendor.name}</h1>
+              <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-primary-foreground/80 sm:mt-2 sm:gap-4 sm:text-sm">
+                <span className="flex items-center gap-1"><MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> {vendor.location}</span>
+                <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-organic-gold text-organic-gold sm:h-3.5 sm:w-3.5" /> {vendor.rating} ({vendor.reviewCount} রিভিউ)</span>
                 {vendor.certified && (
-                  <span className="flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">
-                    <BadgeCheck className="h-3 w-3" /> সার্টিফাইড অর্গানিক
+                  <span className="flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground sm:text-xs">
+                    <BadgeCheck className="h-3 w-3" /> সার্টিফাইড
                   </span>
                 )}
               </div>
@@ -72,13 +72,13 @@ const VendorStorePage = () => {
           </div>
         </div>
 
-        <div className="container py-10">
-          <p className="max-w-2xl text-muted-foreground">{vendor.description}</p>
+        <div className="container px-4 py-6 sm:py-10">
+          <p className="max-w-2xl text-sm text-muted-foreground sm:text-base">{vendor.description}</p>
 
-          <h2 className="mt-10 font-display text-2xl font-bold text-foreground">
+          <h2 className="mt-8 font-display text-xl font-bold text-foreground sm:mt-10 sm:text-2xl">
             পণ্যসমূহ ({vendorProducts.length})
           </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-6 lg:grid-cols-4">
             {vendorProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
