@@ -70,6 +70,9 @@ const GlobalSearch = () => {
           vendorsRes.data?.forEach((v) => { if (!seenIds.has(v.id)) { seenIds.add(v.id); combined.push({ id: v.id, title: v.store_name, subtitle: v.address || undefined, type: "vendor", link: `/vendors/${v.id}` }); }});
           productsRes.data?.forEach((p) => { if (!seenIds.has(p.id)) { seenIds.add(p.id); combined.push({ id: p.id, title: p.name, subtitle: `৳${p.price}/${p.unit}`, type: "product", link: `/products/${p.id}` }); }});
         }
+
+        setResults(combined);
+        setOpen(combined.length > 0);
       } catch {
         setResults([]);
       } finally {
