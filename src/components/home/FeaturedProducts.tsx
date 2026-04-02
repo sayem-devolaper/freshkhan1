@@ -9,14 +9,14 @@ const FeaturedProducts = () => {
   const { data: products, isLoading } = useProducts();
 
   return (
-    <section className="bg-secondary/50 py-20">
-      <div className="container">
+    <section className="bg-background py-12 sm:py-16">
+      <div className="container px-3 sm:px-4">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
               বিশেষ পণ্যসমূহ
             </h2>
-            <p className="mt-3 text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
               আমাদের সেরা বিক্রেতাদের হাতে বাছাই করা অর্গানিক পণ্য
             </p>
           </div>
