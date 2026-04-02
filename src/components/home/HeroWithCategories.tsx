@@ -26,11 +26,11 @@ const HeroWithCategories = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card h-[380px] flex flex-col">
               <div className="bg-primary px-4 py-3">
                 <h3 className="font-semibold text-primary-foreground text-sm tracking-wide">ক্যাটাগরি সমূহ</h3>
               </div>
-              <nav className="py-1">
+              <nav className="py-1 flex-1 overflow-y-auto">
                 {isLoading
                   ? Array.from({ length: 6 }).map((_, i) => (
                       <div key={i} className="px-4 py-2.5">
