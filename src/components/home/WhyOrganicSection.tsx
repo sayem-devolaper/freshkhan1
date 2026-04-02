@@ -26,8 +26,8 @@ const features = [
 
 const WhyOrganicSection = () => {
   return (
-    <section className="bg-primary py-20">
-      <div className="container">
+    <section className="bg-primary py-12 sm:py-16">
+      <div className="container px-3 sm:px-4">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-primary-foreground sm:text-4xl">
             কেন ফ্রেশ খান বেছে নেবেন?

@@ -9,14 +9,14 @@ const FeaturedVendors = () => {
   const { data: vendors, isLoading } = useVendors();
 
   return (
-    <section className="bg-background py-20">
-      <div className="container">
+    <section className="bg-secondary/30 py-12 sm:py-16">
+      <div className="container px-3 sm:px-4">
         <div className="flex items-end justify-between">
           <div>
-            <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
               আমাদের কৃষকদের সাথে পরিচিত হন
             </h2>
-            <p className="mt-3 text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground">
               মানের প্রতি নিবেদিত বিশ্বস্ত অর্গানিক বিক্রেতারা
             </p>
           </div>
@@ -27,7 +27,7 @@ const FeaturedVendors = () => {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="h-52 rounded-xl" />
