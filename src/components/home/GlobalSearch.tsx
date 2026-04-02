@@ -4,6 +4,7 @@ import { Search, X, ShoppingBag, Store, Tag, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
+import { getSearchPatterns } from "@/lib/banglish";
 
 interface SearchResult {
   id: string;
@@ -42,17 +43,33 @@ const GlobalSearch = () => {
     const timeout = setTimeout(async () => {
       setLoading(true);
       try {
-        const searchPattern = `%${trimmed}%`;
-        const [productsRes, vendorsRes, categoriesRes] = await Promise.all([
-          supabase.from("products").select("id, name, price, unit").ilike("name", searchPattern).eq("is_approved", true).limit(5),
-          supabase.from("vendors").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
-          supabase.from("categories").select("id, name, slug").ilike("name", searchPattern).limit(5),
-        ]);
+        const patterns = getSearchPatterns(trimmed);
+        
+        // Run searches for all patterns in parallel
+        const allProducts: typeof combined = [];
+        const allVendors: typeof combined = [];
+        const allCategories: typeof combined = [];
+        
+        const searches = patterns.map(async (pat) => {
+          const searchPattern = `%${pat}%`;
+          const [productsRes, vendorsRes, categoriesRes] = await Promise.all([
+            supabase.from("products").select("id, name, price, unit").ilike("name", searchPattern).eq("is_approved", true).limit(5),
+            supabase.from("vendors").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
+            supabase.from("categories").select("id, name, slug").ilike("name", searchPattern).limit(5),
+          ]);
+          return { productsRes, vendorsRes, categoriesRes };
+        });
+        
+        const results_all = await Promise.all(searches);
 
         const combined: SearchResult[] = [];
-        categoriesRes.data?.forEach((c) => combined.push({ id: c.id, title: c.name, type: "category", link: `/products?category=${c.slug}` }));
-        vendorsRes.data?.forEach((v) => combined.push({ id: v.id, title: v.store_name, subtitle: v.address || undefined, type: "vendor", link: `/vendors/${v.id}` }));
-        productsRes.data?.forEach((p) => combined.push({ id: p.id, title: p.name, subtitle: `৳${p.price}/${p.unit}`, type: "product", link: `/products/${p.id}` }));
+        const seenIds = new Set<string>();
+        
+        for (const { categoriesRes, vendorsRes, productsRes } of results_all) {
+          categoriesRes.data?.forEach((c) => { if (!seenIds.has(c.id)) { seenIds.add(c.id); combined.push({ id: c.id, title: c.name, type: "category", link: `/products?category=${c.slug}` }); }});
+          vendorsRes.data?.forEach((v) => { if (!seenIds.has(v.id)) { seenIds.add(v.id); combined.push({ id: v.id, title: v.store_name, subtitle: v.address || undefined, type: "vendor", link: `/vendors/${v.id}` }); }});
+          productsRes.data?.forEach((p) => { if (!seenIds.has(p.id)) { seenIds.add(p.id); combined.push({ id: p.id, title: p.name, subtitle: `৳${p.price}/${p.unit}`, type: "product", link: `/products/${p.id}` }); }});
+        }
 
         setResults(combined);
         setOpen(combined.length > 0);
