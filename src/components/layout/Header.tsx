@@ -95,16 +95,22 @@ const Header = () => {
     const timeout = setTimeout(async () => {
       setMobileLoading(true);
       try {
-        const pat = `%${trimmed}%`;
-        const [p, v, c] = await Promise.all([
-          supabase.from("products").select("id, name").ilike("name", pat).eq("is_approved", true).limit(4),
-          supabase.from("vendors").select("id, store_name").ilike("store_name", pat).eq("is_approved", true).limit(3),
-          supabase.from("categories").select("id, name, slug").ilike("name", pat).limit(3),
-        ]);
+        const patterns = getSearchPatterns(trimmed);
         const combined: { id: string; title: string; link: string }[] = [];
-        c.data?.forEach((x) => combined.push({ id: x.id, title: x.name, link: `/products?category=${x.slug}` }));
-        v.data?.forEach((x) => combined.push({ id: x.id, title: x.store_name, link: `/vendors/${x.id}` }));
-        p.data?.forEach((x) => combined.push({ id: x.id, title: x.name, link: `/products/${x.id}` }));
+        const seenIds = new Set<string>();
+        
+        for (const pat of patterns) {
+          const sp = `%${pat}%`;
+          const [p, v, c] = await Promise.all([
+            supabase.from("products").select("id, name").ilike("name", sp).eq("is_approved", true).limit(4),
+            supabase.from("vendors").select("id, store_name").ilike("store_name", sp).eq("is_approved", true).limit(3),
+            supabase.from("categories").select("id, name, slug").ilike("name", sp).limit(3),
+          ]);
+          c.data?.forEach((x) => { if (!seenIds.has(x.id)) { seenIds.add(x.id); combined.push({ id: x.id, title: x.name, link: `/products?category=${x.slug}` }); }});
+          v.data?.forEach((x) => { if (!seenIds.has(x.id)) { seenIds.add(x.id); combined.push({ id: x.id, title: x.store_name, link: `/vendors/${x.id}` }); }});
+          p.data?.forEach((x) => { if (!seenIds.has(x.id)) { seenIds.add(x.id); combined.push({ id: x.id, title: x.name, link: `/products/${x.id}` }); }});
+        }
+        
         setMobileResults(combined);
       } catch { setMobileResults([]); }
       finally { setMobileLoading(false); }
