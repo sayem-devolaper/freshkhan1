@@ -43,12 +43,24 @@ const GlobalSearch = () => {
     const timeout = setTimeout(async () => {
       setLoading(true);
       try {
-        const searchPattern = `%${trimmed}%`;
-        const [productsRes, vendorsRes, categoriesRes] = await Promise.all([
-          supabase.from("products").select("id, name, price, unit").ilike("name", searchPattern).eq("is_approved", true).limit(5),
-          supabase.from("vendors").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
-          supabase.from("categories").select("id, name, slug").ilike("name", searchPattern).limit(5),
-        ]);
+        const patterns = getSearchPatterns(trimmed);
+        
+        // Run searches for all patterns in parallel
+        const allProducts: typeof combined = [];
+        const allVendors: typeof combined = [];
+        const allCategories: typeof combined = [];
+        
+        const searches = patterns.map(async (pat) => {
+          const searchPattern = `%${pat}%`;
+          const [productsRes, vendorsRes, categoriesRes] = await Promise.all([
+            supabase.from("products").select("id, name, price, unit").ilike("name", searchPattern).eq("is_approved", true).limit(5),
+            supabase.from("vendors").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
+            supabase.from("categories").select("id, name, slug").ilike("name", searchPattern).limit(5),
+          ]);
+          return { productsRes, vendorsRes, categoriesRes };
+        });
+        
+        const results_all = await Promise.all(searches);
 
         const combined: SearchResult[] = [];
         categoriesRes.data?.forEach((c) => combined.push({ id: c.id, title: c.name, type: "category", link: `/products?category=${c.slug}` }));
