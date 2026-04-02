@@ -9,28 +9,28 @@ const FeaturedVendors = () => {
   const { data: vendors, isLoading } = useVendors();
 
   return (
-    <section className="bg-secondary/30 py-12 sm:py-16">
+    <section className="bg-secondary/30 py-10 sm:py-14">
       <div className="container px-3 sm:px-4">
-        <div className="flex items-end justify-between">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
-              আমাদের কৃষকদের সাথে পরিচিত হন
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              বিশ্বস্ত বিক্রেতা
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              মানের প্রতি নিবেদিত বিশ্বস্ত অর্গানিক বিক্রেতারা
+            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+              যাচাইকৃত অর্গানিক কৃষক ও বিক্রেতা
             </p>
           </div>
-          <Link to="/vendors" className="hidden sm:block">
-            <Button variant="ghost" className="gap-1 text-primary">
-              সব দেখুন <ArrowRight className="h-4 w-4" />
+          <Link to="/vendors">
+            <Button variant="ghost" size="sm" className="gap-1 text-primary text-xs sm:text-sm">
+              সব দেখুন <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-52 rounded-xl" />
+                <Skeleton key={i} className="h-48 rounded-xl" />
               ))
             : (vendors || []).slice(0, 4).map((vendor) => (
                 <VendorCard key={vendor.id} vendor={vendor} />

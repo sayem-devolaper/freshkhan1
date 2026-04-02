@@ -79,8 +79,8 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
-      <div className="container flex h-14 items-center justify-between gap-2 bg-primary-foreground px-3 sm:h-16 sm:gap-4 sm:px-4">
+    <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur-lg">
+      <div className="container flex h-14 items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-4">
         {/* Logo */}
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <img src={freshkhanLogo} alt="FreshKhan" className="h-7 w-auto sm:h-9" />
@@ -92,7 +92,7 @@ const Header = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="rounded-lg px-3 py-2 text-sm font-mono font-extrabold text-secondary-foreground bg-destructive-foreground transition-colors lg:px-4"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-secondary lg:px-4"
             >
               {link.label}
             </Link>

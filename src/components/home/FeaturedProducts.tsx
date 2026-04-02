@@ -9,40 +9,32 @@ const FeaturedProducts = () => {
   const { data: products, isLoading } = useProducts();
 
   return (
-    <section className="bg-background py-12 sm:py-16">
+    <section className="bg-background py-10 sm:py-14">
       <div className="container px-3 sm:px-4">
-        <div className="flex items-end justify-between">
+        <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
-              বিশেষ পণ্যসমূহ
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              আজকের সেরা পণ্য
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              আমাদের সেরা বিক্রেতাদের হাতে বাছাই করা অর্গানিক পণ্য
+            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+              তাজা ও সুলভ মূল্যে অর্গানিক পণ্য
             </p>
           </div>
-          <Link to="/products" className="hidden sm:block">
-            <Button variant="ghost" className="gap-1 text-primary">
-              সব দেখুন <ArrowRight className="h-4 w-4" />
+          <Link to="/products">
+            <Button variant="ghost" size="sm" className="gap-1 text-primary text-xs sm:text-sm">
+              সব দেখুন <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {isLoading
-            ? Array.from({ length: 4 }).map((_, i) => (
+            ? Array.from({ length: 5 }).map((_, i) => (
                 <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
               ))
-            : (products || []).slice(0, 4).map((product) => (
+            : (products || []).slice(0, 10).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-        </div>
-
-        <div className="mt-8 text-center sm:hidden">
-          <Link to="/products">
-            <Button variant="outline" className="gap-1">
-              সকল পণ্য দেখুন <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
         </div>
       </div>
     </section>

@@ -4,41 +4,36 @@ import { motion } from "framer-motion";
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-background py-12 sm:py-16">
+    <section className="bg-background py-10 sm:py-14">
       <div className="container px-3 sm:px-4">
-        <div className="text-center">
-          <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
-            আমাদের সম্প্রদায় কী বলে
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            প্রকৃত ক্রেতা ও বিক্রেতাদের প্রকৃত অভিজ্ঞতা
-          </p>
-        </div>
+        <h2 className="text-center font-display text-xl font-bold text-foreground sm:text-2xl">
+          ক্রেতাদের মতামত
+        </h2>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <motion.div
               key={t.id}
-              className="rounded-xl border border-border bg-card p-6 shadow-card"
+              className="rounded-2xl border border-border bg-card p-5 shadow-card"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.3, delay: i * 0.08 }}
             >
               <div className="flex gap-0.5">
                 {Array.from({ length: 5 }).map((_, j) => (
                   <Star
                     key={j}
-                    className={`h-4 w-4 ${j < t.rating ? "fill-organic-gold text-organic-gold" : "text-border"}`}
+                    className={`h-3.5 w-3.5 ${j < t.rating ? "fill-organic-gold text-organic-gold" : "text-border"}`}
                   />
                 ))}
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{t.text}</p>
-              <div className="mt-5 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground line-clamp-3">{t.text}</p>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
                   {t.avatar}
                 </div>
-                <p className="font-semibold text-foreground">{t.name}</p>
+                <p className="text-sm font-semibold text-foreground">{t.name}</p>
               </div>
             </motion.div>
           ))}
