@@ -128,30 +128,18 @@ const Header = () => {
           {/* Right actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Account */}
-            <Link to="/login" className="hidden sm:flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10">
-                <User className="h-4 w-4 text-primary" />
-              </div>
-              <div className="hidden lg:block text-left">
-                <p className="text-[10px] text-muted-foreground leading-none">একাউন্ট</p>
-                <p className="text-sm font-semibold leading-tight">লগইন</p>
-              </div>
+            <Link to="/login" className="hidden sm:flex items-center justify-center h-9 w-9 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+              <User className="h-4 w-4" />
             </Link>
 
             {/* Cart */}
-            <Link to="/cart" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-accent/10">
-                <ShoppingCart className="h-4 w-4 text-accent" />
-                {totalItems > 0 && (
-                  <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
-                    {totalItems > 9 ? "9+" : totalItems}
-                  </span>
-                )}
-              </div>
-              <div className="hidden lg:block text-left">
-                <p className="text-[10px] text-muted-foreground leading-none">কার্ট</p>
-                <p className="text-sm font-semibold leading-tight">{totalItems} আইটেম</p>
-              </div>
+            <Link to="/cart" className="relative flex items-center justify-center h-9 w-9 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors">
+              <ShoppingCart className="h-4 w-4" />
+              {totalItems > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
+                  {totalItems > 9 ? "9+" : totalItems}
+                </span>
+              )}
             </Link>
 
             {/* Mobile menu toggle */}
