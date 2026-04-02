@@ -4,6 +4,7 @@ import { Search, X, ShoppingBag, Store, Tag, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
+import { getSearchPatterns } from "@/lib/banglish";
 
 interface SearchResult {
   id: string;
