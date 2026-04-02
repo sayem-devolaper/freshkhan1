@@ -678,6 +678,10 @@ export type Database = {
           vendor_earnings: number
         }[]
       }
+      create_product_review: {
+        Args: { p_comment?: string; p_product_id: string; p_rating: number }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
