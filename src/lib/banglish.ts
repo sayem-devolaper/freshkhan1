@@ -26,7 +26,7 @@ const singles: [string, string][] = [
 const dictionary: Record<string, string> = {
   // Products
   "gorur": "গরুর", "dudh": "দুধ", "doodh": "দুধ", "milk": "দুধ",
-  "ghee": "ঘি", "ghi": "ঘি", "ghi": "ঘি",
+  "ghee": "ঘি", "ghi": "ঘি",
   "chaul": "চাল", "chal": "চাল", "rice": "চাল",
   "dal": "ডাল", "daal": "ডাল", "dhal": "ডাল",
   "mosur": "মসুর", "mosoor": "মসুর", "moshur": "মসুর",
