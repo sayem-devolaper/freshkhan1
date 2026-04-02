@@ -100,5 +100,5 @@ export function getSearchPatterns(query: string): string[] {
   const patterns = [query];
   const bengali = banglishToBengali(query);
   patterns.push(...bengali);
-  return [...new Set(patterns.filter(Boolean))];
+  return Array.from(new Set(patterns.filter(Boolean)));
 }
