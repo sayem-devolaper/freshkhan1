@@ -7,6 +7,7 @@ import freshkhanLogo from "@/assets/freshkhan-logo.png";
 import { useCart } from "@/context/CartContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useCategories } from "@/hooks/use-categories";
+import { getSearchPatterns } from "@/lib/banglish";
 
 const HeaderSearchBar = () => {
   const [query, setQuery] = useState("");
