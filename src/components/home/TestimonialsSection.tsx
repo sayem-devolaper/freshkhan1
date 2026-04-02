@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-secondary/50 py-20">
-      <div className="container">
+    <section className="bg-background py-12 sm:py-16">
+      <div className="container px-3 sm:px-4">
         <div className="text-center">
           <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
             আমাদের সম্প্রদায় কী বলে
