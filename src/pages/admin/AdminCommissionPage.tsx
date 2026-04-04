@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,6 +9,7 @@ import { Save, Percent } from "lucide-react";
 
 const AdminCommissionPage = () => {
   const [vendors, setVendors] = useState<any[]>([]);
+  const [commissionTotals, setCommissionTotals] = useState<Record<string, number>>({});
   const [editingRates, setEditingRates] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
@@ -25,6 +26,17 @@ const AdminCommissionPage = () => {
       rates[v.id] = String(v.commission_rate ?? 10);
     });
     setEditingRates(rates);
+
+    // Fetch commission totals per vendor from orders
+    const { data: orders } = await supabase
+      .from("orders")
+      .select("vendor_id, commission_amount");
+    const totals: Record<string, number> = {};
+    (orders || []).forEach((o: any) => {
+      totals[o.vendor_id] = (totals[o.vendor_id] || 0) + Number(o.commission_amount || 0);
+    });
+    setCommissionTotals(totals);
+
     setLoading(false);
   };
 
@@ -65,6 +77,8 @@ const AdminCommissionPage = () => {
     fetchVendors();
   };
 
+  const grandTotal = Object.values(commissionTotals).reduce((a, b) => a + b, 0);
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
@@ -84,6 +98,11 @@ const AdminCommissionPage = () => {
             <p className="text-xs text-muted-foreground mt-1">
               প্রতিটি অর্ডার থেকে প্ল্যাটফর্ম স্বয়ংক্রিয়ভাবে নির্ধারিত শতাংশ কমিশন কেটে নেয়। ডিফল্ট কমিশন ১০%। প্রতিটি বিক্রেতার জন্য আলাদা কমিশন নির্ধারণ করতে পারেন।
             </p>
+            {grandTotal > 0 && (
+              <p className="text-sm font-semibold text-primary mt-2">
+                মোট কমিশন আয়: ৳{grandTotal.toFixed(2)}
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -98,6 +117,7 @@ const AdminCommissionPage = () => {
                   <TableHead>স্ট্যাটাস</TableHead>
                   <TableHead>রেটিং</TableHead>
                   <TableHead>কমিশন রেট (%)</TableHead>
+                  <TableHead>মোট কমিশন (৳)</TableHead>
                   <TableHead className="text-right">অ্যাকশন</TableHead>
                 </TableRow>
               </TableHeader>
@@ -126,6 +146,9 @@ const AdminCommissionPage = () => {
                         }
                       />
                     </TableCell>
+                    <TableCell className="font-semibold">
+                      ৳{(commissionTotals[v.id] || 0).toFixed(2)}
+                    </TableCell>
                     <TableCell className="text-right">
                       <Button size="sm" variant="outline" onClick={() => saveRate(v.id)}>
                         <Save className="w-3 h-3 mr-1" />
@@ -136,7 +159,7 @@ const AdminCommissionPage = () => {
                 ))}
                 {vendors.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                       {loading ? "লোড হচ্ছে..." : "কোনো বিক্রেতা নেই"}
                     </TableCell>
                   </TableRow>
