@@ -11,6 +11,7 @@ import VendorsPage from "./pages/VendorsPage";
 import VendorStorePage from "./pages/VendorStorePage";
 import AboutPage from "./pages/AboutPage";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/vendors/:id" element={<VendorStorePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             
