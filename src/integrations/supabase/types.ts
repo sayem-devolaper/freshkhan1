@@ -777,6 +777,16 @@ export type Database = {
         }
         Returns: boolean
       }
+      place_order: {
+        Args: {
+          p_items: Json
+          p_notes?: string
+          p_payment_method: string
+          p_shipping_address_id?: string
+          p_vendor_id: string
+        }
+        Returns: string
+      }
       register_as_vendor: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {
