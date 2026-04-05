@@ -187,6 +187,11 @@ const CheckoutPage = () => {
                   <div className="space-y-1.5">
                     <Label className="text-xs">শহর / জেলা *</Label>
                     <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder="ঢাকা" />
+                    {city.trim() !== "" && (
+                      <p className={`text-xs font-medium ${isDhaka ? "text-primary" : "text-accent"}`}>
+                        {isDhaka ? "📍 ঢাকা সিটি — ডেলিভারি চার্জ ৳70" : "📍 ঢাকার বাইরে — ডেলিভারি চার্জ ৳130"}
+                      </p>
+                    )}
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs">অতিরিক্ত নোট</Label>
@@ -279,12 +284,16 @@ const CheckoutPage = () => {
                       <span>৳{totalPrice}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">ডেলিভারি</span>
-                      <span className="text-primary">ফ্রি</span>
+                      <span className="text-muted-foreground">ডেলিভারি {city.trim() && (isDhaka ? "(ঢাকা সিটি)" : "(ঢাকার বাইরে)")}</span>
+                      {city.trim() === "" ? (
+                        <span className="text-muted-foreground text-xs">শহর দিন</span>
+                      ) : (
+                        <span className="text-accent font-medium">৳{deliveryCharge}</span>
+                      )}
                     </div>
                     <div className="flex justify-between font-bold text-base pt-1 border-t border-border">
                       <span>মোট</span>
-                      <span>৳{totalPrice}</span>
+                      <span>৳{grandTotal}</span>
                     </div>
                   </div>
 
