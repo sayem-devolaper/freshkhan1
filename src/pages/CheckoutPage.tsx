@@ -97,8 +97,21 @@ const CheckoutPage = () => {
   };
 
   if (items.length === 0 && !orderPlaced) {
-    navigate("/cart");
-    return null;
+    return (
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex flex-1 items-center justify-center bg-background px-4">
+          <div className="text-center space-y-4 max-w-md">
+            <h1 className="font-display text-2xl font-bold text-foreground">আপনার কার্ট খালি</h1>
+            <p className="text-muted-foreground">চেকআউট করতে প্রথমে কার্টে পণ্য যোগ করুন।</p>
+            <Link to="/products">
+              <Button variant="hero" className="rounded-full">পণ্য দেখুন</Button>
+            </Link>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   if (orderPlaced) {
