@@ -42,8 +42,7 @@ const CheckoutPage = () => {
   }, [navigate]);
 
   // Auto-detect Dhaka city for delivery charge
-  const dhakaKeywords = ["ঢাকা", "dhaka", "daka", "dhk"];
-  const isDhaka = dhakaKeywords.some((k) => city.trim().toLowerCase().includes(k));
+  const isDhaka = DHAKA_DISTRICTS.includes(city);
   const deliveryCharge = city.trim() === "" ? 0 : isDhaka ? 70 : 130;
   const grandTotal = totalPrice + deliveryCharge;
 
