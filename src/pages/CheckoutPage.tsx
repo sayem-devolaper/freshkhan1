@@ -11,10 +11,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Truck, Smartphone, Banknote, CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowLeft, Truck, Smartphone, Banknote, CheckCircle2, Loader2, Trash2 } from "lucide-react";
 
 const CheckoutPage = () => {
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalPrice, clearCart, removeFromCart } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -254,13 +254,16 @@ const CheckoutPage = () => {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {items.map(({ product, quantity }) => (
-                    <div key={product.id} className="flex gap-2 text-sm">
+                    <div key={product.id} className="flex items-center gap-2 text-sm">
                       <img src={product.image} alt={product.name} className="h-10 w-10 rounded-md object-cover" />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium truncate text-foreground">{product.name}</p>
                         <p className="text-xs text-muted-foreground">{quantity} × ৳{product.price}</p>
                       </div>
                       <span className="font-medium text-foreground whitespace-nowrap">৳{product.price * quantity}</span>
+                      <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive shrink-0" onClick={() => removeFromCart(product.id)}>
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
                     </div>
                   ))}
 
