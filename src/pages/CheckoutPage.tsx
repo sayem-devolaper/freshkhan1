@@ -187,7 +187,16 @@ const CheckoutPage = () => {
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs">শহর / জেলা *</Label>
-                    <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder="ঢাকা" />
+                    <Select value={city} onValueChange={setCity}>
+                      <SelectTrigger className="border-2 border-primary">
+                        <SelectValue placeholder="জেলা নির্বাচন করুন" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BD_DISTRICTS.map((d) => (
+                          <SelectItem key={d} value={d}>{d}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     {city.trim() !== "" && (
                       <p className={`text-xs font-medium ${isDhaka ? "text-primary" : "text-accent"}`}>
                         {isDhaka ? "📍 ঢাকা সিটি — ডেলিভারি চার্জ ৳70" : "📍 ঢাকার বাইরে — ডেলিভারি চার্জ ৳130"}
