@@ -39,6 +39,12 @@ const CheckoutPage = () => {
     });
   }, [navigate]);
 
+  // Auto-detect Dhaka city for delivery charge
+  const dhakaKeywords = ["ঢাকা", "dhaka", "daka", "dhk"];
+  const isDhaka = dhakaKeywords.some((k) => city.trim().toLowerCase().includes(k));
+  const deliveryCharge = city.trim() === "" ? 0 : isDhaka ? 70 : 130;
+  const grandTotal = totalPrice + deliveryCharge;
+
   // Group items by vendor
   const itemsByVendor: Record<string, typeof items> = {};
   items.forEach((item) => {
