@@ -307,7 +307,7 @@ const CheckoutPage = () => {
                     {loading ? (
                       <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> অর্ডার হচ্ছে...</>
                     ) : (
-                      `অর্ডার দিন — ৳${totalPrice}`
+                      `অর্ডার দিন — ৳${grandTotal}`
                     )}
                   </Button>
                 </CardContent>
