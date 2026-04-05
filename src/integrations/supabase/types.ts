@@ -146,6 +146,13 @@ export type Database = {
             referencedRelation: "vendors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "campaigns_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       categories: {
@@ -323,6 +330,13 @@ export type Database = {
             referencedRelation: "vendors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "orders_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       payout_requests: {
@@ -359,6 +373,13 @@ export type Database = {
             columns: ["vendor_id"]
             isOneToOne: false
             referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payout_requests_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors_public"
             referencedColumns: ["id"]
           },
         ]
@@ -431,6 +452,13 @@ export type Database = {
             columns: ["vendor_id"]
             isOneToOne: false
             referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors_public"
             referencedColumns: ["id"]
           },
         ]
@@ -523,6 +551,13 @@ export type Database = {
             columns: ["vendor_id"]
             isOneToOne: false
             referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promo_codes_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors_public"
             referencedColumns: ["id"]
           },
         ]
@@ -668,7 +703,60 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      vendors_public: {
+        Row: {
+          address: string | null
+          banner_url: string | null
+          commission_rate: number | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          is_approved: boolean | null
+          is_suspended: boolean | null
+          logo_url: string | null
+          organic_certification: string | null
+          rating: number | null
+          review_count: number | null
+          store_name: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          address?: string | null
+          banner_url?: string | null
+          commission_rate?: number | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          is_approved?: boolean | null
+          is_suspended?: boolean | null
+          logo_url?: string | null
+          organic_certification?: string | null
+          rating?: number | null
+          review_count?: number | null
+          store_name?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          address?: string | null
+          banner_url?: string | null
+          commission_rate?: number | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          is_approved?: boolean | null
+          is_suspended?: boolean | null
+          logo_url?: string | null
+          organic_certification?: string | null
+          rating?: number | null
+          review_count?: number | null
+          store_name?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       calculate_commission: {
