@@ -10,8 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Truck, Smartphone, Banknote, CheckCircle2, Loader2, Trash2 } from "lucide-react";
+import { BD_DISTRICTS, DHAKA_DISTRICTS } from "@/data/districts";
 
 const CheckoutPage = () => {
   const { items, totalPrice, clearCart, removeFromCart } = useCart();
@@ -40,8 +42,7 @@ const CheckoutPage = () => {
   }, [navigate]);
 
   // Auto-detect Dhaka city for delivery charge
-  const dhakaKeywords = ["ঢাকা", "dhaka", "daka", "dhk"];
-  const isDhaka = dhakaKeywords.some((k) => city.trim().toLowerCase().includes(k));
+  const isDhaka = DHAKA_DISTRICTS.includes(city);
   const deliveryCharge = city.trim() === "" ? 0 : isDhaka ? 70 : 130;
   const grandTotal = totalPrice + deliveryCharge;
 
@@ -186,7 +187,16 @@ const CheckoutPage = () => {
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs">শহর / জেলা *</Label>
-                    <Input value={city} onChange={(e) => setCity(e.target.value)} placeholder="ঢাকা" />
+                    <Select value={city} onValueChange={setCity}>
+                      <SelectTrigger className="border-2 border-primary">
+                        <SelectValue placeholder="জেলা নির্বাচন করুন" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {BD_DISTRICTS.map((d) => (
+                          <SelectItem key={d} value={d}>{d}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     {city.trim() !== "" && (
                       <p className={`text-xs font-medium ${isDhaka ? "text-primary" : "text-accent"}`}>
                         {isDhaka ? "📍 ঢাকা সিটি — ডেলিভারি চার্জ ৳70" : "📍 ঢাকার বাইরে — ডেলিভারি চার্জ ৳130"}
