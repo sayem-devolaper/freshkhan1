@@ -91,9 +91,11 @@ const CartPage = () => {
                   <span className="font-bold text-foreground">৳{totalPrice}</span>
                 </div>
               </div>
-              <Button variant="hero" size="lg" className="w-full rounded-full">
-                চেকআউট — ৳{totalPrice}
-              </Button>
+              <Link to="/checkout">
+                <Button variant="hero" size="lg" className="w-full rounded-full">
+                  চেকআউট — ৳{totalPrice}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
