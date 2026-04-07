@@ -848,7 +848,6 @@ export type Database = {
         Row: {
           address: string | null
           banner_url: string | null
-          commission_rate: number | null
           created_at: string | null
           description: string | null
           id: string | null
@@ -865,7 +864,6 @@ export type Database = {
         Insert: {
           address?: string | null
           banner_url?: string | null
-          commission_rate?: number | null
           created_at?: string | null
           description?: string | null
           id?: string | null
@@ -882,7 +880,6 @@ export type Database = {
         Update: {
           address?: string | null
           banner_url?: string | null
-          commission_rate?: number | null
           created_at?: string | null
           description?: string | null
           id?: string | null

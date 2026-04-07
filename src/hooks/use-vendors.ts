@@ -7,7 +7,7 @@ export const useVendors = () => {
     queryKey: ["vendors-public"],
     queryFn: async (): Promise<Vendor[]> => {
       const { data, error } = await supabase
-        .from("vendors")
+        .from("vendors_public")
         .select("*")
         .eq("is_approved", true)
         .eq("is_suspended", false)
@@ -49,7 +49,7 @@ export const useVendor = (id: string | undefined) => {
     queryFn: async (): Promise<Vendor | null> => {
       if (!id) return null;
       const { data, error } = await supabase
-        .from("vendors")
+        .from("vendors_public")
         .select("*")
         .eq("id", id)
         .single();
