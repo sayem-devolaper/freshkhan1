@@ -54,7 +54,7 @@ const GlobalSearch = () => {
           const searchPattern = `%${pat}%`;
           const [productsRes, vendorsRes, categoriesRes] = await Promise.all([
             supabase.from("products").select("id, name, price, unit").ilike("name", searchPattern).eq("is_approved", true).limit(5),
-            supabase.from("vendors").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
+            supabase.from("vendors_public").select("id, store_name, address").ilike("store_name", searchPattern).eq("is_approved", true).eq("is_suspended", false).limit(5),
             supabase.from("categories").select("id, name, slug").ilike("name", searchPattern).limit(5),
           ]);
           return { productsRes, vendorsRes, categoriesRes };
