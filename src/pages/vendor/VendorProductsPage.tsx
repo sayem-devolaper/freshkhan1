@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, ImagePlus, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Product {
@@ -21,12 +21,15 @@ interface Product {
   description: string | null;
   is_approved: boolean;
   category_id: string | null;
+  images: string[] | null;
 }
 
 interface Category {
   id: string;
   name: string;
 }
+
+const MAX_FILE_SIZE = 500 * 1024; // 500 KB
 
 const VendorProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -35,7 +38,9 @@ const VendorProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [uploading, setUploading] = useState(false);
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form state
   const [name, setName] = useState("");
@@ -45,9 +50,13 @@ const VendorProductsPage = () => {
   const [unit, setUnit] = useState("kg");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
 
   const resetForm = () => {
     setName(""); setPrice(""); setOriginalPrice(""); setStock(""); setUnit("kg"); setDescription(""); setCategoryId(""); setEditingProduct(null);
+    setImageFiles([]); setImagePreviews([]); setExistingImages([]);
   };
 
   const fetchData = async () => {
@@ -59,7 +68,7 @@ const VendorProductsPage = () => {
     setVendorId(vendor.id);
 
     const [productsRes, categoriesRes] = await Promise.all([
-      supabase.from("products").select("id, name, price, original_price, stock, unit, description, is_approved, category_id").eq("vendor_id", vendor.id).order("created_at", { ascending: false }),
+      supabase.from("products").select("id, name, price, original_price, stock, unit, description, is_approved, category_id, images").eq("vendor_id", vendor.id).order("created_at", { ascending: false }),
       supabase.from("categories").select("id, name"),
     ]);
 
@@ -70,8 +79,73 @@ const VendorProductsPage = () => {
 
   useEffect(() => { fetchData(); }, []);
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const validFiles: File[] = [];
+    const previews: string[] = [];
+
+    for (const file of files) {
+      if (file.size > MAX_FILE_SIZE) {
+        toast({
+          title: "ফাইল সাইজ বড়",
+          description: `"${file.name}" ৫০০ KB এর বেশি। অনুগ্রহ করে ছোট ফাইল ব্যবহার করুন।`,
+          variant: "destructive",
+        });
+        continue;
+      }
+      if (!file.type.startsWith("image/")) {
+        toast({
+          title: "ভুল ফাইল টাইপ",
+          description: `"${file.name}" একটি ছবি নয়।`,
+          variant: "destructive",
+        });
+        continue;
+      }
+      validFiles.push(file);
+      previews.push(URL.createObjectURL(file));
+    }
+
+    setImageFiles((prev) => [...prev, ...validFiles]);
+    setImagePreviews((prev) => [...prev, ...previews]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const removeNewImage = (index: number) => {
+    URL.revokeObjectURL(imagePreviews[index]);
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index: number) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const uploadImages = async (): Promise<string[]> => {
+    const urls: string[] = [];
+    for (const file of imageFiles) {
+      const ext = file.name.split(".").pop();
+      const path = `products/${vendorId}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+      const { error } = await supabase.storage.from("images").upload(path, file);
+      if (error) {
+        toast({ title: "আপলোড ত্রুটি", description: error.message, variant: "destructive" });
+        continue;
+      }
+      const { data: urlData } = supabase.storage.from("images").getPublicUrl(path);
+      urls.push(urlData.publicUrl);
+    }
+    return urls;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setUploading(true);
+
+    let allImages = [...existingImages];
+    if (imageFiles.length > 0) {
+      const uploaded = await uploadImages();
+      allImages = [...allImages, ...uploaded];
+    }
+
     const payload = {
       name: name.trim(),
       price: parseFloat(price),
@@ -81,6 +155,7 @@ const VendorProductsPage = () => {
       description: description.trim() || null,
       category_id: categoryId || null,
       vendor_id: vendorId,
+      images: allImages.length > 0 ? allImages : null,
     };
 
     let error;
@@ -89,6 +164,8 @@ const VendorProductsPage = () => {
     } else {
       ({ error } = await supabase.from("products").insert(payload));
     }
+
+    setUploading(false);
 
     if (error) {
       toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
@@ -109,6 +186,9 @@ const VendorProductsPage = () => {
     setUnit(p.unit);
     setDescription(p.description || "");
     setCategoryId(p.category_id || "");
+    setExistingImages(p.images || []);
+    setImageFiles([]);
+    setImagePreviews([]);
     setDialogOpen(true);
   };
 
@@ -181,8 +261,66 @@ const VendorProductsPage = () => {
                 <Label>বিবরণ</Label>
                 <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} />
               </div>
-              <Button type="submit" variant="hero" className="w-full">
-                {editingProduct ? "আপডেট করুন" : "পণ্য যোগ করুন"}
+
+              {/* Image Upload Section */}
+              <div className="space-y-2">
+                <Label>পণ্যের ছবি (সর্বোচ্চ ৫০০ KB প্রতিটি)</Label>
+                <div
+                  className="border-2 border-dashed border-primary/40 rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <ImagePlus className="h-8 w-8 mx-auto text-primary/60 mb-2" />
+                  <p className="text-sm text-muted-foreground">ছবি আপলোড করতে ক্লিক করুন</p>
+                  <p className="text-xs text-muted-foreground mt-1">JPG, PNG, WebP — সর্বোচ্চ ৫০০ KB</p>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={handleImageSelect}
+                />
+
+                {/* Existing images */}
+                {existingImages.length > 0 && (
+                  <div className="grid grid-cols-3 gap-2 mt-2">
+                    {existingImages.map((url, i) => (
+                      <div key={url} className="relative group rounded-md overflow-hidden border border-border">
+                        <img src={url} alt="" className="w-full h-20 object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => removeExistingImage(i)}
+                          className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* New image previews */}
+                {imagePreviews.length > 0 && (
+                  <div className="grid grid-cols-3 gap-2 mt-2">
+                    {imagePreviews.map((src, i) => (
+                      <div key={src} className="relative group rounded-md overflow-hidden border border-primary/30">
+                        <img src={src} alt="" className="w-full h-20 object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => removeNewImage(i)}
+                          className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <Button type="submit" variant="hero" className="w-full" disabled={uploading}>
+                {uploading ? "আপলোড হচ্ছে..." : editingProduct ? "আপডেট করুন" : "পণ্য যোগ করুন"}
               </Button>
             </form>
           </DialogContent>
@@ -199,6 +337,7 @@ const VendorProductsPage = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead>ছবি</TableHead>
                   <TableHead>পণ্যের নাম</TableHead>
                   <TableHead>মূল্য</TableHead>
                   <TableHead>স্টক</TableHead>
@@ -209,6 +348,15 @@ const VendorProductsPage = () => {
               <TableBody>
                 {products.map((p) => (
                   <TableRow key={p.id}>
+                    <TableCell>
+                      {p.images && p.images.length > 0 ? (
+                        <img src={p.images[0]} alt={p.name} className="w-10 h-10 rounded object-cover" />
+                      ) : (
+                        <div className="w-10 h-10 rounded bg-muted flex items-center justify-center">
+                          <ImagePlus className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      )}
+                    </TableCell>
                     <TableCell className="font-medium">{p.name}</TableCell>
                     <TableCell>৳{p.price}</TableCell>
                     <TableCell>{p.stock}</TableCell>
