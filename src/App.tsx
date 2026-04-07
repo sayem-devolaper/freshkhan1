@@ -23,6 +23,7 @@ import AdminVendorsPage from "./pages/admin/AdminVendorsPage";
 import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminCommissionPage from "./pages/admin/AdminCommissionPage";
+import AdminHomepagePage from "./pages/admin/AdminHomepagePage";
 import VendorLoginPage from "./pages/vendor/VendorLoginPage";
 import VendorRegisterPage from "./pages/vendor/VendorRegisterPage";
 import VendorGuard from "./components/vendor/VendorGuard";
@@ -87,6 +88,7 @@ const App = () => (
               <Route path="orders" element={<AdminOrdersPage />} />
               <Route path="products" element={<AdminProductsPage />} />
               <Route path="commission" element={<AdminCommissionPage />} />
+              <Route path="homepage" element={<AdminHomepagePage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

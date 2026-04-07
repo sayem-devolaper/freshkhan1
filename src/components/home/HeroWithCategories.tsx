@@ -6,9 +6,31 @@ import { Skeleton } from "@/components/ui/skeleton";
 import heroBg from "@/assets/hero-bg.jpg";
 import GlobalSearch from "./GlobalSearch";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const HeroWithCategories = () => {
   const { data: categories, isLoading } = useCategories();
+
+  const { data: heroBanners } = useQuery({
+    queryKey: ["hero-banners"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("hero_banners")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order")
+        .limit(1);
+      return data;
+    },
+  });
+
+  const banner = heroBanners?.[0];
+  const heroTitle = banner?.title || "তাজা অর্গানিক খাবার,";
+  const heroSubtitle = banner?.subtitle || "প্রতিদিন ডেলিভারি";
+  const heroImage = banner?.image_url || heroBg;
+  const heroButtonText = banner?.button_text || "এখনই কিনুন";
+  const heroButtonLink = banner?.button_link || "/products";
 
   return (
     <section className="bg-background py-4 sm:py-6">
@@ -62,7 +84,7 @@ const HeroWithCategories = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="relative overflow-hidden rounded-2xl h-[240px] sm:h-[320px] lg:h-[380px]">
-              <img src={heroBg} alt="অর্গানিক খামার" className="h-full w-full object-cover" />
+              <img src={heroImage} alt="অর্গানিক খামার" className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 via-foreground/40 to-transparent" />
 
               <div className="absolute inset-0 flex items-center p-5 sm:p-8 lg:p-10">
@@ -72,18 +94,18 @@ const HeroWithCategories = () => {
                   </span>
 
                   <h1 className="font-display text-xl font-bold leading-tight text-primary-foreground sm:text-3xl lg:text-4xl">
-                    তাজা অর্গানিক খাবার,
+                    {heroTitle}
                     <br />
-                    <span className="text-organic-leaf">প্রতিদিন ডেলিভারি</span>
+                    <span className="text-organic-leaf">{heroSubtitle}</span>
                   </h1>
 
                   <p className="max-w-sm text-xs leading-relaxed text-primary-foreground/80 sm:text-sm">
                     সার্টিফাইড কৃষকদের কাছ থেকে সরাসরি আপনার দোরগোড়ায়।
                   </p>
 
-                  <Link to="/products">
+                  <Link to={heroButtonLink}>
                     <Button variant="hero" size="default" className="gap-2 rounded-full px-6 text-sm mt-1">
-                      এখনই কিনুন
+                      {heroButtonText}
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
