@@ -4,9 +4,36 @@ import { Button } from "@/components/ui/button";
 import VendorCard from "@/components/VendorCard";
 import { useVendors } from "@/hooks/use-vendors";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const FeaturedVendors = () => {
   const { data: vendors, isLoading } = useVendors();
+
+  const { data: featuredItems } = useQuery({
+    queryKey: ["featured-vendors"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("featured_items")
+        .select("item_id")
+        .eq("item_type", "vendor")
+        .eq("is_active", true)
+        .order("sort_order");
+      return data?.map(i => i.item_id) || [];
+    },
+  });
+
+  const displayVendors = (() => {
+    if (!vendors) return [];
+    if (featuredItems && featuredItems.length > 0) {
+      const featured = featuredItems
+        .map(id => vendors.find(v => v.id === id))
+        .filter(Boolean);
+      const rest = vendors.filter(v => !featuredItems.includes(v.id));
+      return [...featured, ...rest].slice(0, 4);
+    }
+    return vendors.slice(0, 4);
+  })();
 
   return (
     <section className="bg-secondary/30 py-10 sm:py-14">
@@ -32,8 +59,8 @@ const FeaturedVendors = () => {
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Skeleton key={i} className="h-48 rounded-xl" />
               ))
-            : (vendors || []).slice(0, 4).map((vendor) => (
-                <VendorCard key={vendor.id} vendor={vendor} />
+            : displayVendors.map((vendor) => (
+                <VendorCard key={vendor!.id} vendor={vendor!} />
               ))}
         </div>
       </div>

@@ -1,8 +1,26 @@
 import { Star } from "lucide-react";
-import { testimonials } from "@/types/database";
+import { testimonials as staticTestimonials } from "@/types/database";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const TestimonialsSection = () => {
+  const { data: dbTestimonials } = useQuery({
+    queryKey: ["homepage-testimonials"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("homepage_testimonials")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order");
+      return data;
+    },
+  });
+
+  const testimonials = dbTestimonials && dbTestimonials.length > 0
+    ? dbTestimonials.map(t => ({ id: t.id, name: t.name, text: t.text, rating: t.rating, avatar: t.avatar || t.name.slice(0, 2) }))
+    : staticTestimonials;
+
   return (
     <section className="bg-background py-10 sm:py-14">
       <div className="container px-3 sm:px-4">
