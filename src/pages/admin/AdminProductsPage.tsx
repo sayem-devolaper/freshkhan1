@@ -40,7 +40,7 @@ const AdminProductsPage = () => {
   }, []);
 
   const updateProduct = async (id: string, updates: Record<string, any>, msg: string) => {
-    const { error } = await supabase.from("products").update(updates).eq("id", id);
+    const { error } = await supabase.from("products").update(updates as any).eq("id", id);
     if (error) {
       toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
     } else {
