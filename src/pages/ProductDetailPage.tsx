@@ -109,7 +109,31 @@ const ProductDetailPage = () => {
                 <span className="text-sm text-muted-foreground">/ {product.unit}</span>
               </div>
 
-              <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">{product.description}</p>
+              {/* Product Details & Specifications */}
+              {product.description && (
+                <div className="space-y-3 rounded-xl border border-border bg-card p-4 sm:p-5">
+                  <h3 className="font-display text-base font-bold text-foreground sm:text-lg">পণ্যের বিবরণ</h3>
+                  <div className="text-sm leading-relaxed text-muted-foreground sm:text-base whitespace-pre-line">
+                    {product.description}
+                  </div>
+                </div>
+              )}
+
+              <div className="rounded-xl border border-border bg-card p-4 sm:p-5">
+                <h3 className="font-display text-base font-bold text-foreground sm:text-lg mb-3">পণ্যের তথ্য</h3>
+                <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                  <span className="text-muted-foreground">ক্যাটাগরি</span>
+                  <span className="font-medium text-foreground">{product.category || "—"}</span>
+                  <span className="text-muted-foreground">একক</span>
+                  <span className="font-medium text-foreground">{product.unit}</span>
+                  <span className="text-muted-foreground">অর্গানিক</span>
+                  <span className="font-medium text-foreground">{product.organic ? "হ্যাঁ ✓" : "না"}</span>
+                  <span className="text-muted-foreground">বিক্রেতা</span>
+                  <Link to={`/vendors/${product.vendorId}`} className="font-medium text-primary hover:underline">{product.vendor}</Link>
+                  <span className="text-muted-foreground">রেটিং</span>
+                  <span className="font-medium text-foreground">⭐ {product.rating} ({product.reviewCount} রিভিউ)</span>
+                </div>
+              </div>
 
               {/* Quantity + Add to Cart - stacks on small screens */}
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
