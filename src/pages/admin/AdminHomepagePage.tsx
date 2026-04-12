@@ -291,6 +291,85 @@ function TestimonialsTab() {
   );
 }
 
+/* ───── Categories ───── */
+function CategoriesTab() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editing, setEditing] = useState<any>(null);
+  const { toast } = useToast();
+
+  const fetch_ = async () => {
+    setLoading(true);
+    const { data } = await supabase.from("categories").select("*").order("name");
+    setItems(data || []);
+    setLoading(false);
+  };
+  useEffect(() => { fetch_(); }, []);
+
+  const save = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const name = (fd.get("name") as string).trim();
+    const slug = (fd.get("slug") as string).trim() || name.toLowerCase().replace(/\s+/g, "-");
+    const icon = (fd.get("icon") as string).trim() || "📦";
+    const row = { name, slug, icon };
+    const { error } = editing?.id
+      ? await supabase.from("categories").update(row as any).eq("id", editing.id)
+      : await supabase.from("categories").insert(row as any);
+    if (error) { toast({ title: "ত্রুটি", description: error.message, variant: "destructive" }); return; }
+    toast({ title: "সফল" });
+    setDialogOpen(false);
+    setEditing(null);
+    fetch_();
+  };
+
+  const del = async (id: string) => {
+    const { error } = await supabase.from("categories").delete().eq("id", id);
+    if (error) { toast({ title: "ত্রুটি", description: error.message, variant: "destructive" }); return; }
+    toast({ title: "মুছে ফেলা হয়েছে" });
+    fetch_();
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-semibold text-foreground">ক্যাটাগরি</h3>
+        <Button size="sm" onClick={() => { setEditing({}); setDialogOpen(true); }}><Plus className="h-4 w-4 mr-1" /> নতুন ক্যাটাগরি</Button>
+      </div>
+      <Table>
+        <TableHeader><TableRow><TableHead>আইকন</TableHead><TableHead>নাম</TableHead><TableHead>স্লাগ</TableHead><TableHead>অ্যাকশন</TableHead></TableRow></TableHeader>
+        <TableBody>
+          {items.map(item => (
+            <TableRow key={item.id}>
+              <TableCell className="text-2xl">{item.icon || "📦"}</TableCell>
+              <TableCell className="font-medium">{item.name}</TableCell>
+              <TableCell className="text-sm text-muted-foreground">{item.slug}</TableCell>
+              <TableCell className="flex gap-1">
+                <Button variant="ghost" size="icon" onClick={() => { setEditing(item); setDialogOpen(true); }}><Edit className="h-4 w-4" /></Button>
+                <Button variant="ghost" size="icon" className="text-destructive" onClick={() => del(item.id)}><Trash2 className="h-4 w-4" /></Button>
+              </TableCell>
+            </TableRow>
+          ))}
+          {!loading && items.length === 0 && <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground">কোনো ক্যাটাগরি নেই</TableCell></TableRow>}
+        </TableBody>
+      </Table>
+
+      <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) setEditing(null); }}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>{editing?.id ? "ক্যাটাগরি এডিট" : "নতুন ক্যাটাগরি"}</DialogTitle></DialogHeader>
+          <form onSubmit={save} className="space-y-3">
+            <div><Label>নাম *</Label><Input name="name" defaultValue={editing?.name} required className="border-2 border-primary" /></div>
+            <div><Label>স্লাগ</Label><Input name="slug" defaultValue={editing?.slug} placeholder="auto-generated" className="border-2 border-primary" /></div>
+            <div><Label>আইকন (ইমোজি)</Label><Input name="icon" defaultValue={editing?.icon || "📦"} className="border-2 border-primary" /></div>
+            <Button type="submit" className="w-full"><Save className="h-4 w-4 mr-1" /> সংরক্ষণ</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
 /* ───── Featured Items ───── */
 function FeaturedItemsTab() {
   const [items, setItems] = useState<any[]>([]);
