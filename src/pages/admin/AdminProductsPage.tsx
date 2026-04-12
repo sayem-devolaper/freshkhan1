@@ -144,7 +144,7 @@ const AdminProductsPage = () => {
       }
     }
 
-    const payload: Record<string, any> = {
+    const payload = {
       name: name.trim(),
       price: parseFloat(price),
       original_price: originalPrice ? parseFloat(originalPrice) : null,
