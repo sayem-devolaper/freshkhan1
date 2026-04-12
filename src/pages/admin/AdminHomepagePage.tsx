@@ -486,14 +486,16 @@ const AdminHomepagePage = () => {
     <div className="space-y-6">
       <h1 className="text-2xl font-display font-bold text-foreground">হোম পেজ কন্টেন্ট</h1>
       <Tabs defaultValue="hero" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="hero">হিরো ব্যানার</TabsTrigger>
           <TabsTrigger value="promo">প্রোমো ব্যানার</TabsTrigger>
+          <TabsTrigger value="categories">ক্যাটাগরি</TabsTrigger>
           <TabsTrigger value="testimonials">টেস্টিমোনিয়াল</TabsTrigger>
           <TabsTrigger value="featured">ফিচার্ড আইটেম</TabsTrigger>
         </TabsList>
         <TabsContent value="hero"><Card><CardContent className="pt-6"><HeroBannersTab /></CardContent></Card></TabsContent>
         <TabsContent value="promo"><Card><CardContent className="pt-6"><PromoBannersTab /></CardContent></Card></TabsContent>
+        <TabsContent value="categories"><Card><CardContent className="pt-6"><CategoriesTab /></CardContent></Card></TabsContent>
         <TabsContent value="testimonials"><Card><CardContent className="pt-6"><TestimonialsTab /></CardContent></Card></TabsContent>
         <TabsContent value="featured"><Card><CardContent className="pt-6"><FeaturedItemsTab /></CardContent></Card></TabsContent>
       </Tabs>
