@@ -41,11 +41,6 @@ const CheckoutPage = () => {
     });
   }, [navigate]);
 
-  // Auto-detect Dhaka city for delivery charge
-  const isDhaka = DHAKA_DISTRICTS.includes(city);
-  const deliveryCharge = city.trim() === "" ? 0 : isDhaka ? 70 : 130;
-  const grandTotal = totalPrice + deliveryCharge;
-
   // Group items by vendor
   const itemsByVendor: Record<string, typeof items> = {};
   items.forEach((item) => {
@@ -53,6 +48,13 @@ const CheckoutPage = () => {
     if (!itemsByVendor[vid]) itemsByVendor[vid] = [];
     itemsByVendor[vid].push(item);
   });
+  const vendorCount = Object.keys(itemsByVendor).length;
+
+  // Auto-detect Dhaka city for delivery charge — charged per vendor
+  const isDhaka = DHAKA_DISTRICTS.includes(city);
+  const perVendorCharge = isDhaka ? 70 : 130;
+  const deliveryCharge = city.trim() === "" ? 0 : perVendorCharge * vendorCount;
+  const grandTotal = totalPrice + deliveryCharge;
 
   const handlePlaceOrder = async () => {
     if (!fullName.trim() || !phone.trim() || !address.trim() || !city.trim()) {
