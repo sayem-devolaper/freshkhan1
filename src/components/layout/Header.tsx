@@ -216,11 +216,6 @@ const Header = () => {
           <SupportInfo />
         </div>
       </div>
-      {/* placeholder removed below */}
-      <div className="hidden">
-          </div>
-        </div>
-      </div>
 
       {/* Mobile Nav */}
       {mobileOpen && (
