@@ -8,6 +8,7 @@ import { useCart } from "@/context/CartContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useCategories } from "@/hooks/use-categories";
 import { getSearchPatterns } from "@/lib/banglish";
+import { useSiteSetting } from "@/hooks/use-site-setting";
 
 const HeaderSearchBar = () => {
   const [query, setQuery] = useState("");
@@ -75,6 +76,19 @@ const HeaderSearchBar = () => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
+
+const SupportInfo = () => {
+  const phone = useSiteSetting("support_phone", "০১৭XX-XXXXXX");
+  return (
+    <div className="ml-auto flex items-center gap-2 text-sm">
+      <Headphones className="h-4 w-4 text-primary" />
+      <div className="text-left">
+        <p className="text-[10px] text-muted-foreground leading-none">২৪/৭ সাপোর্ট</p>
+        <p className="text-xs font-semibold text-foreground">{phone}</p>
+      </div>
     </div>
   );
 };
@@ -212,13 +226,7 @@ const Header = () => {
           </nav>
 
           {/* Support info - far right */}
-          <div className="ml-auto flex items-center gap-2 text-sm">
-            <Headphones className="h-4 w-4 text-primary" />
-            <div className="text-left">
-              <p className="text-[10px] text-muted-foreground leading-none">২৪/৭ সাপোর্ট</p>
-              <p className="text-xs font-semibold text-foreground">০১৭XX-XXXXXX</p>
-            </div>
-          </div>
+          <SupportInfo />
         </div>
       </div>
 

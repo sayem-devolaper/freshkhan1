@@ -480,24 +480,82 @@ function FeaturedItemsTab() {
   );
 }
 
+/* ───── Site Settings ───── */
+function SiteSettingsTab() {
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "support_phone")
+        .maybeSingle();
+      setPhone(data?.value || "");
+      setLoading(false);
+    })();
+  }, []);
+
+  const save = async () => {
+    setSaving(true);
+    const { error } = await supabase
+      .from("site_settings")
+      .upsert({ key: "support_phone", value: phone.trim() }, { onConflict: "key" });
+    setSaving(false);
+    if (error) {
+      toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "সফলভাবে সংরক্ষিত হয়েছে" });
+  };
+
+  if (loading) return <p className="text-sm text-muted-foreground">লোড হচ্ছে...</p>;
+
+  return (
+    <div className="space-y-4 max-w-md">
+      <div>
+        <Label htmlFor="support_phone">২৪/৭ সাপোর্ট নম্বর</Label>
+        <Input
+          id="support_phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="০১৭XX-XXXXXX"
+          className="border-2 border-primary mt-1"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          এই নম্বরটি হেডারের ডানদিকে "২৪/৭ সাপোর্ট" সেকশনে দেখা যাবে।
+        </p>
+      </div>
+      <Button onClick={save} disabled={saving}>
+        <Save className="h-4 w-4 mr-1" /> {saving ? "সংরক্ষণ হচ্ছে..." : "সংরক্ষণ"}
+      </Button>
+    </div>
+  );
+}
+
 /* ───── Main Page ───── */
 const AdminHomepagePage = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-display font-bold text-foreground">হোম পেজ কন্টেন্ট</h1>
       <Tabs defaultValue="hero" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="hero">হিরো ব্যানার</TabsTrigger>
           <TabsTrigger value="promo">প্রোমো ব্যানার</TabsTrigger>
           <TabsTrigger value="categories">ক্যাটাগরি</TabsTrigger>
           <TabsTrigger value="testimonials">টেস্টিমোনিয়াল</TabsTrigger>
           <TabsTrigger value="featured">ফিচার্ড আইটেম</TabsTrigger>
+          <TabsTrigger value="settings">সাইট সেটিংস</TabsTrigger>
         </TabsList>
         <TabsContent value="hero"><Card><CardContent className="pt-6"><HeroBannersTab /></CardContent></Card></TabsContent>
         <TabsContent value="promo"><Card><CardContent className="pt-6"><PromoBannersTab /></CardContent></Card></TabsContent>
         <TabsContent value="categories"><Card><CardContent className="pt-6"><CategoriesTab /></CardContent></Card></TabsContent>
         <TabsContent value="testimonials"><Card><CardContent className="pt-6"><TestimonialsTab /></CardContent></Card></TabsContent>
         <TabsContent value="featured"><Card><CardContent className="pt-6"><FeaturedItemsTab /></CardContent></Card></TabsContent>
+        <TabsContent value="settings"><Card><CardContent className="pt-6"><SiteSettingsTab /></CardContent></Card></TabsContent>
       </Tabs>
     </div>
   );
