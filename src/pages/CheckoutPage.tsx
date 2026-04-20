@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/context/CartContext";
+import { useSiteSetting } from "@/hooks/use-site-setting";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,14 @@ const CheckoutPage = () => {
   const [notes, setNotes] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash_on_delivery");
   const [trxId, setTrxId] = useState("");
+  const [senderPhone, setSenderPhone] = useState("");
+
+  const bkashNumber = useSiteSetting("bkash_number", "");
+  const nagadNumber = useSiteSetting("nagad_number", "");
+  const paymentInstructions = useSiteSetting(
+    "payment_instructions",
+    "উপরের নম্বরে Send Money করে TrxID এবং আপনার নম্বর নিচে দিন।"
+  );
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -61,9 +70,15 @@ const CheckoutPage = () => {
       toast({ title: "সব তথ্য পূরণ করুন", description: "নাম, ফোন, ঠিকানা এবং শহর আবশ্যক", variant: "destructive" });
       return;
     }
-    if ((paymentMethod === "bkash" || paymentMethod === "nagad") && !trxId.trim()) {
-      toast({ title: "ট্রানজেকশন আইডি দিন", description: `${paymentMethod === "bkash" ? "বিকাশ" : "নগদ"} ট্রানজেকশন আইডি আবশ্যক`, variant: "destructive" });
-      return;
+    if (paymentMethod === "bkash" || paymentMethod === "nagad") {
+      if (!trxId.trim()) {
+        toast({ title: "ট্রানজেকশন আইডি দিন", description: `${paymentMethod === "bkash" ? "বিকাশ" : "নগদ"} TrxID আবশ্যক`, variant: "destructive" });
+        return;
+      }
+      if (!senderPhone.trim()) {
+        toast({ title: "প্রেরকের নম্বর দিন", description: "যে নম্বর থেকে পাঠিয়েছেন সেটি দিন", variant: "destructive" });
+        return;
+      }
     }
 
     setLoading(true);
@@ -81,7 +96,6 @@ const CheckoutPage = () => {
         const orderNotes = [
           notes,
           `নাম: ${fullName}, ফোন: ${phone}, ঠিকানা: ${address}, ${city}`,
-          paymentMethod !== "cash_on_delivery" ? `TrxID: ${trxId}` : "",
         ].filter(Boolean).join(" | ");
 
         const { data, error } = await supabase.rpc("place_order", {
@@ -89,7 +103,9 @@ const CheckoutPage = () => {
           p_items: itemsPayload,
           p_payment_method: paymentMethod,
           p_notes: orderNotes,
-        });
+          p_transaction_id: paymentMethod !== "cash_on_delivery" ? trxId.trim() : null,
+          p_sender_phone: paymentMethod !== "cash_on_delivery" ? senderPhone.trim() : null,
+        } as any);
 
         if (error) throw error;
         lastOrderId = data;
@@ -253,15 +269,24 @@ const CheckoutPage = () => {
                     <div className="mt-4 p-3 rounded-lg bg-muted/50 space-y-3">
                       <div className="text-sm space-y-1">
                         <p className="font-medium">
-                          {paymentMethod === "bkash" ? "বিকাশ" : "নগদ"} নম্বর: <span className="text-primary font-bold">01XXXXXXXXX</span>
+                          {paymentMethod === "bkash" ? "বিকাশ" : "নগদ"} নম্বর:{" "}
+                          <span className="text-primary font-bold tracking-wide">
+                            {(paymentMethod === "bkash" ? bkashNumber : nagadNumber) || "অ্যাডমিন এখনো সেট করেনি"}
+                          </span>
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          উপরের নম্বরে ৳{totalPrice} সেন্ড মানি করুন এবং ট্রানজেকশন আইডি দিন
+                          উপরের নম্বরে <span className="font-semibold">৳{grandTotal}</span> সেন্ড মানি করুন। {paymentInstructions}
                         </p>
                       </div>
-                      <div className="space-y-1.5">
-                        <Label className="text-xs">ট্রানজেকশন আইডি (TrxID) *</Label>
-                        <Input value={trxId} onChange={(e) => setTrxId(e.target.value)} placeholder="যেমন: ABC123XYZ" />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="space-y-1.5">
+                          <Label className="text-xs">ট্রানজেকশন আইডি (TrxID) *</Label>
+                          <Input value={trxId} onChange={(e) => setTrxId(e.target.value)} placeholder="যেমন: ABC123XYZ" />
+                        </div>
+                        <div className="space-y-1.5">
+                          <Label className="text-xs">প্রেরকের {paymentMethod === "bkash" ? "বিকাশ" : "নগদ"} নম্বর *</Label>
+                          <Input value={senderPhone} onChange={(e) => setSenderPhone(e.target.value)} placeholder="01XXXXXXXXX" />
+                        </div>
                       </div>
                     </div>
                   )}

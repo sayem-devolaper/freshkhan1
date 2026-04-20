@@ -483,6 +483,9 @@ function FeaturedItemsTab() {
 /* ───── Site Settings ───── */
 function SiteSettingsTab() {
   const [phone, setPhone] = useState("");
+  const [bkash, setBkash] = useState("");
+  const [nagad, setNagad] = useState("");
+  const [instructions, setInstructions] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
@@ -491,19 +494,26 @@ function SiteSettingsTab() {
     (async () => {
       const { data } = await supabase
         .from("site_settings")
-        .select("value")
-        .eq("key", "support_phone")
-        .maybeSingle();
-      setPhone(data?.value || "");
+        .select("key, value")
+        .in("key", ["support_phone", "bkash_number", "nagad_number", "payment_instructions"]);
+      const map = Object.fromEntries((data || []).map((r: any) => [r.key, r.value || ""]));
+      setPhone(map.support_phone || "");
+      setBkash(map.bkash_number || "");
+      setNagad(map.nagad_number || "");
+      setInstructions(map.payment_instructions || "");
       setLoading(false);
     })();
   }, []);
 
   const save = async () => {
     setSaving(true);
-    const { error } = await supabase
-      .from("site_settings")
-      .upsert({ key: "support_phone", value: phone.trim() }, { onConflict: "key" });
+    const rows = [
+      { key: "support_phone", value: phone.trim() },
+      { key: "bkash_number", value: bkash.trim() },
+      { key: "nagad_number", value: nagad.trim() },
+      { key: "payment_instructions", value: instructions.trim() },
+    ];
+    const { error } = await supabase.from("site_settings").upsert(rows, { onConflict: "key" });
     setSaving(false);
     if (error) {
       toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
@@ -515,7 +525,7 @@ function SiteSettingsTab() {
   if (loading) return <p className="text-sm text-muted-foreground">লোড হচ্ছে...</p>;
 
   return (
-    <div className="space-y-4 max-w-md">
+    <div className="space-y-6 max-w-xl">
       <div>
         <Label htmlFor="support_phone">২৪/৭ সাপোর্ট নম্বর</Label>
         <Input
@@ -525,12 +535,49 @@ function SiteSettingsTab() {
           placeholder="০১৭XX-XXXXXX"
           className="border-2 border-primary mt-1"
         />
-        <p className="text-xs text-muted-foreground mt-1">
-          এই নম্বরটি হেডারের ডানদিকে "২৪/৭ সাপোর্ট" সেকশনে দেখা যাবে।
-        </p>
+        <p className="text-xs text-muted-foreground mt-1">হেডারে "২৪/৭ সাপোর্ট" সেকশনে দেখা যাবে।</p>
       </div>
+
+      <div className="border-t border-border pt-4 space-y-4">
+        <h4 className="font-semibold text-foreground">পেমেন্ট সেটিংস</h4>
+
+        <div>
+          <Label htmlFor="bkash_number">বিকাশ নম্বর (Send Money)</Label>
+          <Input
+            id="bkash_number"
+            value={bkash}
+            onChange={(e) => setBkash(e.target.value)}
+            placeholder="01XXXXXXXXX"
+            className="border-2 border-primary mt-1"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="nagad_number">নগদ নম্বর (Send Money)</Label>
+          <Input
+            id="nagad_number"
+            value={nagad}
+            onChange={(e) => setNagad(e.target.value)}
+            placeholder="01XXXXXXXXX"
+            className="border-2 border-primary mt-1"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="payment_instructions">পেমেন্ট নির্দেশনা</Label>
+          <Textarea
+            id="payment_instructions"
+            value={instructions}
+            onChange={(e) => setInstructions(e.target.value)}
+            rows={2}
+            className="border-2 border-primary mt-1"
+            placeholder="কাস্টমার চেকআউটে কী দেখবেন তা লিখুন"
+          />
+        </div>
+      </div>
+
       <Button onClick={save} disabled={saving}>
-        <Save className="h-4 w-4 mr-1" /> {saving ? "সংরক্ষণ হচ্ছে..." : "সংরক্ষণ"}
+        <Save className="h-4 w-4 mr-1" /> {saving ? "সংরক্ষণ হচ্ছে..." : "সব সংরক্ষণ করুন"}
       </Button>
     </div>
   );
