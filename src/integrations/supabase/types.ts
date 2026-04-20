@@ -367,11 +367,13 @@ export type Database = {
           order_number: string
           payment_method: string | null
           payment_status: string | null
+          sender_phone: string | null
           shipping_address_id: string | null
           shipping_cost: number
           status: Database["public"]["Enums"]["order_status"]
           subtotal: number
           total: number
+          transaction_id: string | null
           updated_at: string
           vendor_earnings: number
           vendor_id: string
@@ -386,11 +388,13 @@ export type Database = {
           order_number: string
           payment_method?: string | null
           payment_status?: string | null
+          sender_phone?: string | null
           shipping_address_id?: string | null
           shipping_cost?: number
           status?: Database["public"]["Enums"]["order_status"]
           subtotal: number
           total: number
+          transaction_id?: string | null
           updated_at?: string
           vendor_earnings: number
           vendor_id: string
@@ -405,11 +409,13 @@ export type Database = {
           order_number?: string
           payment_method?: string | null
           payment_status?: string | null
+          sender_phone?: string | null
           shipping_address_id?: string | null
           shipping_cost?: number
           status?: Database["public"]["Enums"]["order_status"]
           subtotal?: number
           total?: number
+          transaction_id?: string | null
           updated_at?: string
           vendor_earnings?: number
           vendor_id?: string
@@ -922,6 +928,10 @@ export type Database = {
           vendor_earnings: number
         }[]
       }
+      confirm_order_payment: {
+        Args: { p_order_id: string }
+        Returns: undefined
+      }
       create_product_review: {
         Args: { p_comment?: string; p_product_id: string; p_rating: number }
         Returns: undefined
@@ -933,16 +943,29 @@ export type Database = {
         }
         Returns: boolean
       }
-      place_order: {
-        Args: {
-          p_items: Json
-          p_notes?: string
-          p_payment_method: string
-          p_shipping_address_id?: string
-          p_vendor_id: string
-        }
-        Returns: string
-      }
+      place_order:
+        | {
+            Args: {
+              p_items: Json
+              p_notes?: string
+              p_payment_method: string
+              p_shipping_address_id?: string
+              p_vendor_id: string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_items: Json
+              p_notes?: string
+              p_payment_method: string
+              p_sender_phone?: string
+              p_shipping_address_id?: string
+              p_transaction_id?: string
+              p_vendor_id: string
+            }
+            Returns: string
+          }
       register_as_vendor: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {

@@ -61,6 +61,16 @@ const AdminOrdersPage = () => {
     }
   };
 
+  const confirmPayment = async (id: string) => {
+    const { error } = await supabase.rpc("confirm_order_payment" as any, { p_order_id: id });
+    if (error) {
+      toast({ title: "ত্রুটি", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "পেমেন্ট নিশ্চিত হয়েছে", description: "অর্ডার প্রসেসিং-এ চলে গেছে" });
+      fetchOrders();
+    }
+  };
+
   const statusLabel = (s: string) => statusOptions.find((o) => o.value === s)?.label || s;
 
   const filtered = orders
@@ -99,26 +109,47 @@ const AdminOrdersPage = () => {
                   <TableHead>অর্ডার নম্বর</TableHead>
                   <TableHead>বিক্রেতা</TableHead>
                   <TableHead>মোট</TableHead>
-                  <TableHead>কমিশন</TableHead>
+                  <TableHead>পেমেন্ট</TableHead>
                   <TableHead>স্ট্যাটাস</TableHead>
                   <TableHead>তারিখ</TableHead>
                   <TableHead className="text-right">অ্যাকশন</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filtered.map((o) => (
+                {filtered.map((o) => {
+                  const isMobile = o.payment_method === "bkash" || o.payment_method === "nagad";
+                  const needsConfirm = isMobile && o.payment_status !== "paid";
+                  return (
                   <TableRow key={o.id}>
-                    <TableCell className="font-medium">{o.order_number}</TableCell>
-                    <TableCell>{o.vendors?.store_name || "—"}</TableCell>
-                    <TableCell>৳{Number(o.total).toLocaleString("bn-BD")}</TableCell>
-                    <TableCell>৳{Number(o.commission_amount).toLocaleString("bn-BD")}</TableCell>
-                    <TableCell>
+                    <TableCell className="font-medium align-top">{o.order_number}</TableCell>
+                    <TableCell className="align-top">{o.vendors?.store_name || "—"}</TableCell>
+                    <TableCell className="align-top">৳{Number(o.total).toLocaleString("bn-BD")}</TableCell>
+                    <TableCell className="align-top text-xs space-y-1 min-w-[160px]">
+                      <div className="font-medium capitalize">
+                        {o.payment_method === "cash_on_delivery" ? "ক্যাশ অন ডেলিভারি" : o.payment_method === "bkash" ? "বিকাশ" : o.payment_method === "nagad" ? "নগদ" : o.payment_method || "—"}
+                      </div>
+                      {isMobile && (
+                        <>
+                          <div className="text-muted-foreground">TrxID: <span className="font-mono text-foreground">{o.transaction_id || "—"}</span></div>
+                          <div className="text-muted-foreground">প্রেরক: <span className="text-foreground">{o.sender_phone || "—"}</span></div>
+                          <Badge className={o.payment_status === "paid" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"}>
+                            {o.payment_status === "paid" ? "নিশ্চিত" : "যাচাই বাকি"}
+                          </Badge>
+                          {needsConfirm && (
+                            <Button size="sm" variant="default" className="h-7 text-xs w-full mt-1" onClick={() => confirmPayment(o.id)}>
+                              পেমেন্ট নিশ্চিত করুন
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </TableCell>
+                    <TableCell className="align-top">
                       <Badge className={statusColors[o.status]}>{statusLabel(o.status)}</Badge>
                     </TableCell>
-                    <TableCell className="text-sm">
+                    <TableCell className="text-sm align-top">
                       {new Date(o.created_at).toLocaleDateString("bn-BD")}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="align-top">
                       <Select value={o.status} onValueChange={(val) => updateStatus(o.id, val as OrderStatus)}>
                         <SelectTrigger className="w-36 h-8 text-xs">
                           <SelectValue />
@@ -131,7 +162,7 @@ const AdminOrdersPage = () => {
                       </Select>
                     </TableCell>
                   </TableRow>
-                ))}
+                );})}
                 {filtered.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
