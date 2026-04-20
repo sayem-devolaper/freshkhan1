@@ -296,7 +296,9 @@ const CheckoutPage = () => {
                       <span>৳{totalPrice}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">ডেলিভারি {city.trim() && (isDhaka ? "(ঢাকা সিটি)" : "(ঢাকার বাইরে)")}</span>
+                      <span className="text-muted-foreground">
+                        ডেলিভারি {city.trim() && `(${vendorCount} বিক্রেতা × ৳${perVendorCharge})`}
+                      </span>
                       {city.trim() === "" ? (
                         <span className="text-muted-foreground text-xs">শহর দিন</span>
                       ) : (
