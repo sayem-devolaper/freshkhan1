@@ -93,6 +93,7 @@ const SupportInfo = () => {
   );
 };
 
+const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const { totalItems } = useCart();
