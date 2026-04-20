@@ -80,7 +80,19 @@ const HeaderSearchBar = () => {
   );
 };
 
-const Header = () => {
+const SupportInfo = () => {
+  const phone = useSiteSetting("support_phone", "০১৭XX-XXXXXX");
+  return (
+    <div className="ml-auto flex items-center gap-2 text-sm">
+      <Headphones className="h-4 w-4 text-primary" />
+      <div className="text-left">
+        <p className="text-[10px] text-muted-foreground leading-none">২৪/৭ সাপোর্ট</p>
+        <p className="text-xs font-semibold text-foreground">{phone}</p>
+      </div>
+    </div>
+  );
+};
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const { totalItems } = useCart();
