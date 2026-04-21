@@ -239,9 +239,15 @@ const VendorProductsPage = () => {
                   <Select value={unit} onValueChange={setUnit}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="kg">কেজি</SelectItem>
+                      <SelectItem value="kg">কেজি (১ কেজি)</SelectItem>
+                      <SelectItem value="1000gm">১০০০ গ্রাম</SelectItem>
+                      <SelectItem value="500gm">৫০০ গ্রাম</SelectItem>
+                      <SelectItem value="250gm">২৫০ গ্রাম</SelectItem>
+                      <SelectItem value="100gm">১০০ গ্রাম</SelectItem>
                       <SelectItem value="piece">পিস</SelectItem>
                       <SelectItem value="liter">লিটার</SelectItem>
+                      <SelectItem value="500ml">৫০০ মি.লি.</SelectItem>
+                      <SelectItem value="250ml">২৫০ মি.লি.</SelectItem>
                       <SelectItem value="dozen">ডজন</SelectItem>
                       <SelectItem value="each">প্রতিটি</SelectItem>
                     </SelectContent>
