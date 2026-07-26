@@ -49,6 +49,14 @@ const fadeUp = {
 const AboutPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <Helmet>
+        <title>আমাদের সম্পর্কে | ফ্রেশ খান</title>
+        <meta name="description" content="ফ্রেশ খান — বাংলাদেশের অর্গানিক মার্কেটপ্লেস। আমাদের মিশন, মূল্যবোধ ও সার্টিফাইড কৃষকদের গল্প জানুন।" />
+        <link rel="canonical" href="https://freshkhan1.lovable.app/about" />
+        <meta property="og:url" content="https://freshkhan1.lovable.app/about" />
+        <meta property="og:title" content="আমাদের সম্পর্কে | ফ্রেশ খান" />
+        <meta property="og:description" content="বাংলাদেশের অর্গানিক মার্কেটপ্লেস — আমাদের মিশন ও গল্প।" />
+      </Helmet>
       <Header />
 
       {/* Hero */}
