@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import VendorCard from "@/components/VendorCard";
@@ -9,6 +10,14 @@ const VendorsPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>আমাদের বিক্রেতারা | ফ্রেশ খান</title>
+        <meta name="description" content="ফ্রেশ খানের অনুমোদিত অর্গানিক কৃষক ও বিক্রেতাদের সাথে পরিচিত হন। সরাসরি খামার থেকে কিনুন।" />
+        <link rel="canonical" href="https://freshkhan1.lovable.app/vendors" />
+        <meta property="og:url" content="https://freshkhan1.lovable.app/vendors" />
+        <meta property="og:title" content="আমাদের বিক্রেতারা | ফ্রেশ খান" />
+        <meta property="og:description" content="ফ্রেশ খানের অনুমোদিত অর্গানিক কৃষক ও বিক্রেতাদের সাথে পরিচিত হন।" />
+      </Helmet>
       <Header />
       <main className="flex-1 bg-background">
         <div className="bg-primary py-12">

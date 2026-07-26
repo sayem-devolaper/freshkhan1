@@ -32,7 +32,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <div className="relative aspect-square overflow-hidden bg-secondary">
             <img
               src={product.image}
-              alt={product.name}
+              alt={`${product.name}${product.organic ? " — সার্টিফাইড অর্গানিক" : ""} | ${product.vendor}`}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />

@@ -84,7 +84,7 @@ const HeroWithCategories = () => {
             transition={{ duration: 0.5 }}
           >
             <div className="relative overflow-hidden rounded-2xl h-[240px] sm:h-[320px] lg:h-[380px]">
-              <img src={heroImage} alt="অর্গানিক খামার" className="h-full w-full object-cover" />
+              <img src={heroImage} alt={`${heroTitle} ${heroSubtitle} — ফ্রেশ খান অর্গানিক মার্কেটপ্লেস`} className="h-full w-full object-cover" width="1200" height="380" fetchPriority="high" />
               <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 via-foreground/40 to-transparent" />
 
               <div className="absolute inset-0 flex items-center p-5 sm:p-8 lg:p-10">

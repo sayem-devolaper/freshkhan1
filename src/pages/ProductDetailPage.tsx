@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -62,8 +63,39 @@ const ProductDetailPage = () => {
 
   const relatedProducts = (allProducts || []).filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
+  const canonical = `https://freshkhan1.lovable.app/products/${product.id}`;
+  const productLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    image: product.image,
+    description: product.description || product.name,
+    brand: { "@type": "Brand", name: product.vendor },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "BDT",
+      price: product.price,
+      availability: (product.stock ?? 1) > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: canonical,
+    },
+    aggregateRating: product.reviewCount
+      ? { "@type": "AggregateRating", ratingValue: product.rating, reviewCount: product.reviewCount }
+      : undefined,
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>{`${product.name} | ফ্রেশ খান`}</title>
+        <meta name="description" content={`${product.name} — ${product.vendor} থেকে ৳${product.price}/${product.unit}। ${product.organic ? "সার্টিফাইড অর্গানিক।" : ""}`.slice(0, 160)} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:title" content={`${product.name} | ফ্রেশ খান`} />
+        <meta property="og:description" content={`${product.vendor} থেকে ৳${product.price}/${product.unit}`} />
+        <meta property="og:image" content={product.image} />
+        <meta property="og:type" content="product" />
+        <script type="application/ld+json">{JSON.stringify(productLd)}</script>
+      </Helmet>
       <Header />
       <main className="flex-1 bg-background">
         <div className="container px-4 py-6 sm:py-8">
@@ -73,7 +105,7 @@ const ProductDetailPage = () => {
 
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
             <div className="overflow-hidden rounded-xl border border-border bg-card shadow-card sm:rounded-2xl">
-              <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
+              <img src={product.image} alt={`${product.name}${product.organic ? " — সার্টিফাইড অর্গানিক" : ""} | ${product.vendor}`} className="aspect-square w-full object-cover" />
             </div>
 
             <div className="space-y-4 sm:space-y-6">

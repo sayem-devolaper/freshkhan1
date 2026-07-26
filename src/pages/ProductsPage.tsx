@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -36,6 +37,14 @@ const ProductsPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>সকল অর্গানিক পণ্য | ফ্রেশ খান</title>
+        <meta name="description" content="ফ্রেশ খানের সব সার্টিফাইড অর্গানিক পণ্য এক জায়গায় — শাকসবজি, ফল, দুগ্ধ, মশলা ও আরও অনেক কিছু।" />
+        <link rel="canonical" href="https://freshkhan1.lovable.app/products" />
+        <meta property="og:url" content="https://freshkhan1.lovable.app/products" />
+        <meta property="og:title" content="সকল অর্গানিক পণ্য | ফ্রেশ খান" />
+        <meta property="og:description" content="সার্টিফাইড অর্গানিক পণ্য কিনুন সরাসরি কৃষকের কাছ থেকে।" />
+      </Helmet>
       <Header />
       <main className="flex-1 bg-background">
         <div className="bg-primary py-12">
