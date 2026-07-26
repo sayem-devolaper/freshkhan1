@@ -1,0 +1,15 @@
+# ফ্রেশ খান (Fresh Khan)
+
+> Fresh Khan is a Bangladesh-based multi-vendor organic marketplace connecting certified farmers and vendors directly with customers. Fresh vegetables, fruits, dairy, spices, and more delivered to your door.
+
+## Pages
+
+- [Home](/): Overview of Fresh Khan, featured organic products and vendors.
+- [Products](/products): Browse all certified organic products across categories.
+- [Vendors](/vendors): Directory of approved organic farmers and sellers.
+- [About](/about): Our mission, story, and organic certification standards.
+
+## Optional
+
+- [Cart](/cart): Shopping cart page.
+- [Checkout](/checkout): Order placement with Cash on Delivery, bKash, and Nagad options.
