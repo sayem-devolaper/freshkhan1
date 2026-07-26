@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://freshkhan1.lovable.app";
+const BASE_URL = "https://freshkhan.com";
 
 const SUPABASE_URL =
   process.env.VITE_SUPABASE_URL || "https://fvldqwioiupohruhjhgu.supabase.co";
