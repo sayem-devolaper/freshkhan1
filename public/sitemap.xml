@@ -161,6 +161,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://freshkhan.com/products/3f441a1d-0b95-46dc-bf1d-59e95de40105</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://freshkhan.com/vendors/11dfa7c7-8e89-4be4-a4a1-2a10fc62b290</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
