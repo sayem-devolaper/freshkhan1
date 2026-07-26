@@ -160,8 +160,8 @@ const Header = () => {
             </Link>
 
             {/* Cart */}
-            <Link to="/cart" className="relative flex items-center justify-center h-9 w-9 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors">
-              <ShoppingCart className="h-4 w-4" />
+            <Link to="/cart" aria-label={`কার্ট দেখুন (${totalItems} পণ্য)`} className="relative flex items-center justify-center h-9 w-9 rounded-full bg-accent/10 text-accent hover:bg-accent/20 transition-colors">
+              <ShoppingCart className="h-4 w-4" aria-hidden="true" />
               {totalItems > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
                   {totalItems > 9 ? "9+" : totalItems}
