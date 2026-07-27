@@ -13,6 +13,9 @@ import AboutPage from "./pages/AboutPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
+import CmsPage from "./pages/CmsPage";
+import AdminPagesPage from "./pages/admin/AdminPagesPage";
+import AdminBrandingPage from "./pages/admin/AdminBrandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -54,6 +57,7 @@ const App = () => (
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/page/:slug" element={<CmsPage />} />
             
             {/* Vendor Routes */}
             <Route path="/vendor/login" element={<VendorLoginPage />} />
@@ -89,6 +93,8 @@ const App = () => (
               <Route path="products" element={<AdminProductsPage />} />
               <Route path="commission" element={<AdminCommissionPage />} />
               <Route path="homepage" element={<AdminHomepagePage />} />
+              <Route path="pages" element={<AdminPagesPage />} />
+              <Route path="branding" element={<AdminBrandingPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
