@@ -118,6 +118,61 @@ const AdminBrandingPage = () => {
         </CardContent>
       </Card>
 
+      <Card className="shadow-card">
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2"><Megaphone className="h-4 w-4" /> হোম পেজ পপআপ</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Switch
+              checked={values.popup_enabled === "true"}
+              onCheckedChange={(v) => set("popup_enabled", v ? "true" : "false")}
+            />
+            <Label>পপআপ চালু করুন</Label>
+          </div>
+          <div className="space-y-1.5">
+            <Label>পপআপ ছবি আপলোড</Label>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                if (file.size > 1024 * 1024) {
+                  toast({ title: "ত্রুটি", description: "ছবির সাইজ ১MB এর কম হতে হবে", variant: "destructive" });
+                  return;
+                }
+                const { data: { user } } = await supabase.auth.getUser();
+                const path = `${user?.id}/popup/${Date.now()}-${file.name}`;
+                const { error } = await supabase.storage.from("images").upload(path, file);
+                if (error) { toast({ title: "ত্রুটি", description: error.message, variant: "destructive" }); return; }
+                const { data } = supabase.storage.from("images").getPublicUrl(path);
+                set("popup_image_url", data.publicUrl);
+                toast({ title: "সফল", description: "ছবি আপলোড হয়েছে" });
+              }}
+            />
+            <Input
+              value={values.popup_image_url || ""}
+              onChange={(e) => set("popup_image_url", e.target.value)}
+              placeholder="বা URL দিন"
+              className="mt-2"
+            />
+            {values.popup_image_url && (
+              <img src={values.popup_image_url} alt="popup preview" className="mt-2 max-h-48 rounded border border-border" />
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <Label>ক্লিক লিঙ্ক (ঐচ্ছিক)</Label>
+            <Input
+              value={values.popup_link || ""}
+              onChange={(e) => set("popup_link", e.target.value)}
+              placeholder="/products বা https://..."
+            />
+            <p className="text-xs text-muted-foreground">ইউজার ছবিতে ক্লিক করলে এই লিঙ্কে যাবে</p>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="flex justify-end sticky bottom-4">
         <Button onClick={save} disabled={saving} size="lg" className="shadow-lg">
           <Save className="h-4 w-4 mr-1" /> {saving ? "সংরক্ষণ হচ্ছে..." : "সব পরিবর্তন সংরক্ষণ করুন"}
