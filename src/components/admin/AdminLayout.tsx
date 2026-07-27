@@ -14,6 +14,8 @@ import {
   Users,
   Bell,
   Home,
+  FileText,
+  Palette,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,6 +23,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { to: "/admin", icon: LayoutDashboard, label: "ড্যাশবোর্ড" },
   { to: "/admin/homepage", icon: Home, label: "হোম পেজ কন্টেন্ট" },
+  { to: "/admin/pages", icon: FileText, label: "পেজ ম্যানেজমেন্ট" },
+  { to: "/admin/branding", icon: Palette, label: "ব্র্যান্ডিং ও ফুটার" },
   { to: "/admin/vendors", icon: Store, label: "বিক্রেতা ম্যানেজমেন্ট" },
   { to: "/admin/orders", icon: ShoppingCart, label: "অর্ডার ম্যানেজমেন্ট" },
   { to: "/admin/products", icon: Package, label: "প্রোডাক্ট ম্যানেজমেন্ট" },
