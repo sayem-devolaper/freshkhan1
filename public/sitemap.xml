@@ -165,34 +165,4 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/11dfa7c7-8e89-4be4-a4a1-2a10fc62b290</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/65e070fd-24b9-4dbc-b042-9ad46ba7a115</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/875ff902-23aa-4443-9a8a-1fae0c56c911</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/18cd08da-6ff6-4e76-9e76-1c8432fd881e</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/3744929e-ed55-4b30-9d00-a62e0bc0dabd</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://freshkhan.com/vendors/c127e966-10d5-453a-aedb-51a00b63fab2</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
 </urlset>
