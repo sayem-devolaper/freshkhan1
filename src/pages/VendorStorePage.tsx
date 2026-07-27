@@ -107,7 +107,7 @@ const VendorStorePage = () => {
         <meta property="og:description" content={(vendor.description || vendor.name).slice(0, 160)} />
         <meta property="og:image" content={vendor.image} />
         <meta property="og:type" content="website" />
-        <script type="application/ld+json">{JSON.stringify(storeLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(localBusinessLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
       </Helmet>
       <Header />
