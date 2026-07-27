@@ -136,6 +136,7 @@ const Header = () => {
     { label: "হোম", to: "/" },
     { label: "পণ্যসমূহ", to: "/products" },
     { label: "বিক্রেতা", to: "/vendors" },
+    { label: "ব্লগ", to: "/blog" },
     { label: "আমাদের সম্পর্কে", to: "/about" },
   ];
 
