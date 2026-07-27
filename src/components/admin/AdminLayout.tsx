@@ -21,14 +21,14 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/admin", icon: LayoutDashboard, label: "ড্যাশবোর্ড" },
-  { to: "/admin/homepage", icon: Home, label: "হোম পেজ কন্টেন্ট" },
-  { to: "/admin/pages", icon: FileText, label: "পেজ ম্যানেজমেন্ট" },
-  { to: "/admin/branding", icon: Palette, label: "ব্র্যান্ডিং ও ফুটার" },
-  { to: "/admin/vendors", icon: Store, label: "বিক্রেতা ম্যানেজমেন্ট" },
-  { to: "/admin/orders", icon: ShoppingCart, label: "অর্ডার ম্যানেজমেন্ট" },
-  { to: "/admin/products", icon: Package, label: "প্রোডাক্ট ম্যানেজমেন্ট" },
-  { to: "/admin/commission", icon: Percent, label: "কমিশন সেটিংস" },
+  { to: "/admin", icon: LayoutDashboard, label: "ড্যাশবোর্ড", color: "from-emerald-500 to-green-600" },
+  { to: "/admin/homepage", icon: Home, label: "হোম পেজ কন্টেন্ট", color: "from-sky-500 to-blue-600" },
+  { to: "/admin/pages", icon: FileText, label: "পেজ ম্যানেজমেন্ট", color: "from-indigo-500 to-violet-600" },
+  { to: "/admin/branding", icon: Palette, label: "ব্র্যান্ডিং ও ফুটার", color: "from-fuchsia-500 to-pink-600" },
+  { to: "/admin/vendors", icon: Store, label: "বিক্রেতা ম্যানেজমেন্ট", color: "from-amber-500 to-orange-600" },
+  { to: "/admin/orders", icon: ShoppingCart, label: "অর্ডার ম্যানেজমেন্ট", color: "from-rose-500 to-red-600" },
+  { to: "/admin/products", icon: Package, label: "প্রোডাক্ট ম্যানেজমেন্ট", color: "from-teal-500 to-cyan-600" },
+  { to: "/admin/commission", icon: Percent, label: "কমিশন সেটিংস", color: "from-purple-500 to-fuchsia-600" },
 ];
 
 const AdminLayout = () => {
@@ -81,23 +81,35 @@ const AdminLayout = () => {
           </div>
 
           {/* Nav */}
-          <nav className="flex-1 p-3 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setSidebarOpen(false)}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                  location.pathname === item.to
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                )}
-              >
-                <item.icon className="w-5 h-5" />
-                {item.label}
-              </Link>
-            ))}
+          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+            {navItems.map((item) => {
+              const active = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
+                    active
+                      ? "bg-gradient-to-r text-white shadow-md " + item.color
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
+                      active
+                        ? "bg-white/20"
+                        : "bg-gradient-to-br text-white shadow-sm " + item.color
+                    )}
+                  >
+                    <item.icon className="w-4 h-4" />
+                  </div>
+                  <span className="flex-1">{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Logout */}
