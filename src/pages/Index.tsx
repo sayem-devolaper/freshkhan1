@@ -5,9 +5,10 @@ import HeroWithCategories from "@/components/home/HeroWithCategories";
 import CategoriesGrid from "@/components/home/CategoriesGrid";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import PromoBanner from "@/components/home/PromoBanner";
-
 import WhyOrganicSection from "@/components/home/WhyOrganicSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
+import HomeBlogSection from "@/components/home/HomeBlogSection";
+import HomePopup from "@/components/home/HomePopup";
 
 const Index = () => {
   return (
@@ -26,11 +27,12 @@ const Index = () => {
         <CategoriesGrid />
         <FeaturedProducts />
         <PromoBanner />
-        
         <WhyOrganicSection />
+        <HomeBlogSection />
         <TestimonialsSection />
       </main>
       <Footer />
+      <HomePopup />
     </div>
   );
 };
