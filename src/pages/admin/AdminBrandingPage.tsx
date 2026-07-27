@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Save, Facebook, Instagram, Youtube, Mail, MapPin } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Save, Facebook, Instagram, Youtube, Mail, MapPin, Megaphone } from "lucide-react";
 
 const KEYS = [
   "site_name",
@@ -17,6 +18,9 @@ const KEYS = [
   "social_youtube",
   "contact_email",
   "contact_address",
+  "popup_enabled",
+  "popup_image_url",
+  "popup_link",
 ];
 
 const AdminBrandingPage = () => {
