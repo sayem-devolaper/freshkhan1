@@ -69,11 +69,8 @@ const AdminBrandingPage = () => {
             <Input value={values.site_name || ""} onChange={(e) => set("site_name", e.target.value)} placeholder="ফ্রেশ খান" />
           </div>
           <div className="space-y-1.5">
-            <Label>লোগো URL</Label>
-            <Input value={values.logo_url || ""} onChange={(e) => set("logo_url", e.target.value)} placeholder="https://... (খালি রাখলে ডিফল্ট আইকন)" />
-            {values.logo_url && (
-              <img src={values.logo_url} alt="Logo preview" className="mt-2 h-12 w-auto rounded border border-border" />
-            )}
+            <Label>লোগো</Label>
+            <ImageUpload value={values.logo_url || ""} onChange={(u) => set("logo_url", u)} folder="branding" />
           </div>
           <div className="space-y-1.5">
             <Label>ফুটার ট্যাগলাইন</Label>
