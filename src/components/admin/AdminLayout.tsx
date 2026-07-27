@@ -21,14 +21,14 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/admin", icon: LayoutDashboard, label: "ড্যাশবোর্ড" },
-  { to: "/admin/homepage", icon: Home, label: "হোম পেজ কন্টেন্ট" },
-  { to: "/admin/pages", icon: FileText, label: "পেজ ম্যানেজমেন্ট" },
-  { to: "/admin/branding", icon: Palette, label: "ব্র্যান্ডিং ও ফুটার" },
-  { to: "/admin/vendors", icon: Store, label: "বিক্রেতা ম্যানেজমেন্ট" },
-  { to: "/admin/orders", icon: ShoppingCart, label: "অর্ডার ম্যানেজমেন্ট" },
-  { to: "/admin/products", icon: Package, label: "প্রোডাক্ট ম্যানেজমেন্ট" },
-  { to: "/admin/commission", icon: Percent, label: "কমিশন সেটিংস" },
+  { to: "/admin", icon: LayoutDashboard, label: "ড্যাশবোর্ড", color: "from-emerald-500 to-green-600" },
+  { to: "/admin/homepage", icon: Home, label: "হোম পেজ কন্টেন্ট", color: "from-sky-500 to-blue-600" },
+  { to: "/admin/pages", icon: FileText, label: "পেজ ম্যানেজমেন্ট", color: "from-indigo-500 to-violet-600" },
+  { to: "/admin/branding", icon: Palette, label: "ব্র্যান্ডিং ও ফুটার", color: "from-fuchsia-500 to-pink-600" },
+  { to: "/admin/vendors", icon: Store, label: "বিক্রেতা ম্যানেজমেন্ট", color: "from-amber-500 to-orange-600" },
+  { to: "/admin/orders", icon: ShoppingCart, label: "অর্ডার ম্যানেজমেন্ট", color: "from-rose-500 to-red-600" },
+  { to: "/admin/products", icon: Package, label: "প্রোডাক্ট ম্যানেজমেন্ট", color: "from-teal-500 to-cyan-600" },
+  { to: "/admin/commission", icon: Percent, label: "কমিশন সেটিংস", color: "from-purple-500 to-fuchsia-600" },
 ];
 
 const AdminLayout = () => {
