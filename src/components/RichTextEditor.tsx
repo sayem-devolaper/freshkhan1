@@ -52,6 +52,17 @@ function Toolbar({ editor }: { editor: Editor }) {
     if (url) editor.chain().focus().setImage({ src: url }).run();
   };
 
+  const insertLorem = () => {
+    const input = window.prompt("কয়টি Lorem Ipsum প্যারাগ্রাফ যোগ করবেন?", "3");
+    if (!input) return;
+    const n = Math.max(1, Math.min(10, parseInt(input, 10) || 3));
+    const chain = editor.chain().focus();
+    for (let i = 0; i < n; i++) {
+      chain.insertContent(`<p>${LOREM_PARAGRAPHS[i % LOREM_PARAGRAPHS.length]}</p>`);
+    }
+    chain.run();
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-1 border-b-2 border-input bg-muted/30 p-2 rounded-t-md">
       <ToolbarBtn title="Bold" onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")}>
