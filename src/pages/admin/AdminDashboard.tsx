@@ -82,7 +82,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       const [vendors, products, orders] = await Promise.all([
-        supabase.from("vendors").select("id, business_name, is_approved"),
+        supabase.from("vendors").select("id, store_name, is_approved"),
         supabase.from("products").select("id, is_approved, vendor_id"),
         supabase
           .from("orders")
@@ -135,7 +135,7 @@ const AdminDashboard = () => {
 
       // Top vendors by orders
       const vendorNameMap = Object.fromEntries(
-        vendorData.map((v: any) => [v.id, v.business_name])
+        vendorData.map((v: any) => [v.id, v.store_name])
       );
       const vendorTotals: Record<string, number> = {};
       orderData.forEach((o) => {
