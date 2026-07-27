@@ -48,14 +48,40 @@ const VendorStorePage = () => {
   }
 
   const canonical = `https://freshkhan1.lovable.app/vendors/${vendor.id}`;
-  const storeLd = {
+  const localBusinessLd = {
     "@context": "https://schema.org",
-    "@type": "Store",
+    "@type": "LocalBusiness",
+    "@id": canonical,
     name: vendor.name,
     description: vendor.description || vendor.name,
     image: vendor.image,
     url: canonical,
-    address: { "@type": "PostalAddress", addressLocality: vendor.location, addressCountry: "BD" },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: vendor.location,
+      addressLocality: vendor.location,
+      addressCountry: "BD",
+    },
+    areaServed: { "@type": "Country", name: "Bangladesh" },
+    priceRange: "৳৳",
+    currenciesAccepted: "BDT",
+    paymentAccepted: "Cash on Delivery, bKash, Nagad",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "09:00",
+        closes: "21:00",
+      },
+    ],
     aggregateRating: vendor.reviewCount
       ? { "@type": "AggregateRating", ratingValue: vendor.rating, reviewCount: vendor.reviewCount }
       : undefined,
