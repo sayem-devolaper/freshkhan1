@@ -83,6 +83,19 @@ const ProductDetailPage = () => {
       : undefined,
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "হোম", item: "https://freshkhan1.lovable.app/" },
+      { "@type": "ListItem", position: 2, name: "পণ্য", item: "https://freshkhan1.lovable.app/products" },
+      ...(product.category
+        ? [{ "@type": "ListItem", position: 3, name: product.category, item: `https://freshkhan1.lovable.app/products?category=${encodeURIComponent(product.category)}` }]
+        : []),
+      { "@type": "ListItem", position: product.category ? 4 : 3, name: product.name, item: canonical },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <Helmet>
@@ -95,6 +108,7 @@ const ProductDetailPage = () => {
         <meta property="og:image" content={product.image} />
         <meta property="og:type" content="product" />
         <script type="application/ld+json">{JSON.stringify(productLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
       </Helmet>
       <Header />
       <main className="flex-1 bg-background">

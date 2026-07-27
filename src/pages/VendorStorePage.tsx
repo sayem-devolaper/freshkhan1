@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -46,8 +47,43 @@ const VendorStorePage = () => {
     );
   }
 
+  const canonical = `https://freshkhan1.lovable.app/vendors/${vendor.id}`;
+  const storeLd = {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: vendor.name,
+    description: vendor.description || vendor.name,
+    image: vendor.image,
+    url: canonical,
+    address: { "@type": "PostalAddress", addressLocality: vendor.location, addressCountry: "BD" },
+    aggregateRating: vendor.reviewCount
+      ? { "@type": "AggregateRating", ratingValue: vendor.rating, reviewCount: vendor.reviewCount }
+      : undefined,
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "হোম", item: "https://freshkhan1.lovable.app/" },
+      { "@type": "ListItem", position: 2, name: "বিক্রেতা", item: "https://freshkhan1.lovable.app/vendors" },
+      { "@type": "ListItem", position: 3, name: vendor.name, item: canonical },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
+      <Helmet>
+        <title>{`${vendor.name} | ফ্রেশ খান`}</title>
+        <meta name="description" content={`${vendor.name} — ${vendor.location}। ${vendor.description || ""}`.slice(0, 160)} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:title" content={`${vendor.name} | ফ্রেশ খান`} />
+        <meta property="og:description" content={(vendor.description || vendor.name).slice(0, 160)} />
+        <meta property="og:image" content={vendor.image} />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify(storeLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
+      </Helmet>
       <Header />
       <main className="flex-1 bg-background">
         <div className="relative h-48 overflow-hidden sm:h-64">
