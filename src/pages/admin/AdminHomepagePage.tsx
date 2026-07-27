@@ -94,7 +94,8 @@ function HeroBannersTab() {
           <form onSubmit={save} className="space-y-3">
             <div><Label>শিরোনাম *</Label><Input name="title" defaultValue={editing?.title} required className="border-2 border-primary" /></div>
             <div><Label>সাবটাইটেল</Label><Input name="subtitle" defaultValue={editing?.subtitle} className="border-2 border-primary" /></div>
-            <div><Label>ছবি URL</Label><Input name="image_url" defaultValue={editing?.image_url} className="border-2 border-primary" /></div>
+            <ImageUpload name="image_url" value={editing?.image_url || ""} onChange={() => {}} folder="hero" label="ছবি" />
+
             <div className="grid grid-cols-2 gap-3">
               <div><Label>বাটন টেক্সট</Label><Input name="button_text" defaultValue={editing?.button_text} className="border-2 border-primary" /></div>
               <div><Label>বাটন লিংক</Label><Input name="button_link" defaultValue={editing?.button_link} className="border-2 border-primary" /></div>
