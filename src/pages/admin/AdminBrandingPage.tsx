@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Save, Facebook, Instagram, Youtube, Mail, MapPin, Megaphone } from "lucide-react";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 const KEYS = [
   "site_name",
