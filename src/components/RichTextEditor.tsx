@@ -107,6 +107,9 @@ function Toolbar({ editor }: { editor: Editor }) {
       <ToolbarBtn title="Image" onClick={addImage}>
         <ImageIcon className="h-4 w-4" />
       </ToolbarBtn>
+      <ToolbarBtn title="Insert Lorem Ipsum" onClick={insertLorem}>
+        <Type className="h-4 w-4" />
+      </ToolbarBtn>
       <div className="w-px h-6 bg-border mx-1" />
       <ToolbarBtn title="Undo" onClick={() => editor.chain().focus().undo().run()}>
         <Undo className="h-4 w-4" />
