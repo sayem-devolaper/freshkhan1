@@ -14,7 +14,10 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import NotFound from "./pages/NotFound";
 import CmsPage from "./pages/CmsPage";
+import BlogListPage from "./pages/BlogListPage";
+import BlogDetailPage from "./pages/BlogDetailPage";
 import AdminPagesPage from "./pages/admin/AdminPagesPage";
+import AdminBlogPage from "./pages/admin/AdminBlogPage";
 import AdminBrandingPage from "./pages/admin/AdminBrandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -58,6 +61,8 @@ const App = () => (
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/page/:slug" element={<CmsPage />} />
+            <Route path="/blog" element={<BlogListPage />} />
+            <Route path="/blog/:slug" element={<BlogDetailPage />} />
             
             {/* Vendor Routes */}
             <Route path="/vendor/login" element={<VendorLoginPage />} />
@@ -94,6 +99,7 @@ const App = () => (
               <Route path="commission" element={<AdminCommissionPage />} />
               <Route path="homepage" element={<AdminHomepagePage />} />
               <Route path="pages" element={<AdminPagesPage />} />
+              <Route path="blog" element={<AdminBlogPage />} />
               <Route path="branding" element={<AdminBrandingPage />} />
             </Route>
 

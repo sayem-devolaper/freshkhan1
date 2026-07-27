@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Save, Facebook, Instagram, Youtube, Mail, MapPin } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Save, Facebook, Instagram, Youtube, Mail, MapPin, Megaphone } from "lucide-react";
 
 const KEYS = [
   "site_name",
@@ -17,6 +18,9 @@ const KEYS = [
   "social_youtube",
   "contact_email",
   "contact_address",
+  "popup_enabled",
+  "popup_image_url",
+  "popup_link",
 ];
 
 const AdminBrandingPage = () => {
@@ -110,6 +114,61 @@ const AdminBrandingPage = () => {
           <div className="space-y-1.5">
             <Label className="flex items-center gap-2"><MapPin className="h-4 w-4" /> ঠিকানা</Label>
             <Textarea value={values.contact_address || ""} onChange={(e) => set("contact_address", e.target.value)} placeholder="ঢাকা, বাংলাদেশ" rows={2} />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-card">
+        <CardHeader>
+          <CardTitle className="text-base flex items-center gap-2"><Megaphone className="h-4 w-4" /> হোম পেজ পপআপ</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Switch
+              checked={values.popup_enabled === "true"}
+              onCheckedChange={(v) => set("popup_enabled", v ? "true" : "false")}
+            />
+            <Label>পপআপ চালু করুন</Label>
+          </div>
+          <div className="space-y-1.5">
+            <Label>পপআপ ছবি আপলোড</Label>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                if (file.size > 1024 * 1024) {
+                  toast({ title: "ত্রুটি", description: "ছবির সাইজ ১MB এর কম হতে হবে", variant: "destructive" });
+                  return;
+                }
+                const { data: { user } } = await supabase.auth.getUser();
+                const path = `${user?.id}/popup/${Date.now()}-${file.name}`;
+                const { error } = await supabase.storage.from("images").upload(path, file);
+                if (error) { toast({ title: "ত্রুটি", description: error.message, variant: "destructive" }); return; }
+                const { data } = supabase.storage.from("images").getPublicUrl(path);
+                set("popup_image_url", data.publicUrl);
+                toast({ title: "সফল", description: "ছবি আপলোড হয়েছে" });
+              }}
+            />
+            <Input
+              value={values.popup_image_url || ""}
+              onChange={(e) => set("popup_image_url", e.target.value)}
+              placeholder="বা URL দিন"
+              className="mt-2"
+            />
+            {values.popup_image_url && (
+              <img src={values.popup_image_url} alt="popup preview" className="mt-2 max-h-48 rounded border border-border" />
+            )}
+          </div>
+          <div className="space-y-1.5">
+            <Label>ক্লিক লিঙ্ক (ঐচ্ছিক)</Label>
+            <Input
+              value={values.popup_link || ""}
+              onChange={(e) => set("popup_link", e.target.value)}
+              placeholder="/products বা https://..."
+            />
+            <p className="text-xs text-muted-foreground">ইউজার ছবিতে ক্লিক করলে এই লিঙ্কে যাবে</p>
           </div>
         </CardContent>
       </Card>
