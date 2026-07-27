@@ -81,23 +81,35 @@ const AdminLayout = () => {
           </div>
 
           {/* Nav */}
-          <nav className="flex-1 p-3 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setSidebarOpen(false)}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                  location.pathname === item.to
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                )}
-              >
-                <item.icon className="w-5 h-5" />
-                {item.label}
-              </Link>
-            ))}
+          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+            {navItems.map((item) => {
+              const active = location.pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
+                    active
+                      ? "bg-gradient-to-r text-white shadow-md " + item.color
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "w-8 h-8 rounded-lg flex items-center justify-center transition-all",
+                      active
+                        ? "bg-white/20"
+                        : "bg-gradient-to-br text-white shadow-sm " + item.color
+                    )}
+                  >
+                    <item.icon className="w-4 h-4" />
+                  </div>
+                  <span className="flex-1">{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Logout */}
