@@ -99,6 +99,7 @@ const App = () => (
               <Route path="commission" element={<AdminCommissionPage />} />
               <Route path="homepage" element={<AdminHomepagePage />} />
               <Route path="pages" element={<AdminPagesPage />} />
+              <Route path="blog" element={<AdminBlogPage />} />
               <Route path="branding" element={<AdminBrandingPage />} />
             </Route>
 
