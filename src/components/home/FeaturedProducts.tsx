@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
     },
   });
 
-  // If featured items exist, show them first; otherwise show all
+  // If featured items exist, show them first; otherwise show all products
   const displayProducts = (() => {
     if (!products) return [];
     if (featuredItems && featuredItems.length > 0) {
@@ -31,9 +31,9 @@ const FeaturedProducts = () => {
         .map(id => products.find(p => p.id === id))
         .filter(Boolean);
       const rest = products.filter(p => !featuredItems.includes(p.id));
-      return [...featured, ...rest].slice(0, 10);
+      return [...featured, ...rest];
     }
-    return products.slice(0, 10);
+    return products;
   })();
 
   return (
