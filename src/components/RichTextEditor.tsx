@@ -6,9 +6,15 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { Button } from "@/components/ui/button";
 import {
   Bold, Italic, Strikethrough, List, ListOrdered, Heading1, Heading2, Heading3,
-  Quote, Undo, Redo, Link as LinkIcon, Image as ImageIcon, Minus, Code,
+  Quote, Undo, Redo, Link as LinkIcon, Image as ImageIcon, Minus, Code, Type,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const LOREM_PARAGRAPHS = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+];
 
 interface RichTextEditorProps {
   value: string;
@@ -44,6 +50,17 @@ function Toolbar({ editor }: { editor: Editor }) {
   const addImage = () => {
     const url = window.prompt("ইমেজ URL:");
     if (url) editor.chain().focus().setImage({ src: url }).run();
+  };
+
+  const insertLorem = () => {
+    const input = window.prompt("কয়টি Lorem Ipsum প্যারাগ্রাফ যোগ করবেন?", "3");
+    if (!input) return;
+    const n = Math.max(1, Math.min(10, parseInt(input, 10) || 3));
+    const chain = editor.chain().focus();
+    for (let i = 0; i < n; i++) {
+      chain.insertContent(`<p>${LOREM_PARAGRAPHS[i % LOREM_PARAGRAPHS.length]}</p>`);
+    }
+    chain.run();
   };
 
   return (
@@ -89,6 +106,9 @@ function Toolbar({ editor }: { editor: Editor }) {
       </ToolbarBtn>
       <ToolbarBtn title="Image" onClick={addImage}>
         <ImageIcon className="h-4 w-4" />
+      </ToolbarBtn>
+      <ToolbarBtn title="Insert Lorem Ipsum" onClick={insertLorem}>
+        <Type className="h-4 w-4" />
       </ToolbarBtn>
       <div className="w-px h-6 bg-border mx-1" />
       <ToolbarBtn title="Undo" onClick={() => editor.chain().focus().undo().run()}>
