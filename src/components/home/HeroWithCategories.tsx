@@ -55,53 +55,32 @@ const HeroWithCategories = () => {
         </div>
 
         <div className="flex gap-5">
-          {/* Categories Sidebar + Side Promo - desktop only */}
+          {/* Side Promo Banner - desktop only */}
           <motion.div
-            className="hidden w-56 shrink-0 lg:flex lg:flex-col gap-3"
+            className="hidden w-56 shrink-0 lg:block"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <div className={`rounded-2xl border border-border bg-card overflow-hidden shadow-card flex flex-col ${sidePromo?.image ? "flex-1" : "h-[380px]"}`}>
-              <div className="bg-primary px-4 py-3">
-                <h3 className="font-semibold text-primary-foreground text-sm tracking-wide">ক্যাটাগরি সমূহ</h3>
-              </div>
-              <nav className="py-1 flex-1 overflow-y-auto">
-                {isLoading
-                  ? Array.from({ length: 6 }).map((_, i) => (
-                      <div key={i} className="px-4 py-2.5">
-                        <Skeleton className="h-5 w-full" />
-                      </div>
-                    ))
-                  : (categories || []).map((cat) => (
-                      <Link
-                        key={cat.id}
-                        to={`/products?category=${encodeURIComponent(cat.name)}`}
-                        className="flex items-center justify-between px-4 py-2.5 text-sm text-foreground transition-all hover:bg-primary/5 hover:pl-5 group"
-                      >
-                        <span className="flex items-center gap-2.5">
-                          <span className="text-base">{cat.icon}</span>
-                          <span className="font-medium">{cat.name.replace("অর্গানিক ", "")}</span>
-                        </span>
-                        <ChevronRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all" />
-                      </Link>
-                    ))}
-              </nav>
-            </div>
-            {sidePromo?.image && (
+            {sidePromo?.image ? (
               <Link
                 to={sidePromo.link || "/products"}
-                className="block overflow-hidden rounded-2xl shadow-card transition-transform hover:-translate-y-0.5"
+                className="block h-[380px] overflow-hidden rounded-2xl shadow-card transition-transform hover:-translate-y-0.5"
               >
                 <img
                   src={sidePromo.image}
                   alt="প্রোমোশনাল অফার"
                   loading="lazy"
-                  className="h-[110px] w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </Link>
+            ) : (
+              <div className="flex h-[380px] items-center justify-center rounded-2xl border-2 border-dashed border-border bg-card p-4 text-center text-xs text-muted-foreground">
+                অ্যাডমিন প্যানেল → সাইট সেটিংস থেকে সাইড প্রোমো ব্যানার আপলোড করুন
+              </div>
             )}
           </motion.div>
+
 
 
           {/* Hero Banner */}
