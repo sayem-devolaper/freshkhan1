@@ -46,8 +46,8 @@ const AdminCommissionPage = () => {
 
   const saveRate = async (id: string) => {
     const rate = parseFloat(editingRates[id]);
-    if (isNaN(rate) || rate < 0 || rate > 100) {
-      toast({ title: "ত্রুটি", description: "কমিশন ০-১০০% এর মধ্যে হতে হবে", variant: "destructive" });
+    if (isNaN(rate) || rate < 5 || rate > 15) {
+      toast({ title: "ত্রুটি", description: "কমিশন ৫-১৫% এর মধ্যে হতে হবে", variant: "destructive" });
       return;
     }
     const { error } = await supabase.from("vendors").update({ commission_rate: rate }).eq("id", id);
@@ -63,7 +63,7 @@ const AdminCommissionPage = () => {
     let hasError = false;
     for (const v of vendors) {
       const rate = parseFloat(editingRates[v.id]);
-      if (isNaN(rate) || rate < 0 || rate > 100) continue;
+      if (isNaN(rate) || rate < 5 || rate > 15) continue;
       if (rate !== v.commission_rate) {
         const { error } = await supabase.from("vendors").update({ commission_rate: rate }).eq("id", v.id);
         if (error) hasError = true;
@@ -136,8 +136,8 @@ const AdminCommissionPage = () => {
                     <TableCell>
                       <Input
                         type="number"
-                        min={0}
-                        max={100}
+                        min={5}
+                        max={15}
                         step={0.5}
                         className="w-24 h-8"
                         value={editingRates[v.id] || "10"}
