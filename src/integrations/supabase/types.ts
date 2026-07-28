@@ -268,36 +268,57 @@ export type Database = {
           button_link: string | null
           button_text: string | null
           created_at: string
+          description: string | null
+          description_color: string | null
+          description_size: string | null
           id: string
           image_url: string | null
           is_active: boolean
           sort_order: number
           subtitle: string | null
+          subtitle_color: string | null
+          subtitle_size: string | null
           title: string
+          title_color: string | null
+          title_size: string | null
           updated_at: string
         }
         Insert: {
           button_link?: string | null
           button_text?: string | null
           created_at?: string
+          description?: string | null
+          description_color?: string | null
+          description_size?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
           subtitle?: string | null
+          subtitle_color?: string | null
+          subtitle_size?: string | null
           title: string
+          title_color?: string | null
+          title_size?: string | null
           updated_at?: string
         }
         Update: {
           button_link?: string | null
           button_text?: string | null
           created_at?: string
+          description?: string | null
+          description_color?: string | null
+          description_size?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
           subtitle?: string | null
+          subtitle_color?: string | null
+          subtitle_size?: string | null
           title?: string
+          title_color?: string | null
+          title_size?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -704,11 +725,15 @@ export type Database = {
           button_text: string | null
           created_at: string
           description: string | null
+          description_color: string | null
+          description_size: string | null
           id: string
           image_url: string | null
           is_active: boolean
           sort_order: number
           title: string
+          title_color: string | null
+          title_size: string | null
           updated_at: string
         }
         Insert: {
@@ -717,11 +742,15 @@ export type Database = {
           button_text?: string | null
           created_at?: string
           description?: string | null
+          description_color?: string | null
+          description_size?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
           title: string
+          title_color?: string | null
+          title_size?: string | null
           updated_at?: string
         }
         Update: {
@@ -730,11 +759,15 @@ export type Database = {
           button_text?: string | null
           created_at?: string
           description?: string | null
+          description_color?: string | null
+          description_size?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
           sort_order?: number
           title?: string
+          title_color?: string | null
+          title_size?: string | null
           updated_at?: string
         }
         Relationships: []

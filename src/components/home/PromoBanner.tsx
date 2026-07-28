@@ -40,7 +40,7 @@ const PromoBanner = () => {
   });
 
   const banners = dbBanners && dbBanners.length > 0
-    ? dbBanners.map((b, i) => ({
+    ? dbBanners.map((b: any, i) => ({
         title: b.title,
         description: b.description || "",
         button_text: b.button_text || "কিনুন",
@@ -48,6 +48,10 @@ const PromoBanner = () => {
         bg_color: i === 0 ? "primary" : "accent",
         badge: i === 0 ? "২০% ছাড়" : "🔥 সীমিত অফার",
         emoji: i === 0 ? "🥬" : "🍎",
+        title_color: b.title_color,
+        description_color: b.description_color,
+        title_size: b.title_size,
+        description_size: b.description_size,
       }))
     : defaultBanners;
 
@@ -55,7 +59,7 @@ const PromoBanner = () => {
     <section className="bg-background py-6 sm:py-10">
       <div className="container px-3 sm:px-4">
         <div className="grid gap-4 sm:grid-cols-2">
-          {banners.slice(0, 2).map((banner, idx) => (
+          {banners.slice(0, 2).map((banner: any, idx) => (
             <motion.div
               key={idx}
               className={`relative overflow-hidden rounded-2xl p-6 sm:p-8 ${
@@ -76,14 +80,26 @@ const PromoBanner = () => {
                 }`}>
                   {idx === 0 && <Percent className="h-3 w-3" />} {banner.badge}
                 </div>
-                <h3 className={`mt-3 font-display text-lg font-bold sm:text-xl ${
-                  idx === 0 ? "text-primary-foreground" : "text-accent-foreground"
-                }`}>
+                <h3
+                  className={`mt-3 font-display text-lg font-bold sm:text-xl ${
+                    idx === 0 ? "text-primary-foreground" : "text-accent-foreground"
+                  }`}
+                  style={{
+                    color: banner.title_color || undefined,
+                    fontSize: banner.title_size ? `${banner.title_size}px` : undefined,
+                  }}
+                >
                   {banner.title}
                 </h3>
-                <p className={`mt-1 text-xs ${
-                  idx === 0 ? "text-primary-foreground/70" : "text-accent-foreground/70"
-                }`}>
+                <p
+                  className={`mt-1 text-xs ${
+                    idx === 0 ? "text-primary-foreground/70" : "text-accent-foreground/70"
+                  }`}
+                  style={{
+                    color: banner.description_color || undefined,
+                    fontSize: banner.description_size ? `${banner.description_size}px` : undefined,
+                  }}
+                >
                   {banner.description}
                 </p>
                 <Link to={banner.button_link}>

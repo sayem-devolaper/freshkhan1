@@ -25,9 +25,10 @@ const HeroWithCategories = () => {
     },
   });
 
-  const banner = heroBanners?.[0];
+  const banner: any = heroBanners?.[0];
   const heroTitle = banner?.title || "তাজা অর্গানিক খাবার,";
   const heroSubtitle = banner?.subtitle || "প্রতিদিন ডেলিভারি";
+  const heroDescription = banner?.description || "সার্টিফাইড কৃষকদের কাছ থেকে সরাসরি আপনার দোরগোড়ায়।";
   const heroImage = banner?.image_url || heroBg;
   const heroButtonText = banner?.button_text || "এখনই কিনুন";
   const heroButtonLink = banner?.button_link || "/products";
@@ -93,14 +94,34 @@ const HeroWithCategories = () => {
                     🔥 বিশেষ অফার
                   </span>
 
-                  <h1 className="font-display text-xl font-bold leading-tight text-primary-foreground sm:text-3xl lg:text-4xl">
+                  <h1
+                    className="font-display text-xl font-bold leading-tight text-primary-foreground sm:text-3xl lg:text-4xl"
+                    style={{
+                      color: banner?.title_color || undefined,
+                      fontSize: banner?.title_size ? `${banner.title_size}px` : undefined,
+                    }}
+                  >
                     {heroTitle}
                     <br />
-                    <span className="text-organic-leaf">{heroSubtitle}</span>
+                    <span
+                      className="text-organic-leaf"
+                      style={{
+                        color: banner?.subtitle_color || undefined,
+                        fontSize: banner?.subtitle_size ? `${banner.subtitle_size}px` : undefined,
+                      }}
+                    >
+                      {heroSubtitle}
+                    </span>
                   </h1>
 
-                  <p className="max-w-sm text-xs leading-relaxed text-primary-foreground/80 sm:text-sm">
-                    সার্টিফাইড কৃষকদের কাছ থেকে সরাসরি আপনার দোরগোড়ায়।
+                  <p
+                    className="max-w-sm text-xs leading-relaxed text-primary-foreground/80 sm:text-sm"
+                    style={{
+                      color: banner?.description_color || undefined,
+                      fontSize: banner?.description_size ? `${banner.description_size}px` : undefined,
+                    }}
+                  >
+                    {heroDescription}
                   </p>
 
                   <Link to={heroButtonLink}>
