@@ -155,6 +155,10 @@ function PromoBannersTab() {
       button_text: fd.get("button_text") as string,
       button_link: fd.get("button_link") as string,
       bg_color: fd.get("bg_color") as string || "#16a34a",
+      title_color: fd.get("title_color") as string,
+      description_color: fd.get("description_color") as string,
+      title_size: fd.get("title_size") as string,
+      description_size: fd.get("description_size") as string,
       sort_order: Number(fd.get("sort_order") || 0),
       is_active: editing?.is_active ?? true,
     };
