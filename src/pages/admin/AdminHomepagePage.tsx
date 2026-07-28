@@ -617,12 +617,35 @@ function SiteSettingsTab() {
         </div>
       </div>
 
+      <div className="border-t border-border pt-4 space-y-3">
+        <h4 className="font-semibold text-foreground">সাইড প্রোমো ব্যানার (হিরো ব্যানারের পাশে)</h4>
+        <ImageUpload
+          value={sidePromoImage}
+          onChange={setSidePromoImage}
+          folder="side-promo"
+          maxSizeKB={500}
+          label="ছবি"
+        />
+        <div>
+          <Label htmlFor="side_promo_link">লিংক (ঐচ্ছিক)</Label>
+          <Input
+            id="side_promo_link"
+            value={sidePromoLink}
+            onChange={(e) => setSidePromoLink(e.target.value)}
+            placeholder="/products?category=..."
+            className="border-2 border-primary mt-1"
+          />
+        </div>
+        <p className="text-xs text-muted-foreground">ডেস্কটপে ক্যাটাগরি সাইডবারের নিচে দেখা যাবে।</p>
+      </div>
+
       <Button onClick={save} disabled={saving}>
         <Save className="h-4 w-4 mr-1" /> {saving ? "সংরক্ষণ হচ্ছে..." : "সব সংরক্ষণ করুন"}
       </Button>
     </div>
   );
 }
+
 
 /* ───── Main Page ───── */
 const AdminHomepagePage = () => {
