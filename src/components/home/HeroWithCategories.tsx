@@ -25,6 +25,18 @@ const HeroWithCategories = () => {
     },
   });
 
+  const { data: sidePromo } = useQuery({
+    queryKey: ["side-promo-banner"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("key, value")
+        .in("key", ["side_promo_image", "side_promo_link"]);
+      const map = Object.fromEntries((data || []).map((r: any) => [r.key, r.value || ""]));
+      return { image: map.side_promo_image || "", link: map.side_promo_link || "/products" };
+    },
+  });
+
   const banner: any = heroBanners?.[0];
   const heroTitle = banner?.title || "তাজা অর্গানিক খাবার,";
   const heroSubtitle = banner?.subtitle || "প্রতিদিন ডেলিভারি";
@@ -32,6 +44,7 @@ const HeroWithCategories = () => {
   const heroImage = banner?.image_url || heroBg;
   const heroButtonText = banner?.button_text || "এখনই কিনুন";
   const heroButtonLink = banner?.button_link || "/products";
+
 
   return (
     <section className="bg-background py-4 sm:py-6">
