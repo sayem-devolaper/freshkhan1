@@ -520,6 +520,8 @@ function SiteSettingsTab() {
   const [bkash, setBkash] = useState("");
   const [nagad, setNagad] = useState("");
   const [instructions, setInstructions] = useState("");
+  const [sidePromoImage, setSidePromoImage] = useState("");
+  const [sidePromoLink, setSidePromoLink] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
@@ -529,12 +531,14 @@ function SiteSettingsTab() {
       const { data } = await supabase
         .from("site_settings")
         .select("key, value")
-        .in("key", ["support_phone", "bkash_number", "nagad_number", "payment_instructions"]);
+        .in("key", ["support_phone", "bkash_number", "nagad_number", "payment_instructions", "side_promo_image", "side_promo_link"]);
       const map = Object.fromEntries((data || []).map((r: any) => [r.key, r.value || ""]));
       setPhone(map.support_phone || "");
       setBkash(map.bkash_number || "");
       setNagad(map.nagad_number || "");
       setInstructions(map.payment_instructions || "");
+      setSidePromoImage(map.side_promo_image || "");
+      setSidePromoLink(map.side_promo_link || "");
       setLoading(false);
     })();
   }, []);
@@ -546,6 +550,8 @@ function SiteSettingsTab() {
       { key: "bkash_number", value: bkash.trim() },
       { key: "nagad_number", value: nagad.trim() },
       { key: "payment_instructions", value: instructions.trim() },
+      { key: "side_promo_image", value: sidePromoImage.trim() },
+      { key: "side_promo_link", value: sidePromoLink.trim() },
     ];
     const { error } = await supabase.from("site_settings").upsert(rows, { onConflict: "key" });
     setSaving(false);
@@ -555,6 +561,7 @@ function SiteSettingsTab() {
     }
     toast({ title: "সফলভাবে সংরক্ষিত হয়েছে" });
   };
+
 
   if (loading) return <p className="text-sm text-muted-foreground">লোড হচ্ছে...</p>;
 
