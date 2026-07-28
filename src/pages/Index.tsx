@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroWithCategories from "@/components/home/HeroWithCategories";
-import CategoriesGrid from "@/components/home/CategoriesGrid";
+import PromoGrid from "@/components/home/PromoGrid";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import PromoBanner from "@/components/home/PromoBanner";
 import WhyOrganicSection from "@/components/home/WhyOrganicSection";
@@ -24,7 +24,7 @@ const Index = () => {
       <Header />
       <main className="flex-1">
         <HeroWithCategories />
-        <CategoriesGrid />
+        <PromoGrid />
         <FeaturedProducts />
         <PromoBanner />
         <WhyOrganicSection />
