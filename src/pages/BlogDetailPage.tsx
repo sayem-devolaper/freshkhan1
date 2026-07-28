@@ -5,8 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays, User } from "lucide-react";
+import { CalendarDays, User, Tag as TagIcon } from "lucide-react";
 
 interface BlogPost {
   id: string;
@@ -17,6 +18,10 @@ interface BlogPost {
   cover_image: string | null;
   published_at: string | null;
   author: string | null;
+  category: string | null;
+  tags: string[] | null;
+  meta_title: string | null;
+  meta_description: string | null;
 }
 
 const BlogDetailPage = () => {
@@ -56,16 +61,28 @@ const BlogDetailPage = () => {
         ) : (
           <article className="max-w-3xl mx-auto">
             <Helmet>
-              <title>{post.title} — ফ্রেশ খান ব্লগ</title>
-              {post.excerpt && <meta name="description" content={post.excerpt} />}
+              <title>{post.meta_title || `${post.title} — ফ্রেশ খান ব্লগ`}</title>
+              <meta name="description" content={post.meta_description || post.excerpt || post.title} />
               <link rel="canonical" href={`https://freshkhan.com/blog/${post.slug}`} />
-              <meta property="og:title" content={post.title} />
-              {post.excerpt && <meta property="og:description" content={post.excerpt} />}
+              <meta property="og:title" content={post.meta_title || post.title} />
+              <meta property="og:description" content={post.meta_description || post.excerpt || ""} />
               {post.cover_image && <meta property="og:image" content={post.cover_image} />}
+              <meta property="og:url" content={`https://freshkhan.com/blog/${post.slug}`} />
               <meta property="og:type" content="article" />
+              <meta name="twitter:card" content="summary_large_image" />
+              {post.tags && post.tags.length > 0 && (
+                <meta name="keywords" content={post.tags.join(", ")} />
+              )}
             </Helmet>
 
             <Link to="/blog" className="text-sm text-primary hover:underline">← সব পোস্ট</Link>
+            {post.category && (
+              <div className="mt-3">
+                <Link to={`/blog?category=${encodeURIComponent(post.category)}`}>
+                  <Badge variant="secondary">{post.category}</Badge>
+                </Link>
+              </div>
+            )}
             <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
               {post.title}
             </h1>
@@ -90,6 +107,19 @@ const BlogDetailPage = () => {
               className="prose prose-sm md:prose-base max-w-none prose-headings:font-display prose-a:text-primary"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+
+            {(post.tags?.length || 0) > 0 && (
+              <div className="mt-10 pt-6 border-t">
+                <div className="flex flex-wrap items-center gap-2">
+                  <TagIcon className="h-4 w-4 text-muted-foreground" />
+                  {(post.tags || []).map((t) => (
+                    <Link key={t} to={`/blog?tag=${encodeURIComponent(t)}`}>
+                      <Badge variant="outline" className="hover:bg-primary/10">#{t}</Badge>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </article>
         )}
       </main>
