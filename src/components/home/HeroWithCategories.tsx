@@ -25,6 +25,18 @@ const HeroWithCategories = () => {
     },
   });
 
+  const { data: sidePromo } = useQuery({
+    queryKey: ["side-promo-banner"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("key, value")
+        .in("key", ["side_promo_image", "side_promo_link"]);
+      const map = Object.fromEntries((data || []).map((r: any) => [r.key, r.value || ""]));
+      return { image: map.side_promo_image || "", link: map.side_promo_link || "/products" };
+    },
+  });
+
   const banner: any = heroBanners?.[0];
   const heroTitle = banner?.title || "তাজা অর্গানিক খাবার,";
   const heroSubtitle = banner?.subtitle || "প্রতিদিন ডেলিভারি";
@@ -32,6 +44,7 @@ const HeroWithCategories = () => {
   const heroImage = banner?.image_url || heroBg;
   const heroButtonText = banner?.button_text || "এখনই কিনুন";
   const heroButtonLink = banner?.button_link || "/products";
+
 
   return (
     <section className="bg-background py-4 sm:py-6">
@@ -42,14 +55,14 @@ const HeroWithCategories = () => {
         </div>
 
         <div className="flex gap-5">
-          {/* Categories Sidebar - desktop only */}
+          {/* Categories Sidebar + Side Promo - desktop only */}
           <motion.div
-            className="hidden w-56 shrink-0 lg:block"
+            className="hidden w-56 shrink-0 lg:flex lg:flex-col gap-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card h-[380px] flex flex-col">
+            <div className={`rounded-2xl border border-border bg-card overflow-hidden shadow-card flex flex-col ${sidePromo?.image ? "flex-1" : "h-[380px]"}`}>
               <div className="bg-primary px-4 py-3">
                 <h3 className="font-semibold text-primary-foreground text-sm tracking-wide">ক্যাটাগরি সমূহ</h3>
               </div>
@@ -75,7 +88,21 @@ const HeroWithCategories = () => {
                     ))}
               </nav>
             </div>
+            {sidePromo?.image && (
+              <Link
+                to={sidePromo.link || "/products"}
+                className="block overflow-hidden rounded-2xl shadow-card transition-transform hover:-translate-y-0.5"
+              >
+                <img
+                  src={sidePromo.image}
+                  alt="প্রোমোশনাল অফার"
+                  loading="lazy"
+                  className="h-[110px] w-full object-cover"
+                />
+              </Link>
+            )}
           </motion.div>
+
 
           {/* Hero Banner */}
           <motion.div
