@@ -96,7 +96,7 @@ function HeroBannersTab() {
       </Table>
 
       <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) setEditing(null); }}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader><DialogTitle>{editing?.id ? "ব্যানার এডিট" : "নতুন ব্যানার"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
             <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
@@ -208,7 +208,7 @@ function PromoBannersTab() {
       </Table>
 
       <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) setEditing(null); }}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader><DialogTitle>{editing?.id ? "প্রোমো এডিট" : "নতুন প্রোমো"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
             <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
@@ -307,7 +307,7 @@ function TestimonialsTab() {
       </Table>
 
       <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) setEditing(null); }}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader><DialogTitle>{editing?.id ? "টেস্টিমোনিয়াল এডিট" : "নতুন টেস্টিমোনিয়াল"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
             <div><Label>নাম *</Label><Input name="name" defaultValue={editing?.name} required className="border-2 border-primary" /></div>
@@ -390,7 +390,7 @@ function CategoriesTab() {
       </Table>
 
       <Dialog open={dialogOpen} onOpenChange={(v) => { setDialogOpen(v); if (!v) setEditing(null); }}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader><DialogTitle>{editing?.id ? "ক্যাটাগরি এডিট" : "নতুন ক্যাটাগরি"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
             <div><Label>নাম *</Label><Input name="name" defaultValue={editing?.name} required className="border-2 border-primary" /></div>
@@ -481,7 +481,7 @@ function FeaturedItemsTab() {
       </Table>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader><DialogTitle>নতুন ফিচার্ড আইটেম</DialogTitle></DialogHeader>
           <div className="space-y-3">
             <div>
