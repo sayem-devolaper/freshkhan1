@@ -25,9 +25,10 @@ const HeroWithCategories = () => {
     },
   });
 
-  const banner = heroBanners?.[0];
+  const banner: any = heroBanners?.[0];
   const heroTitle = banner?.title || "তাজা অর্গানিক খাবার,";
   const heroSubtitle = banner?.subtitle || "প্রতিদিন ডেলিভারি";
+  const heroDescription = banner?.description || "সার্টিফাইড কৃষকদের কাছ থেকে সরাসরি আপনার দোরগোড়ায়।";
   const heroImage = banner?.image_url || heroBg;
   const heroButtonText = banner?.button_text || "এখনই কিনুন";
   const heroButtonLink = banner?.button_link || "/products";
