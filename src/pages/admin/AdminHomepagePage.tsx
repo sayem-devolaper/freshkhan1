@@ -36,9 +36,16 @@ function HeroBannersTab() {
     const row = {
       title: fd.get("title") as string,
       subtitle: fd.get("subtitle") as string,
+      description: fd.get("description") as string,
       image_url: fd.get("image_url") as string,
       button_text: fd.get("button_text") as string,
       button_link: fd.get("button_link") as string,
+      title_color: fd.get("title_color") as string,
+      subtitle_color: fd.get("subtitle_color") as string,
+      description_color: fd.get("description_color") as string,
+      title_size: fd.get("title_size") as string,
+      subtitle_size: fd.get("subtitle_size") as string,
+      description_size: fd.get("description_size") as string,
       sort_order: Number(fd.get("sort_order") || 0),
       is_active: editing?.is_active ?? true,
     };
