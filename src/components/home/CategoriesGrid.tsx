@@ -3,6 +3,17 @@ import { useCategories } from "@/hooks/use-categories";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
+const gradients = [
+  "from-emerald-400 via-green-500 to-teal-600",
+  "from-orange-400 via-amber-500 to-yellow-500",
+  "from-pink-400 via-rose-500 to-red-500",
+  "from-sky-400 via-blue-500 to-indigo-600",
+  "from-purple-400 via-fuchsia-500 to-pink-600",
+  "from-lime-400 via-green-500 to-emerald-600",
+  "from-cyan-400 via-teal-500 to-emerald-600",
+  "from-red-400 via-orange-500 to-amber-500",
+];
+
 const CategoriesGrid = () => {
   const { data: categories, isLoading } = useCategories();
 
@@ -33,13 +44,14 @@ const CategoriesGrid = () => {
                 >
                   <Link
                     to={`/products?category=${encodeURIComponent(cat.name)}`}
-                    className="group flex flex-col items-center gap-2 rounded-2xl border border-border bg-card p-4 shadow-card transition-all hover:shadow-elevated hover:-translate-y-1"
+                    className={`group relative flex flex-col items-center gap-2 rounded-2xl bg-gradient-to-br ${gradients[i % gradients.length]} p-4 shadow-card transition-all hover:shadow-elevated hover:-translate-y-1 overflow-hidden`}
                   >
-                    <span className="text-3xl sm:text-4xl">{cat.icon}</span>
-                    <span className="text-xs font-semibold text-foreground text-center sm:text-sm">
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="relative text-3xl sm:text-4xl drop-shadow-md">{cat.icon}</span>
+                    <span className="relative text-xs font-bold text-white text-center sm:text-sm drop-shadow">
                       {cat.name.replace("অর্গানিক ", "")}
                     </span>
-                    <span className="text-[10px] text-muted-foreground">
+                    <span className="relative text-[10px] font-medium text-white/90">
                       {cat.productCount} পণ্য
                     </span>
                   </Link>
