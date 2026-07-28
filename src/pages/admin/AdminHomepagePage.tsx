@@ -211,8 +211,16 @@ function PromoBannersTab() {
         <DialogContent>
           <DialogHeader><DialogTitle>{editing?.id ? "প্রোমো এডিট" : "নতুন প্রোমো"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
-            <div><Label>শিরোনাম *</Label><Input name="title" defaultValue={editing?.title} required className="border-2 border-primary" /></div>
-            <div><Label>বিবরণ</Label><Textarea name="description" defaultValue={editing?.description} className="border-2 border-primary" /></div>
+            <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
+              <div><Label>শিরোনাম *</Label><Input name="title" defaultValue={editing?.title} required className="border-2 border-primary" /></div>
+              <div><Label className="text-xs">রং</Label><Input name="title_color" type="color" defaultValue={editing?.title_color || "#ffffff"} className="border-2 border-primary h-10 w-14 p-1" /></div>
+              <div><Label className="text-xs">সাইজ(px)</Label><Input name="title_size" type="number" min={12} max={80} defaultValue={editing?.title_size || ""} placeholder="24" className="border-2 border-primary w-20" /></div>
+            </div>
+            <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
+              <div><Label>বিবরণ</Label><Textarea name="description" defaultValue={editing?.description} className="border-2 border-primary" /></div>
+              <div><Label className="text-xs">রং</Label><Input name="description_color" type="color" defaultValue={editing?.description_color || "#ffffff"} className="border-2 border-primary h-10 w-14 p-1" /></div>
+              <div><Label className="text-xs">সাইজ(px)</Label><Input name="description_size" type="number" min={10} max={40} defaultValue={editing?.description_size || ""} placeholder="14" className="border-2 border-primary w-20" /></div>
+            </div>
             <ImageUpload name="image_url" value={editing?.image_url || ""} onChange={() => {}} folder="promo" label="ছবি" />
             <div className="grid grid-cols-2 gap-3">
               <div><Label>বাটন টেক্সট</Label><Input name="button_text" defaultValue={editing?.button_text} className="border-2 border-primary" /></div>
