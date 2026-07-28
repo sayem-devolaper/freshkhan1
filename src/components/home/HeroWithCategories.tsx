@@ -55,14 +55,14 @@ const HeroWithCategories = () => {
         </div>
 
         <div className="flex gap-5">
-          {/* Categories Sidebar - desktop only */}
+          {/* Categories Sidebar + Side Promo - desktop only */}
           <motion.div
-            className="hidden w-56 shrink-0 lg:block"
+            className="hidden w-56 shrink-0 lg:flex lg:flex-col gap-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card h-[380px] flex flex-col">
+            <div className={`rounded-2xl border border-border bg-card overflow-hidden shadow-card flex flex-col ${sidePromo?.image ? "flex-1" : "h-[380px]"}`}>
               <div className="bg-primary px-4 py-3">
                 <h3 className="font-semibold text-primary-foreground text-sm tracking-wide">ক্যাটাগরি সমূহ</h3>
               </div>
@@ -88,7 +88,21 @@ const HeroWithCategories = () => {
                     ))}
               </nav>
             </div>
+            {sidePromo?.image && (
+              <Link
+                to={sidePromo.link || "/products"}
+                className="block overflow-hidden rounded-2xl shadow-card transition-transform hover:-translate-y-0.5"
+              >
+                <img
+                  src={sidePromo.image}
+                  alt="প্রোমোশনাল অফার"
+                  loading="lazy"
+                  className="h-[110px] w-full object-cover"
+                />
+              </Link>
+            )}
           </motion.div>
+
 
           {/* Hero Banner */}
           <motion.div
