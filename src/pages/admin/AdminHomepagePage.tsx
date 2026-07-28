@@ -99,8 +99,21 @@ function HeroBannersTab() {
         <DialogContent>
           <DialogHeader><DialogTitle>{editing?.id ? "ব্যানার এডিট" : "নতুন ব্যানার"}</DialogTitle></DialogHeader>
           <form onSubmit={save} className="space-y-3">
-            <div><Label>শিরোনাম *</Label><Input name="title" defaultValue={editing?.title} required className="border-2 border-primary" /></div>
-            <div><Label>সাবটাইটেল</Label><Input name="subtitle" defaultValue={editing?.subtitle} className="border-2 border-primary" /></div>
+            <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
+              <div><Label>শিরোনাম *</Label><Input name="title" defaultValue={editing?.title} required className="border-2 border-primary" /></div>
+              <div><Label className="text-xs">রং</Label><Input name="title_color" type="color" defaultValue={editing?.title_color || "#ffffff"} className="border-2 border-primary h-10 w-14 p-1" /></div>
+              <div><Label className="text-xs">সাইজ(px)</Label><Input name="title_size" type="number" min={12} max={120} defaultValue={editing?.title_size || ""} placeholder="36" className="border-2 border-primary w-20" /></div>
+            </div>
+            <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
+              <div><Label>সাবটাইটেল</Label><Input name="subtitle" defaultValue={editing?.subtitle} className="border-2 border-primary" /></div>
+              <div><Label className="text-xs">রং</Label><Input name="subtitle_color" type="color" defaultValue={editing?.subtitle_color || "#84cc16"} className="border-2 border-primary h-10 w-14 p-1" /></div>
+              <div><Label className="text-xs">সাইজ(px)</Label><Input name="subtitle_size" type="number" min={12} max={120} defaultValue={editing?.subtitle_size || ""} placeholder="36" className="border-2 border-primary w-20" /></div>
+            </div>
+            <div className="grid grid-cols-[1fr_auto_auto] gap-2 items-end">
+              <div><Label>বিবরণ</Label><Textarea name="description" defaultValue={editing?.description} rows={2} className="border-2 border-primary" /></div>
+              <div><Label className="text-xs">রং</Label><Input name="description_color" type="color" defaultValue={editing?.description_color || "#ffffff"} className="border-2 border-primary h-10 w-14 p-1" /></div>
+              <div><Label className="text-xs">সাইজ(px)</Label><Input name="description_size" type="number" min={10} max={40} defaultValue={editing?.description_size || ""} placeholder="14" className="border-2 border-primary w-20" /></div>
+            </div>
             <ImageUpload name="image_url" value={editing?.image_url || ""} onChange={() => {}} folder="hero" label="ছবি" />
 
             <div className="grid grid-cols-2 gap-3">
