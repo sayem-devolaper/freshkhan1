@@ -623,7 +623,7 @@ function SiteSettingsTab() {
           value={sidePromoImage}
           onChange={setSidePromoImage}
           folder="side-promo"
-          maxSizeKB={500}
+          maxSizeKB={1024}
           label="ছবি"
         />
         <div>
