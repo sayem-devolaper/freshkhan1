@@ -90,18 +90,18 @@ const HeroWithCategories = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="relative overflow-hidden rounded-2xl h-[240px] sm:h-[320px] lg:h-[380px]">
-              <img src={heroImage} alt={`${heroTitle} ${heroSubtitle} — ফ্রেশ খান অর্গানিক মার্কেটপ্লেস`} className="h-full w-full object-cover" width="1200" height="380" fetchPriority="high" />
-              <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 via-foreground/40 to-transparent" />
+            <div className="relative overflow-hidden rounded-2xl h-[280px] sm:h-[320px] lg:h-[380px]">
+              <img src={heroImage} alt={`${heroTitle} ${heroSubtitle} — ফ্রেশ খান অর্গানিক মার্কেটপ্লেস`} className="h-full w-full object-cover object-center" width="1200" height="380" fetchPriority="high" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/60 to-foreground/20 sm:bg-gradient-to-r sm:from-foreground/75 sm:via-foreground/40 sm:to-transparent" />
 
-              <div className="absolute inset-0 flex items-center p-5 sm:p-8 lg:p-10">
-                <div className="max-w-md space-y-3 sm:space-y-4">
-                  <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
+              <div className="absolute inset-0 flex items-end sm:items-center p-4 sm:p-8 lg:p-10">
+                <div className="w-full sm:max-w-md space-y-2 sm:space-y-4">
+                  <span className="inline-block rounded-full bg-accent px-2.5 py-0.5 text-[10px] sm:text-xs font-bold text-accent-foreground">
                     🔥 বিশেষ অফার
                   </span>
 
                   <h1
-                    className="font-display text-xl font-bold leading-tight text-primary-foreground sm:text-3xl lg:text-4xl"
+                    className="font-display text-lg font-bold leading-tight text-primary-foreground sm:text-3xl lg:text-4xl"
                     style={{
                       color: banner?.title_color || undefined,
                       fontSize: banner?.title_size ? `${banner.title_size}px` : undefined,
@@ -121,7 +121,7 @@ const HeroWithCategories = () => {
                   </h1>
 
                   <p
-                    className="max-w-sm text-xs leading-relaxed text-primary-foreground/80 sm:text-sm"
+                    className="max-w-sm text-[11px] leading-snug text-primary-foreground/85 sm:text-sm sm:leading-relaxed line-clamp-2 sm:line-clamp-none"
                     style={{
                       color: banner?.description_color || undefined,
                       fontSize: banner?.description_size ? `${banner.description_size}px` : undefined,
@@ -130,10 +130,10 @@ const HeroWithCategories = () => {
                     {heroDescription}
                   </p>
 
-                  <Link to={heroButtonLink}>
-                    <Button variant="hero" size="default" className="gap-2 rounded-full px-6 text-sm mt-1">
+                  <Link to={heroButtonLink} className="inline-block">
+                    <Button variant="hero" size="sm" className="gap-1.5 rounded-full px-4 text-xs sm:px-6 sm:text-sm sm:h-10 mt-0.5">
                       {heroButtonText}
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Button>
                   </Link>
                 </div>
