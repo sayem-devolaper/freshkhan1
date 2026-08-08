@@ -20,6 +20,8 @@ import AdminPagesPage from "./pages/admin/AdminPagesPage";
 import AdminBlogPage from "./pages/admin/AdminBlogPage";
 import AdminBrandingPage from "./pages/admin/AdminBrandingPage";
 import LoginPage from "./pages/LoginPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignupPage from "./pages/SignupPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminGuard from "./components/admin/AdminGuard";
@@ -60,6 +62,8 @@ const App = () => (
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/page/:slug" element={<CmsPage />} />
             <Route path="/blog" element={<BlogListPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
