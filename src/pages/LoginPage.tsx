@@ -144,6 +144,12 @@ const LoginPage = () => {
             </TabsContent>
           </Tabs>
 
+          <div className="mt-4 text-center text-sm">
+            <Link to="/forgot-password" className="text-primary font-medium hover:underline">
+              পাসওয়ার্ড ভুলে গেছেন?
+            </Link>
+          </div>
+
           <div className="mt-6 text-center text-sm text-muted-foreground">
             অ্যাকাউন্ট নেই?{" "}
             <Link to="/signup" className="text-primary font-medium hover:underline">
